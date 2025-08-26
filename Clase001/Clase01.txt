@@ -1,0 +1,75 @@
+En donde querramos crear la carpeta abrir consola e indicar :
+
+> mkdir NombreCarpeta
+
+/*El mkdir crea una carpeta en el directorio donde estemos parados */
+
+> cd .\NombreCarpeta\
+
+/*El comando cd accede a la carpeta que creamos */
+
+> dotnet new console --f net8.0 --use-program-main
+
+/*dotnet accede al proyecto, con --f indicandole la version del framework .net*/
+/*Luego para que aparezca el program main- usamos el --use-program-main y nos crea el proyecto */
+
+> code . 
+
+/*Abre el visual studio code*/
+
+ESTO ES PARA USAR DOTNET EN VISUAL STUDIO CODE cuando la computadora no soporta mucho a visual Studio.
+
+.NET :
+-Una plataforma de desarrolllo es un entorno de software que cuenta conjunto de herramientas que nos permite construir determinadas aplicaciones de software. en este caso El Ide de .net visual studio.
+
+----------------------------------------------------------------------------------
+
+-Por convencion las constantes se declaran en MAYUSCULA, se inicializan en la misma linea que se las declara, no se puede inicializar despues.
+
+-Variables escalares  un unico dato, Variables no escalares contienen mas de un dato, como los arrays, listas, y objetos.
+
+int numero = 5; <-- Esto es un dato literal, un int.
+
+float numeroFlotante = 5.89f; <-- al ser flotante hay que indicarle al compilador que luego del '.' es un literal flotante, poniendo la 'f' al final. 
+-En caso de no indicar con la 'f' al final del literal, .NET interpreta que el tipo de dato es un double.
+
+-Tipo de dato dynamic, dynamic numero = 5; numero = "hola", esto se puede hacer ya que dynamic es un tipo de dato mutable.
+
+-Uso de 'var' , impone implicitamente el tipo de dato, var numero = 5; --> lo toma automatico como un int32.
+--> var cadena = "jkhkhjkh", lo toma automatico como string.
+
+-Casteo de datos, implicitas(no requieren casteo) --> float numero = 15; <-- No Hay Perdida de datos.
+int entero = (int)15.2; <-- Explicitas, interviene el programador(requiere un casteo), puede implicar perdida o fuga de datos, se pierde la parte decimal(.2), quedaria solo 15. 
+
+-int resultado = 8; resultado.ToString <-- devuelve el resultado en forma de string, en una cadena de caracteres. Pero no lo convierte a string. Solo lo devuelve.
+
+-Atajos/Snipets.
+ctrl+k+c --> comenta la linea.
+ctrl+k+u --> descomenta la linea.
+ctrl+k+d --> tabulacion automatica del codigo seleccionado.
+
+switch+tab tab y escribe la estructura automaticamente.
+
+-Declarar Array. Lo Hace de forma dinamica implicitamente.
+
+string[] array = new string [2]; <-- aca estoy declarando un array, y le digo con new string [2] que me reserve un espacio en memoria de un array con dos string como valor. es similar a C al hacer, int *array = (int*) malloc(sizeof(int*2)); es decir estamos reservando la memoria en el heap. es la forma para declarar arrays en C# . int[] arrayDeNumeros = new int [10]; <-- Un Array con espacio para 10 numeros.
+
+- foreach (string variableUsada in arrayDeString)
+{
+	console.writeline(variableUsada);
+} <-- El foreach simplemente, me va guardando en la variable creada dentro, lo que vaya sacando del array. lo mismo si seria un array de int, solo declaramos la variable local del foreach a int. como el ciclo for normal.
+
+foreach : itera una coleccion o una cadena.
+
+-string usuario = console.readline(); <-- es el scanf de C, pide el dato y lo almacena en una variable.
+console.WriteLine(usuario); <-- es el printf en C, muestra una cadena de caracteres.
+
+-String interpolado, como si fuera 0.2f en C - para indicar la cantidad de decimales a mostrar en un flotante.
+
+console.WriteLine($"El precio es {precio.ToString("0.00")}");
+aca estamos mostrando un string interpolado, convirtiendo la variable precio(int) a un string para mostrarlo, y luego al metodo ToString, le pasamos el formato de muestra, indicando cuantos decimales mostrar. EJ: 1.11 
+
+
+
+
+
