@@ -13,7 +13,8 @@ namespace Clase002
             //Ejercicio5.ejecutar();
             //Ejercicio6.ejecutar();
             //Ejercicio7.ejecutar();
-            Ejercicio8.ejecutar();
+            //Ejercicio8.ejecutar();
+            Ejercicio9.ejecutar();
         }
     }
 }
