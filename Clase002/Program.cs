@@ -11,7 +11,8 @@ namespace Clase002
             //Ejercicio3.ejecutar();
             //Ejercicio4.ejecutar();
             //Ejercicio5.ejecutar();
-            Ejercicio6.ejecutar();
+            //Ejercicio6.ejecutar();
+            Ejercicio7.ejecutar();
         }
     }
 }
