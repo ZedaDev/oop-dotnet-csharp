@@ -19,9 +19,9 @@ namespace Clase002.Ejercicios
             En una aplicación de consola, desarrollar un método estático
             que calcule el factorial de un número dado.*/
             Console.Title = "Numero Factorial";
-            Console.WriteLine("Ingrese Un Numero y, Se le mostrara el factorial");
+            Console.WriteLine("Ingrese Un Numero Del 1 al 19 y, Se le mostrara el factorial");
             int numero = Validador.PedirYValidarNumeroEntero();
-            Console.WriteLine($"Factorial de {numero} = {CalcularFactorial(numero):F2} ");
+            Console.WriteLine($"Factorial de {numero} = {CalcularFactorial(numero)} ");
         }
 
         /// <summary>
