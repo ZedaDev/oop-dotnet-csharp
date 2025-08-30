@@ -49,5 +49,33 @@ Mostrar quiénes son mayores de edad y quiénes no.*/
         {
             this.dni = nuevoDni;
         }
+
+        public string GettNombre()
+        {
+            return nombre;
+        }
+        public DateTime GettFecha()
+        {
+            return fechaDeNacimiento;
+        }
+        public int GettDni()
+        {
+            return dni;
+        }
+
+        public string MostrarPersona()
+        {
+            return $"Nombre : {nombre}\n DNI : {dni}\nEdad : {CalcularEdad()}";
+        }
+        public string EsMayorEdad()
+        {
+            return (CalcularEdad() >= 18) ? "Es mayor de edad" : "Es menor";
+        }
+        private int CalcularEdad()
+        {
+            int edad = DateTime.Now.Year - fechaDeNacimiento.Year;
+            if(DateTime.Now.DayOfYear < fechaDeNacimiento.DayOfYear) edad--;
+                return edad;
+        }
     }
 }

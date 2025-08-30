@@ -5,8 +5,11 @@ namespace Clase003
     {
         static void Main(string[] args)
         {
-            Ejercicio1 ejercicio1 = new Ejercicio1();
-            ejercicio1.Ejecutar();
+            //Ejercicio1 ejercicio1 = new Ejercicio1();
+            //ejercicio1.Ejecutar();
+
+            Ejercicio2 ejercicio2 = new Ejercicio2();
+            ejercicio2.ejecutar();
         }
     }
 }
