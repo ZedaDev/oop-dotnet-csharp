@@ -33,7 +33,6 @@
         /// <returns>Retorna un int</returns>
         public static int PedirYValidarNumeroEntero()
         {
-            Console.WriteLine("Ingrese un Numero Entero : ");
             int numero;
             while (!int.TryParse(Console.ReadLine(), out numero)){
 
