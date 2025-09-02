@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace Utilidades
 {
+    /// <summary>
+    /// Representa un estudiante con nombre, apellido, legajo y sus notas.
+    /// Permite calcular el promedio y la nota final.
+    /// </summary>
     public class Estudiante
     {
         private string apellido;
