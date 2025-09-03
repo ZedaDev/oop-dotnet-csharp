@@ -12,17 +12,15 @@ namespace Clase003
         public void ejecutar()
         {
             Console.Title = "Ejercicio 4 - Boligrafo(Pintar,Recargar)";
-            Boligrafo boligrafo = new Boligrafo(100, ConsoleColor.Blue);
             Boligrafo boligrafo1 = new Boligrafo(50, ConsoleColor.Red);
 
             do
             {
-               
                 Console.WriteLine($"Tinta actual : {boligrafo1.GetTinta()}");
                 Console.WriteLine("Indique cuanto quiere pintar : ");
-                int pintar = Validador.PedirYValidarNumeroEntero();
+                int cantidadAPintar = Validador.PedirYValidarNumeroEntero();
                 string dibujo;
-                if (boligrafo1.Pintar(pintar, out dibujo))
+                if (boligrafo1.Pintar(cantidadAPintar, out dibujo))
                 {
                     Console.ForegroundColor = boligrafo1.GetColor();
                     Console.WriteLine(dibujo);
