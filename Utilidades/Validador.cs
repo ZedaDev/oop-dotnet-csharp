@@ -21,7 +21,6 @@
          /// <returns>Devuelve true si el usuario ingresa 's', false de lo contrario</returns>
         public static bool ValidarRespuesta()
         {
-            Console.WriteLine("Desea Continuar? S/N"); 
             string? respuesta = Console.ReadLine()?.Trim().ToLower();
           //string?(Esto puede contener un NULL), ?.metodos(Si no es NULL, asignale los metodos)
                 return (respuesta == "s");
@@ -41,6 +40,9 @@
             }
             return numero;
         } 
+
+        public static bool ValidarString(string valor) => (!string.IsNullOrWhiteSpace(valor.Trim()));
+        
     }
 }
 

@@ -16,8 +16,10 @@ namespace Clase003
             //Ejercicio4 ejercicio4 = new Ejercicio4();
             //ejercicio4.ejecutar();
 
-            Ejercicio5 ejercicio5 = new Ejercicio5();
-                ejercicio5.ejecutar();
+            //Ejercicio5 ejercicio5 = new Ejercicio5();
+             //ejercicio5.ejecutar();
+            Ejercicio6 ejercicio6 = new Ejercicio6();
+                ejercicio6.ejecutar();
         }
     }
 }
