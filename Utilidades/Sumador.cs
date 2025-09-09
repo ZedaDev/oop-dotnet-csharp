@@ -10,11 +10,13 @@ namespace Utilidades
     {
         private int _cantidadSumas;
 
+        //public Sumador(int cantidadSumas = 0) => _cantidadSumas += cantidadSumas;
         public Sumador(int cantidadSumas)
         {
             _cantidadSumas = cantidadSumas;
         }
-        public Sumador() : this(0) { }
+        public Sumador() 
+            :this(0) {  }
 
         public long Sumar(long numero, long numero2)
         {

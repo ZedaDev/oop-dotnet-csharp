@@ -17,13 +17,13 @@ namespace Clase003
             //ejercicio4.ejecutar();
 
             //Ejercicio5 ejercicio5 = new Ejercicio5();
-             //ejercicio5.ejecutar();
+            //ejercicio5.ejecutar();
             //Ejercicio6 ejercicio6 = new Ejercicio6();
-             //ejercicio6.ejecutar();
+            //ejercicio6.ejecutar();
 
             Sumador sumador = new Sumador();
-            
-            Console.WriteLine($"Resultado : {sumador.Sumar(90, 92)}  Concatenacion : {sumador.Sumar("90","92")}");
+
+            Console.WriteLine($"Resultado : {sumador.Sumar(90, 92)}  Concatenacion : {sumador.Sumar("90", "92")}");
         }
     }
 }
