@@ -18,8 +18,12 @@ namespace Clase003
 
             //Ejercicio5 ejercicio5 = new Ejercicio5();
              //ejercicio5.ejecutar();
-            Ejercicio6 ejercicio6 = new Ejercicio6();
-                ejercicio6.ejecutar();
+            //Ejercicio6 ejercicio6 = new Ejercicio6();
+             //ejercicio6.ejecutar();
+
+            Sumador sumador = new Sumador();
+            
+            Console.WriteLine($"Resultado : {sumador.Sumar(90, 92)}  Concatenacion : {sumador.Sumar("90","92")}");
         }
     }
 }
