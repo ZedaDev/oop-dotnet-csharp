@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,6 +29,13 @@ namespace Utilidades
                 IncrementarSuma();
               return $"{numero}{numero2}";
         } 
+
+         public static explicit operator int(Sumador s) => s._cantidadSumas;
+
+        public static bool operator |(Sumador s1, Sumador s2) => s1._cantidadSumas == s2._cantidadSumas;
+
+        public static long operator +(Sumador s1, Sumador s2) => s1._cantidadSumas + s2._cantidadSumas;
+
 
         private void IncrementarSuma()
         {

@@ -1,0 +1,12 @@
+SOBRECARGA DE OPERADORES BINARIOS :
+
+.Se convierte en un operador sobrecargado cuando se imvoca mediante los parametros, si sobrecargo el operator == con dos objetos, al comparar esos dos objetos automaticamente se llama al operator == sobrecargado, si se comparan otros tipos de datos, entonces ahi se imvoca al operator == default de la clase objet.
+
+.SOBRECARGA METODOS
+
+.Solo hay sobgrecarga cuando el metodo se llama igual  y, cambia el tipo de dato o numero de parametros, es decir sumando o restando un parametro, hay sobrecarga; Cambiando el tipo de dato del parametro, hay sobrecarga; Si hay sobrecarga se le puede cambiar el tipo de dato de retorno a void o cualquier tipo de dato, siempre mantener coherencia. Es decir Existe sobrecarga cuando se alteran los parametros, no cuando se le cambia el tipo de retorno al metodo. Tampoco el metodo puede ser sobrecargado con los mismos tipos de datos y mismos numeros de parametros.
+
+.SOBRECARGA DE CONSTRUCTORES
+
+.Se hace para brindar opciones al usuario que usa nuestras clases, para poder inicializar el objeto por un dato, dos datos o los que querramos, y luego segun el llamado y, el numero de datos pasados por parametro, se imvoca un constructor y luego los demas con la palabra reservada : this(Parametros).
+Tambien se puede inicializar por default dentro de la declaracion del constructor, y si no se pasa por argumento se settea como el default definido en la misma declaracion del metodo.
