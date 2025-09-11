@@ -17,8 +17,7 @@ namespace Clase004
             Sumador sumador1 = new Sumador(11);
 
             long cantidadSumas = sumador + sumador1;
-            if(sumador | sumador1) Console.WriteLine($"Cantidad de sumas Ambos Sumadores : {cantidadSumas}\n Mismas Sumas : TRUE");
-            else Console.WriteLine($"Cantidad de sumas Ambos Sumadores : {cantidadSumas}\n Mismas Sumas : FALSE");
+                Console.WriteLine($"Cantidad de sumas Ambos Sumadores : {cantidadSumas}\n Mismas Sumas : {sumador | sumador1}");
             //Console.WriteLine($"Resultado : {sumador.Sumar(90, 92)}  Concatenacion : {sumador.Sumar("90", "92")}");
         }
     }
