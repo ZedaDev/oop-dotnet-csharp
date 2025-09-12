@@ -10,3 +10,21 @@ SOBRECARGA DE OPERADORES BINARIOS :
 
 .Se hace para brindar opciones al usuario que usa nuestras clases, para poder inicializar el objeto por un dato, dos datos o los que querramos, y luego segun el llamado y, el numero de datos pasados por parametro, se imvoca un constructor y luego los demas con la palabra reservada : this(Parametros).
 Tambien se puede inicializar por default dentro de la declaracion del constructor, y si no se pasa por argumento se settea como el default definido en la misma declaracion del metodo.
+
+
+.SOBRECARGA DE OPERADORES DE CONVERSION (==,!=,<,>)
+
+public static implicit operator int(persona s1) => s1.id;
+
+Sirve para hacer conversiones implicitas, es decir quiero igualar un un Objeto a una varibale de tipo Int, entonces sobrecargo el operador de conversion int y le paso por parametro el objeto, en la funcion, retorno persona.dni. Entonces cada vez que querramos igualar un objeto a una variable int, implicitamente me devuelve el dni. La conversion la hace implicita por que va al metodo sobrecargado del operator.
+
+
+public static explicit operator string(persona s1) => s1.Mostrar();
+
+.Aqui una conversion explicita, (string)s1, basicamente string es el tipo de destino donde va a retornar, y el parametro es el tipo de origen, de donde vamos a usar algo para retornar el tipo de dato de la firma explicita.
+siempre es public, static, 
+
+https://codeutnfra.github.io/programacion_2_laboratorio_2_apuntes/docs/sobrecarga/
+
+
+dos clases que van ae star interviniendo y comunicandose entre si, van at ener no solo sobrecarga d emetodos yt de constructores isno tambnien d eoperadores, la idea tambien es que empecemos ainteractufar entre cales por que estos es lo qeu vamos a ver a menudo, no solamente pegarle a una unica clase si no claes que vamos ag enerar nosotros cno metodos porpios que se vana conectar entre si. la idea es esa emepzar a eintractuar con este formato, por que es el utilizar acumulativamente.

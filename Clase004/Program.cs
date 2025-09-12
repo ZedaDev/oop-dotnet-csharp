@@ -4,8 +4,10 @@
     {
         static void Main(string[] args)
         {
-            Ejercicio1 ejecicio1 = new Ejercicio1();
-            ejecicio1.Ejecutar();
+            //Ejercicio1 ejecicio1 = new Ejercicio1();
+            //ejecicio1.Ejecutar();
+            Ejercicio2 ejecicio2 = new Ejercicio2();
+            ejecicio2.Ejecutar();
         }
     }
 }

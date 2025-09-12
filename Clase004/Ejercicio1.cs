@@ -17,6 +17,7 @@ namespace Clase004
             Sumador sumador1 = new Sumador(11);
 
             long cantidadSumas = sumador + sumador1;
+            //int numero = (int)sumador; Conversion explicita de un objeto a un int.
                 Console.WriteLine($"Cantidad de sumas Ambos Sumadores : {cantidadSumas}\n Mismas Sumas : {sumador | sumador1}");
             //Console.WriteLine($"Resultado : {sumador.Sumar(90, 92)}  Concatenacion : {sumador.Sumar("90", "92")}");
         }
