@@ -47,13 +47,17 @@ namespace Clase004
             Console.WriteLine();
             Console.WriteLine("<------------------------------------------------->");
             Console.WriteLine(Estante.MostrarEstante(estante));
+
             Console.WriteLine($"Removiendo {(string)p1}"); estante = estante - p1;
             Console.WriteLine($"\nEstante sin {(string)p1}");
             Console.WriteLine(Estante.MostrarEstante(estante));
+
             Console.WriteLine($"\nEstante sin {(string)p3}"); estante = estante - p3;
             Console.WriteLine(Estante.MostrarEstante(estante));
+
             Console.WriteLine($"\nEs Igual{(string)p1} a {(string)p4}? {p1 == p4}"); 
             Console.WriteLine($"\n!Es Igual{(string)p1} a {(string)p4}? {p1 != p4}"); 
+
             Console.ReadKey();
         }
     }
