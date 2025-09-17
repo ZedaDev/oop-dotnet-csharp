@@ -14,7 +14,7 @@ namespace Clase004
             Console.Title = "Conversor Binario Recargado";
 
             NumeroBinario nB = "1011";
-            NumeroDecimal nD = 111;
+            NumeroDecimal nD = 11;
 
             Console.WriteLine($"Numero Binario = {(string)nB}");
             Console.WriteLine($"Numero Decimal = {(Double)nD}");

@@ -15,7 +15,7 @@ namespace Utilidades
 
         public NumeroBinario(string numero) 
         {
-            this._numero = numero;
+            _numero = numero;
         }
 
 
@@ -66,13 +66,13 @@ namespace Utilidades
 
         /**NumeroBinario:
 
-string + (NumeroBinario, NumeroDecimal)
-string - (NumeroBinario, NumeroDecimal)
-bool == (NumeroBinario, NumeroDecimal)
-bool != (NumeroBinario, NumeroDecimal)*/
+            string + (NumeroBinario, NumeroDecimal)
+            string - (NumeroBinario, NumeroDecimal)
+            bool == (NumeroBinario, NumeroDecimal)
+            bool != (NumeroBinario, NumeroDecimal)*/
         public static implicit operator NumeroBinario(string numero) => new NumeroBinario(numero);
 
-        public static explicit operator string(NumeroBinario numero) => numero._numero;
+        public static explicit operator string(NumeroBinario numero) => numero._numero; //Funciona como getter explicito.
 
         public static bool operator ==(NumeroBinario nB, NumeroDecimal nD)
         {
@@ -85,7 +85,6 @@ bool != (NumeroBinario, NumeroDecimal)*/
 
         public static string operator +(NumeroBinario nB, NumeroDecimal nD)
         {
-            //double num = nB.ConvertirBinarioADecimal((string)nB) + (double)nD;
             return NumeroDecimal.ConvertirDecimalABinario(nD + nB);
         }
         public static string operator -(NumeroBinario nB, NumeroDecimal nD)
