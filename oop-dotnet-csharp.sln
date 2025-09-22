@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clase004", "Clase004\Clase0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Billetes", "Billetes\Billetes.csproj", "{6CE2ED21-392D-496E-80EA-406E97FEB363}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clase5WinForms", "Clase5WinForms\Clase5WinForms.csproj", "{C9FB8F2C-BD6D-4771-A020-27ACCE08E471}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{6CE2ED21-392D-496E-80EA-406E97FEB363}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CE2ED21-392D-496E-80EA-406E97FEB363}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6CE2ED21-392D-496E-80EA-406E97FEB363}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9FB8F2C-BD6D-4771-A020-27ACCE08E471}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9FB8F2C-BD6D-4771-A020-27ACCE08E471}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9FB8F2C-BD6D-4771-A020-27ACCE08E471}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9FB8F2C-BD6D-4771-A020-27ACCE08E471}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

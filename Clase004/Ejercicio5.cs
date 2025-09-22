@@ -11,9 +11,9 @@ namespace Clase004
     {
         public void Ejecutar()
         {
-            Fahrenheit f = new Fahrenheit(74);      // 32 F = 0 C
-            Celcius c = new Celcius(25);             // 0 C = 32 F
-            Kelvin k = new Kelvin(1111.11);          // 273.15 K = 0 C
+            Fahrenheit f = new Fahrenheit(0);      // 32 F = 0 C
+            Celcius c = new Celcius(0);             // 0 C = 32 F
+            Kelvin k = new Kelvin(0);          // 273.15 K = 0 C
 
             // 🔁 Conversiones Console.WriteLine("===== CONVERSIONES =====");
             // 🔁 Conversiones
@@ -33,6 +33,7 @@ namespace Clase004
             Console.WriteLine($"f - c: {f - c}");
             Console.WriteLine($"c + k: {c + k}");
             Console.WriteLine($"k - f: {k - f}");
+
             Console.ReadKey();
         }
     }
