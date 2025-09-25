@@ -1,3 +1,4 @@
+using System.CodeDom;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Clase5WinForms
@@ -9,6 +10,7 @@ namespace Clase5WinForms
             InitializeComponent();
         }
 
+
         private void btn1_Click(object sender, EventArgs e)
         {
 
@@ -19,12 +21,13 @@ namespace Clase5WinForms
             }
             else
             {
-                    Saludar saludo = new("¡Hola, Windows Forms!", $"Soy {this.textBox1.Text} {this.textBox2.Text}");
-                //this.Hide(); //Oculta el anterior formulario
+                Saludar saludo = new("¡Hola, Windows Forms!", $"Soy {this.textBox1.Text} {this.textBox2.Text}, Mi Materia Favorita Es : {this.comboBox1.Text}");
+                //this.Hide(); //Oculta el anterior formulario 
                 saludo.ShowDialog(); //Muestra el nuevo formulario, sin poder ir al anterior.
-                this.Show(); //al cerrarse el formulario, vuelve a mostrar el oculto del Hide().
+                                     //this.Show(); //al cerrarse el formulario, vuelve a mostrar el oculto del Hide().
 
             }
+
 
             /*DialogResult result = MessageBox.Show("¡Hola, Windows Forms!", "Saludos!");
 
@@ -33,6 +36,15 @@ namespace Clase5WinForms
                 MessageBox.Show("YES APRETADO");
             }
             else MessageBox.Show("NO APRETADO");*/
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            comboBox1.Items.Add("Programación I");
+            comboBox1.Items.Add("Programación II");
+
+
+            comboBox1.SelectedIndex = 0; // Selección por defecto
         }
     }
 }

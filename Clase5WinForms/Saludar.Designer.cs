@@ -43,7 +43,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(40, 20);
+            label1.Location = new Point(25, 19);
             label1.Name = "label1";
             label1.Size = new Size(38, 15);
             label1.TabIndex = 1;
@@ -52,7 +52,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(54, 70);
+            label2.Location = new Point(25, 69);
             label2.Name = "label2";
             label2.Size = new Size(38, 15);
             label2.TabIndex = 2;
@@ -62,10 +62,12 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(313, 126);
+            ClientSize = new Size(338, 131);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(propertyGrid1);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "Saludar";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Saludar";
