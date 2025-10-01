@@ -112,8 +112,8 @@ namespace Clase5WinForms
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(539, 177);
-            Controls.Add(label3);
             Controls.Add(comboBox1);
+            Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(textBox2);

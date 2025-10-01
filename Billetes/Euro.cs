@@ -29,6 +29,12 @@ namespace Billetes
         public double GetAmount() => _amount;
         public static double GetQuote() => _quoteAgainstDollar;
 
+        public static void SetCotizacion(double quote)
+        {
+            _quoteAgainstDollar = quote;
+        }
+
+
         public static explicit operator Dolar(Euro e)
         {
             double amountDolar = e.GetAmount() / Euro.GetQuote();

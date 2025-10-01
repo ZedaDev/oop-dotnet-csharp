@@ -21,18 +21,21 @@ namespace Clase5WinForms
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
+            //TODO :  Asigna valores de los controles a variables locales
             string nombre = this.txtNombre.Text;
             string direccion = this.txtDireccion.Text;
             int edad = (int)numericEdad.Value;
             string genero = (rBMale.Checked) ? "Masculino" : rBFemale.Checked ? "Femenino" : "Otro";
             string pais = listBoxPais.Text;
+            //Sobrecargas del metodo CheckboxValidate(), para sacar la cantidad de controles tipo checkboxs
+            //y pasandole la cantidad por parametro, devuelve el array de string cargado o null.
             int cantidad = CheckcboxValidate();
             string[] cursos = CheckcboxValidate(cantidad);
 
+            //TODO : Instancia el objeto Ingresante y, Lo Muestra con MB.Show().
             Ingresante persona = new(cursos, direccion, edad, genero, nombre, pais);
             string mensaje = persona.mostrar();
             MessageBox.Show(mensaje,"Datos",MessageBoxButtons.OK);
-            this.Show();
         }
 
         private int CheckcboxValidate()

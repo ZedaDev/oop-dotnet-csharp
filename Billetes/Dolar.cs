@@ -23,6 +23,9 @@
             public double GetAmount() => _amount;
             public static double GetQuote() => _quoteAgainstDollar;
 
+
+
+
             public static explicit operator Euro(Dolar d)
             {
                 return new Euro(d.GetAmount() / Euro.GetQuote());
