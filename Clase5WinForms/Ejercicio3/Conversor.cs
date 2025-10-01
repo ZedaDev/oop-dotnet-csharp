@@ -43,6 +43,7 @@ namespace Clase5WinForms.Ejercicio3
                 }
             }
 
+            //Desactivo los Labels segun el atributo private _candado
             ActivateLabels(this);
         }
 
