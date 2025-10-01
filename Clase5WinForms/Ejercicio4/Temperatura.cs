@@ -21,12 +21,12 @@ namespace Clase5WinForms
 
         private void Temperatura_Load(object sender, EventArgs e)
         {
-
+            //me fijo si en el objeto sender hay un txt con el tag convert
             foreach (var control in this.Controls)
             {
                 if (control is TextBox txt && txt.Tag?.ToString() == "convert")
                 {
-                    txt.Enabled = false;
+                    txt.Enabled = false; 
                 }
             }
         }
@@ -66,8 +66,7 @@ namespace Clase5WinForms
 
         private void textBox1_Leave(object sender, EventArgs e)
         {
-
-            //me fijo si en el objeto sender hay un txt con el tag cotiz
+            //me fijo si en el objeto sender hay un txt con el tag temp
             if (sender is TextBox txt && txt.Tag?.ToString() == "temp")
             {
                 if (!double.TryParse(txt.Text, out double number)) txt.Focus();

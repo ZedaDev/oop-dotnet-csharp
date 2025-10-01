@@ -47,13 +47,13 @@ namespace Utilidades
 
             return resultado;
         }
-         public double ConvertirBinarioADecimal(string numeroEntero)
+         public double ConvertirBinarioADecimal(string numero)
         {
             int exponente = 0;
             double resultado = 0;
-            for(int i = numeroEntero.Length-1; i>=0;i--)
+            for(int i = numero.Length-1; i>=0;i--)
             {
-                if (numeroEntero[i] == '1')
+                if (numero[i] == '1')
                 {
                     resultado += Math.Pow(2, exponente);
                 }
