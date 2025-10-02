@@ -1,4 +1,5 @@
 using Clase5WinForms.Ejercicio3;
+using Clase5WinForms.Ejercicio6;
 
 namespace Clase5WinForms
 {
@@ -13,7 +14,7 @@ namespace Clase5WinForms
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new ConversorB());
+            Application.Run(new TablaMultiplicar());
         }
     }
 }
