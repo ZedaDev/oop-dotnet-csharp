@@ -81,8 +81,11 @@
             Controls.Add(label1);
             Controls.Add(lstTabla);
             Controls.Add(txtNumero);
+            MaximizeBox = false;
             Name = "TablaMultiplicar";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Tabla Multiplicar";
+            FormClosing += TablaMultiplicar_FormClosing;
             Load += TablaMultiplicar_Load;
             ResumeLayout(false);
             PerformLayout();

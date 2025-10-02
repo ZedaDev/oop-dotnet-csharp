@@ -31,7 +31,7 @@ namespace Clase5WinForms.Ejercicio6
 
         private void MostrarTabla(double number)
         {
-            for (double i = 0; i < number; i++)
+            for (double i = 0; i < 11; i++)
             {
                 lstTabla.Items.Add($"{number} x {i} = {number * i:F0}");
             }
@@ -54,6 +54,7 @@ namespace Clase5WinForms.Ejercicio6
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             clear();
+            txtNumero.Focus();
         }
 
 
@@ -61,6 +62,13 @@ namespace Clase5WinForms.Ejercicio6
         {
             txtNumero.Clear();
             lstTabla.Items.Clear();
+        }
+
+        private void TablaMultiplicar_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult result = MessageBox.Show("¿Esta Seguro De Salir?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.No)
+                e.Cancel = true;
         }
     }
 }
