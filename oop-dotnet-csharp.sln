@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Billetes", "Billetes\Billet
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clase5WinForms", "Clase5WinForms\Clase5WinForms.csproj", "{C9FB8F2C-BD6D-4771-A020-27ACCE08E471}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormCRUD", "CRUD\WinFormCRUD.csproj", "{B7D16DD8-86FC-422C-9CB7-2663C2CFF9C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entidades", "Entidades\Entidades.csproj", "{C6120E8E-5CCB-469F-B0F4-5A2360FEB214}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +61,14 @@ Global
 		{C9FB8F2C-BD6D-4771-A020-27ACCE08E471}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9FB8F2C-BD6D-4771-A020-27ACCE08E471}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9FB8F2C-BD6D-4771-A020-27ACCE08E471}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7D16DD8-86FC-422C-9CB7-2663C2CFF9C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7D16DD8-86FC-422C-9CB7-2663C2CFF9C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7D16DD8-86FC-422C-9CB7-2663C2CFF9C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7D16DD8-86FC-422C-9CB7-2663C2CFF9C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6120E8E-5CCB-469F-B0F4-5A2360FEB214}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6120E8E-5CCB-469F-B0F4-5A2360FEB214}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6120E8E-5CCB-469F-B0F4-5A2360FEB214}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6120E8E-5CCB-469F-B0F4-5A2360FEB214}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

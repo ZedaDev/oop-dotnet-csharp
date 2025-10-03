@@ -1,8 +1,5 @@
-using Clase5WinForms.Ejercicio3;
-using Clase5WinForms.Ejercicio6;
-using Clase5WinForms.Ejercicio7;
-
-namespace Clase5WinForms
+using Entidades;
+namespace CRUD
 {
     internal static class Program
     {
@@ -15,7 +12,7 @@ namespace Clase5WinForms
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Descuento());
+            Application.Run(new FrmCRUD());
         }
     }
 }
