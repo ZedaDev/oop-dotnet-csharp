@@ -8,7 +8,7 @@ namespace Clase6Colecciones
 {
     internal class NL
     {
-
+       
         public static void CargarNumeros(int[] numeros, int cantidad)
         {
             Random random = new Random();
@@ -24,7 +24,15 @@ namespace Clase6Colecciones
             Random random = new Random();
             for (int i = 0; i < cantidad; i++)
             {
-                numeros[i] = ConverNumPositiveOrNegative(random, 1, 100);
+                numeros.Add(ConverNumPositiveOrNegative(random, 1, 100));
+            }
+        }
+        public static void CargarNumeros(Stack<int> numeros, int cantidad)
+        {
+            Random random = new Random();
+            for (int i = 0; i < cantidad; i++)
+            {
+                numeros.Push(ConverNumPositiveOrNegative(random, 1, 100));
             }
         }
         public static int ConverNumPositiveOrNegative(Random random, int desde, int hasta)
@@ -43,6 +51,26 @@ namespace Clase6Colecciones
             StringBuilder sg = new();
 
             foreach (int numero in array)
+            {
+                sg.AppendLine($"{numero}");
+            }
+                return sg.ToString();
+        }
+        public static string MostrarLista(List<int> numeros)
+        {
+            StringBuilder sg = new();
+
+            foreach (int numero in numeros)
+            {
+                sg.AppendLine($"{numero}");
+            }
+                return sg.ToString();
+        }
+        public static string MostrarStack(Stack<int> numeros)
+        {
+            StringBuilder sg = new();
+
+            foreach (int numero in numeros)
             {
                 sg.AppendLine($"{numero}");
             }
