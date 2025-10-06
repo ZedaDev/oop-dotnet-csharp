@@ -27,6 +27,7 @@ namespace CRUD
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
+            //TODO Agregar : btnAgregar Click, abre el formulario, valida dialog result y, que Prodcuto no sea NULL, de ser asi agrega el nuevo producto al Atributo Lista y, actualiza el visor.
             FrmProducto frmProducto = new FrmProducto();
             DialogResult result = frmProducto.ShowDialog();
             if(Validate(result, frmProducto._producto))
@@ -38,6 +39,7 @@ namespace CRUD
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
+            //TODO Modificar : btnModificar Click, captura el indice seleccionado por esl usuario, abre el formulario, valida dialog resulta, Producto y, luego reemplaza el mismo indice seleccionado por el nuevo objeto Producto, luego actualiza el visor.
             int i = lstVisor.SelectedIndex;
             if (i >= 0)
             {
@@ -53,6 +55,7 @@ namespace CRUD
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
+            //TODO Eliminar: btnEliminar Click, Captura el indice, abre el formulario, valida dialog result y, luego Elimina del Atributo Lista el producto en el indice Seleccionado, luego actualiza el visor.
             int i = lstVisor.SelectedIndex;
             if (i >= 0)
             {
