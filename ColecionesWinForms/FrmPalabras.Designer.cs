@@ -48,7 +48,7 @@
             btnCalcular.TabIndex = 1;
             btnCalcular.Text = "Calcular";
             btnCalcular.UseVisualStyleBackColor = true;
-            btnCalcular.Click += this.btnCalcular_Click;
+            btnCalcular.Click += btnCalcular_Click;
             // 
             // FrmPalabras
             // 
@@ -57,7 +57,10 @@
             ClientSize = new Size(388, 295);
             Controls.Add(btnCalcular);
             Controls.Add(rtb);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FrmPalabras";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Contador De Palabras";
             ResumeLayout(false);
         }

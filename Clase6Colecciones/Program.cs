@@ -1,4 +1,5 @@
-﻿namespace Clase6Colecciones
+﻿
+namespace Clase6Colecciones
 {
     public class Program
     {
@@ -59,7 +60,8 @@
             Console.WriteLine($"Negativos Ordenados : \n{NL.MostrarLista(ints)}");*/
             #endregion
 
-
+            Ejercicio4 ejercicio4 = new Ejercicio4();
+            ejercicio4.Ejecutar();
 
 
         }
