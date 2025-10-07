@@ -15,30 +15,40 @@ namespace ColecionesWinForms
 
        private void btnCalcular_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(rtb.Text))
+            if (!string.IsNullOrEmpty(rtb.Text.Trim()))
             {
                 //cuento las palabras y lleno el atributo diccionario de la clase.
-                ContarPalabras(rtb.Text);
+                ContarPalabras(rtb.Text.Trim());
 
-                //MessageBox.Show(Mostrar()); <------ CONTINUED
+                MessageBox.Show(Mostrar(),"TOP 3", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                rtb.Clear(); rtb.Focus();
             }
         }
 
         private void ContarPalabras(string texto)
         {
-            char[] separador = { ' ', ',', '.', ';', '\t', ':' };
+            char[] separador = { ' ', ',', '.', ';', '\t', ':'};
+
+            _palabras.Clear();
+            _palabrasList.Clear();
+
             _palabrasList.AddRange(texto.Split(separador, StringSplitOptions.RemoveEmptyEntries));
-            //Remuevo los char seleccionados, y remuevo las entradas vacias.
+            //Split separa los strings segun el array separador de char, y remuevo las entradas vacias.
             //split retorna un array de string, AddRange los guarda string a string en la lista de strings.
+
+            HashSet<string> words = new()//coleccion de unico tipo de Dato, no admite repetidos.
+            { "el", "la", "por", "su", "es", "las", "los", "un", "a", "de", "del", "en", "y", "con", "una" };
 
 
             foreach (string value in _palabrasList)
             {
-                if (!_palabras.ContainsKey(value) && value != " ")
+                if (!words.Contains(value) && value != " ")
                 {
-                    _palabras.Add(value, 1);
+                    if(!_palabras.ContainsKey(value))
+                        _palabras.Add(value, 1);
+                    else _palabras[value] += 1;
                 }
-                else _palabras[value] += 1;
+               
             }
         }
 
@@ -60,10 +70,10 @@ namespace ColecionesWinForms
                     }
                 }
 
-                if (string.IsNullOrWhiteSpace(eliminar))
-                {
                     if (_palabras.Remove(eliminar)) i += 1;
-                }
+                /*if (string.IsNullOrWhiteSpace(eliminar))
+                {
+                }*/
 
             }
 
