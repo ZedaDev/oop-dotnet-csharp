@@ -60,8 +60,11 @@ namespace Clase6Colecciones
             Console.WriteLine($"Negativos Ordenados : \n{NL.MostrarLista(ints)}");*/
             #endregion
 
-            Ejercicio4 ejercicio4 = new Ejercicio4();
-            ejercicio4.Ejecutar();
+           // Ejercicio4 ejercicio4 = new Ejercicio4();
+           // ejercicio4.Ejecutar();
+
+            Ejercicio5 ejercicio5 = new Ejercicio5();
+            ejercicio5.Ejecutar();
 
 
         }

@@ -26,7 +26,14 @@ namespace Utilidades
             _jugadores = new List<Jugador>();
         }
 
-
+        public void MostrarTeam()
+        {
+           
+            foreach (Jugador player in _jugadores)
+            {
+                player.MostrarDatos();
+            }
+        }
         public static bool operator +(Equipo e, Jugador j)
         {
             bool r = true;
