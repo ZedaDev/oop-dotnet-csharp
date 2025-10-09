@@ -97,7 +97,7 @@ namespace Clase6Colecciones
              */
             #endregion
 
-            #region PARTE 2
+            #region Segunda Parte
 
             Stack<Producto> bebidas = new();
             Stack<Producto> tortas = new();
@@ -154,7 +154,7 @@ namespace Clase6Colecciones
 
             for (int i = 0; i < cantidad; i++)
             {
-                pila.Push(new(i, $"{name}", precio));
+                pila.Push( new Producto(i, name, precio));
             }
         }
         private string Mostrar(Dictionary<int,string> maquinaExpendedora)
@@ -195,7 +195,7 @@ namespace Clase6Colecciones
             foreach (KeyValuePair<int, Stack<Producto>> productos in maquinaExpendedora)
             {
                 if(productos.Value.Count > 0) //controla excepcion al vaciar productos.
-                sb.AppendLine($"Codigo : {productos.Key} Producto : {productos.Value.Peek()._nombre} Cantidad Disponible : {productos.Value.Count}\n");
+                sb.AppendLine($"Codigo : {productos.Key}\nProducto : {productos.Value.Peek()._nombre}\nCantidad Disponible : {productos.Value.Count}\n");
             }
             return sb.ToString();
         }

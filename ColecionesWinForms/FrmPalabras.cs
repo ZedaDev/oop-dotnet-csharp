@@ -1,4 +1,4 @@
-e using System.Text;
+using System.Text;
 
 namespace ColecionesWinForms
 {
