@@ -13,7 +13,7 @@
             _precio = precio;
         }
 
-        public string Mostrar() => $"Codigo de Barra : {_codigo} - Producto : {_nombre} - Price : {_precio}";
+        public string Mostrar() => $"Producto : {_nombre} - Price : {_precio}";
 
     }
 }

@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmExpendedora));
             gBTeclado = new GroupBox();
             txtNumero = new TextBox();
             txtBienvenido = new Label();
@@ -76,7 +74,6 @@
             pBoxNueve = new PictureBox();
             pBoxTres = new PictureBox();
             pBoxDos = new PictureBox();
-            imageList1 = new ImageList(components);
             lbText = new Label();
             gBTeclado.SuspendLayout();
             gBProductos.SuspendLayout();
@@ -639,38 +636,16 @@
             pBoxDos.TabStop = false;
             pBoxDos.Tag = "";
             // 
-            // imageList1
-            // 
-            imageList1.ColorDepth = ColorDepth.Depth32Bit;
-            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
-            imageList1.TransparentColor = Color.Transparent;
-            imageList1.Images.SetKeyName(0, "gatorade.png");
-            imageList1.Images.SetKeyName(1, "lays.png");
-            imageList1.Images.SetKeyName(2, "gaseosa.png");
-            imageList1.Images.SetKeyName(3, "fanta.png");
-            imageList1.Images.SetKeyName(4, "jugo.png");
-            imageList1.Images.SetKeyName(5, "Chocolate.png");
-            imageList1.Images.SetKeyName(6, "Alfajor.png");
-            imageList1.Images.SetKeyName(7, "redLabel.png");
-            imageList1.Images.SetKeyName(8, "whisky.png");
-            imageList1.Images.SetKeyName(9, "RedBull.png");
-            imageList1.Images.SetKeyName(10, "Helado.png");
-            imageList1.Images.SetKeyName(11, "pringles.png");
-            imageList1.Images.SetKeyName(12, "Kinder.png");
-            imageList1.Images.SetKeyName(13, "coke.png");
-            imageList1.Images.SetKeyName(14, "7up.png");
-            imageList1.Images.SetKeyName(15, "milka.png");
-            // 
             // lbText
             // 
             lbText.AutoSize = true;
             lbText.BackColor = Color.LawnGreen;
-            lbText.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
+            lbText.Font = new Font("Segoe UI", 10F, FontStyle.Bold | FontStyle.Italic);
             lbText.ForeColor = Color.Red;
-            lbText.Location = new Point(18, 561);
+            lbText.Location = new Point(12, 557);
             lbText.Name = "lbText";
             lbText.Padding = new Padding(145, 8, 145, 8);
-            lbText.Size = new Size(290, 31);
+            lbText.Size = new Size(290, 35);
             lbText.TabIndex = 3;
             // 
             // FrmExpendedora
@@ -755,7 +730,6 @@
         private Label label4;
         private Label label3;
         private Label label2;
-        private ImageList imageList1;
         private Label lbText;
     }
 }

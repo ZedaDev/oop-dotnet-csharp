@@ -99,10 +99,10 @@ namespace Clase6Colecciones
 
             #region Segunda Parte
 
+            Dictionary<int, Stack<Producto>> maquinaExpendedora = new();
             Stack<Producto> bebidas = new();
             Stack<Producto> tortas = new();
             Stack<Producto> papasFritas = new();
-            Dictionary<int, Stack<Producto>> maquinaExpendedora = new();
 
             Console.WriteLine("Bebidas Cargadas. . .");
             CargarPilaProductos(90.5,bebidas, 3, "bebidas");
