@@ -16,10 +16,12 @@ namespace Clase6WinForms
     public partial class FrmExpendedora : Form
     {
         private Dictionary<int, Stack<Producto>> _expenderMachine;
+        private Queue<string> _filaDeClientes;
         public FrmExpendedora()
         {
             InitializeComponent();
             _expenderMachine = new();
+            _filaDeClientes = new();
         }
 
 
@@ -29,6 +31,7 @@ namespace Clase6WinForms
             CharguingImagesProducts();
             CharguingPositionsProducts();
             InicializateDictionaryAndCharguingProducts();
+            CharguinClients();
         }
 
         private void btnUno_Click(object sender, EventArgs e)
@@ -44,28 +47,44 @@ namespace Clase6WinForms
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (txtNumero.Text == string.Empty)
+
+            if(_filaDeClientes.Count == 0)
             {
-                lbText.Text = "Ningun Producto Seleccionado";
-            }
-            else if(!int.TryParse(txtNumero.Text, out _))
-            {
-                txtNumero.Clear();
-                txtNumero.Focus();
-            }
-            else if (Convert.ToInt32(txtNumero.Text) > 15 || Convert.ToInt32(txtNumero.Text) <= 0)
-            {
-                lbText.Text = "Error, El Producto No Existe";
+               DialogResult result = MessageBox.Show($"No Quedan Clientes, Desea Agregar Mas?","Clientes",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    CharguinClients();
+                }
+                
             }
             else
             {
-                int i = int.Parse(txtNumero.Text)-1;
-                Stack<Producto> pila = _expenderMachine[i];
-                if(pila.Count>0)
-                    lbText.Text = $"{txtNumero.Text} - {pila.Pop().Mostrar()} - Cantidad :{pila.Count}";
-                else 
-                    lbText.Text = $"Producto{txtNumero.Text} Sin Stock";
+                if (txtNumero.Text == string.Empty)
+                {
+                    lbText.Text = "Ningun Producto Seleccionado";
+                }
+                else if (!int.TryParse(txtNumero.Text, out _))
+                {
+                    txtNumero.Focus();
+                }
+                else if (Convert.ToInt32(txtNumero.Text) > 15 || Convert.ToInt32(txtNumero.Text) <= 0)
+                {
+                    lbText.Text = "Error, El Producto No Existe";
+                }
+                else
+                {
+                    int i = int.Parse(txtNumero.Text) - 1;
+                    Stack<Producto> pila = _expenderMachine[i];
+                    if (pila.Count > 0)
+                    {
+                        lbText.Text = $"{txtNumero.Text} - {pila.Peek().Mostrar()} - Disponibles : {pila.Count}";
+                        MessageBox.Show($"{_filaDeClientes.Dequeue()} Se Lleva {pila.Pop().Mostrar()}\nClientes Restantes : {_filaDeClientes.Count()}");
+                    }
+                    else
+                        lbText.Text = $"Producto {txtNumero.Text} Sin Stock";
+                }
             }
+                    txtNumero.Clear();
         }
 
         private Stack<Producto> CargarProductos(string name, double price)
@@ -141,6 +160,25 @@ namespace Clase6WinForms
                     pos--;
                 }
             }
+        }
+
+        private void CharguinClients()
+        {
+     
+            string input = Microsoft.VisualBasic.Interaction.InputBox(
+                "Ingrese nombres de nuevos clientes separados por coma:",
+                "Agregar Clientes");
+            
+            if (!string.IsNullOrEmpty(input))
+            {
+                string[] clientes = input.Split(',',StringSplitOptions.RemoveEmptyEntries);
+                foreach (string cliente in clientes)
+                {
+                    _filaDeClientes.Enqueue(cliente);
+                }
+                    MessageBox.Show($"Agregados {clientes.Count()} Nuevos Clientes");
+            }
+
         }
     }
 }

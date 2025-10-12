@@ -46,7 +46,8 @@ namespace ColecionesWinForms
                 {
                     if(!_palabras.ContainsKey(value))
                         _palabras.Add(value, 1);
-                    else _palabras[value] += 1;
+                    else
+                        _palabras[value] += 1;
                 }
                
             }
