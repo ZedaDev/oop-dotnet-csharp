@@ -1,0 +1,91 @@
+
+++++++++++++++++++++++PATHS(Rutas)++++++++++++++++++++++++++++++++++++++
+
+DirectorySeparatorChar()
+Retorna el caracter separador de directorios para el sistema operativo sobre el que se ejecuta la aplicacion
+
+PathSeparator()
+Retorna el caracter que se usa para separar una lista de ruta en el sistema operativo sobre el que se ejecuta la palicacion
+
+PathCombine()
+Combina los PathSeparator y comprueba si la primera ruta ya tiene un separador al final para que no duplique los separadores.
+Ademas, se comprueba si los elementos de la ruta a combinar tienen caracteres validos.
+
+Join()
+Concatena los paths.
+
+
+++++++++++++++++++++++++Directiorios++++++++++++
+
+Directory.GetCurrentDirectoy()
+Retorna la ruta correspondiente al directorio sobre le que se esta ejecutando la aplicacion.
+Alternativa a Enviroment.CurrentDirectory
+
+Directory.Delete(String path)
+Elimina el directorio especificado, siempre y cuando este vacio
+
+Delete(string path, bool) elimina el directorio especificado y, si esta indicado, los subdirectorios y archivos que contiene
+
+Exists(string path)
+Determina si la ruta de acceso dada hace referencia a un directorio esxistente en el disco
+
+GetFiles(string path)
+Devuelve los nombres de los archivos (con sus rutas de acceso) del directorio especificado
+
+
+
++++++++++++++++Archivo Comandos+++++++++++++++++
+System.io
+
+new StreamWriter()
+Escribe caracteres en archivos de texto
+
+
+new StreamWriter(string path)
+Inicializa una nueva instancia de la clase StreamWriter, en un path especifico. Si el archivo existe, se sobreescribira, sino se creara.
+
+
+new StreamWriter(string path, bool append)
+Idem anterior, si append es truese agregan datos al archivo existente. Caso contraio, se sobreescribira el archivo
+
+
+new StreamWriter(string patch, bool append, Encoding e)
+Idem anteiror, donde se le puede especificar el tipo de codificaion que se utilizara la escribir en el archivo(UTF-8,etc)
+
+
+
+new StreamReader()
+Lee caracteres del archivo de texto
+
+
++++++++++++ESCRIBIR EN EL ARCHIVO+++++
+
+StreamWriter.Write(string value)
+Escribe una cadena de texto en un archivo sin provoar un salto de linea al final
+
+StreamWriter.WriteLine(string value)
+Escribe una cadena de texto en un archivo provocando un salto de linea la final
+
+Colse()
+Cierra el objeto StreamWriter
+
++++++++++++++++++++++++++++++
+
+
+System.Text.Enconding miCodificacion = System.Text.Enconding..UTF8; (ASCII,etc).
+
+XML
+Para serializar un objeto, se hace mediante XML
+se serializa solo el estado del Objeto, es decir, solo los atributos. no los metodos, no los constructores. solo los atributos.
+
+primero, creo un objeto XmlTextWriter("nombreArchivo.xml", Encondign.UTF8); <-- Le paso el nombre con el que se va a crear. podria pasarle una ruta(Path), si solo le paso el nombre como string, lo crea en la carpeta destino de donde se encuentra(bin).
+
+Luego, creo el objeto serializador(capta el dato y lo pasa a formato XML)
+XmlSerializer(typeof(Persona)); <-- Le paso el tipo de dato que voy a serializar(puede ser una clase o colecciones).
+
+Luego, s.Serialize(Writer, persona); <-- Le paso el objeto XmlTextWriter, y le paso el dato a guardar. y automaticamente guarda el dato en el archivo XML.
+
+
+
+JSON
+para deserializar, hay que traerlo en formato JSON
