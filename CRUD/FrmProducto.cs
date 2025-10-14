@@ -35,8 +35,8 @@ namespace WinFormCRUD
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-          if (double.TryParse(txtPrice.Text, out double price) && int.TryParse(txtCode.Text, out int code) && !string.IsNullOrWhiteSpace(txtName.Text))
-              _producto = new Producto(code, txtName.Text.Trim(), price);
+            if (double.TryParse(txtPrice.Text, out double price) && int.TryParse(txtCode.Text, out int code) && !string.IsNullOrWhiteSpace(txtName.Text))
+                _producto = new Producto(code, txtName.Text.Trim(), price);
 
             if (_producto != null)
                 CloseFormAndCaptureDialog(DialogResult.OK);
@@ -51,6 +51,11 @@ namespace WinFormCRUD
         {
             this.DialogResult = result;
             this.Close();
+        }
+
+        private void FrmProducto_FormClosing(object sender, FormClosingEventArgs e)
+        {
+    
         }
     }
 }

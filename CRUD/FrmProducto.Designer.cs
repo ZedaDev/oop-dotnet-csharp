@@ -124,6 +124,7 @@
             Controls.Add(label1);
             Name = "FrmProducto";
             Text = "FrmProducto";
+            FormClosing += FrmProducto_FormClosing;
             ResumeLayout(false);
             PerformLayout();
         }

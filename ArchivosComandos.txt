@@ -46,7 +46,7 @@ Inicializa una nueva instancia de la clase StreamWriter, en un path especifico. 
 
 
 new StreamWriter(string path, bool append)
-Idem anterior, si append es truese agregan datos al archivo existente. Caso contraio, se sobreescribira el archivo
+Idem anterior, si append es true se agregan datos al archivo existente. Caso contraio, se sobreescribira el archivo
 
 
 new StreamWriter(string patch, bool append, Encoding e)
