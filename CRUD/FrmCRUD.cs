@@ -91,17 +91,27 @@ namespace CRUD
 
         private void FrmCRUD_Load(object sender, EventArgs e)
         {
+            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "SerializeXml");
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
 
-            if (File.Exists(@"./crud.xml"))
+            if ( File.Exists(path = Path.Combine(path, "Datos.xml")) )
             {
                 //Importante para leer el archivo es XmlTextREADER para escribir es XmlTextWRITER.
-                using (XmlTextReader text = new(@"./crud.xml"))
+                using (XmlTextReader text = new(path))
                 {
                     XmlSerializer s = new XmlSerializer(typeof(List<Producto>));
                     _Productos = (List<Producto>)s.Deserialize(text);
                 }
+            } 
 
-                using (StreamReader Read = new(@"./crud.json"))
+                string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "SerializeJson");
+            if (!Directory.Exists(pathJson))
+                Directory.CreateDirectory(pathJson);
+
+            if (File.Exists(pathJson = Path.Combine(pathJson,"Datos.json")))
+            {
+                using (StreamReader Read = new(pathJson))
                 {
                     //Leo todo el archivo de texto
                     string objJson = Read.ReadToEnd();
@@ -110,36 +120,36 @@ namespace CRUD
                     _Productos = (List<Producto>)JsonSerializer.Deserialize(objJson, typeof(List<Producto>));
 
                 }
-               
             }
+
+
         }
 
         private void FrmCRUD_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //Creo el archivo de texto nuevo .xml    CREO EL ARCHIVO
-            using (XmlTextWriter writer = new XmlTextWriter(@"./crud.xml", Encoding.UTF8))
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            path = Path.Combine(path,"SerializeXml", "Datos.xml");
+            //Creo el archivo Xml para escribir en el, le paso el nombre por parametro
+            using (XmlTextWriter archivo = new(path, Encoding.UTF8))
             {
-                //Creo el objeto para guardar el dato en el archivo.xml  CREO EL OBJETO A GUARDAR
-                XmlSerializer s = new XmlSerializer(typeof(List<Producto>));
+                //creo el objeto xml para guardar, le paso el tipo de dato a serializar.
+                    XmlSerializer guardar = new(typeof(List<Producto>));
 
-                //Guardo el objeto en el archivo de texto.xml   GUARDO EL OBJETO EN EL ARCHIVO
-                s.Serialize(writer, _Productos);
+               //Con el objeto xml para guadar,le paso por parametro el archivo donde escirbir
+               //y el tipo de dato a escribir.
+                    guardar.Serialize(archivo, _Productos);
             }
 
+            string pathJson = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            pathJson = Path.Combine(pathJson, "SerializeJson", "Datos.json");
 
             JsonSerializerOptions json = new JsonSerializerOptions();
             json.WriteIndented = true;
 
             string objJson = JsonSerializer.Serialize(_Productos, json);
 
-            using (StreamWriter writer = new StreamWriter(@"./crud.json"))
-            {
-                writer.WriteLine(objJson);
-            }
-
-
+            File.WriteAllText(pathJson, objJson);
         }
-
 
         private void ToolTipJson_Click(object sender, EventArgs e)
         {
