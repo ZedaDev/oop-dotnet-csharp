@@ -1,3 +1,54 @@
+Serializar : convierte el Estado(Atributos) de un objeto a un formato especifico o secuencia de bytes para luego poder ser leidas.
+
+Deserializar : Recupera los Datos(Atributos) un objeto que fue serializado. es decir, recupera los atributos serializados del objeto.
+
+
+XML : 
+-La clase debe ser publica
+-Los atributos deben ser publicos(en caso de ser PRIVADOS debe poseer PROPIEDADES de Lectura\Escritura. A excepcion de las COLECCIONES que pueden tener propiedas de solo lectura)
+-Adicionalmente para serializar a XML, la clase debe tener un constructor publico sin parametros.
+
+using (XmlTextWriter writer = new XmlTextWriter(@"./crud.xml", Encoding.UTF8))
+{
+     XmlSerializer s = new XmlSerializer(typeof(List<Producto>));
+
+     s.Serialize(writer, _Productos);
+}
+(Creo el objeto XML para poder escribir, le indico el nombre del archivo a crear y juego de caracteres. Luego creo el objeto serializer con el tipo de dato de la clase, luego ese objeto lo serializo en el archivo xml creado y le paso el dato a serializar.
+
+JSON :
+
+
+
+            /*using (StreamWriter writer = new StreamWriter(path))
+            {
+                writer.WriteLine(objJson);
+            }*/
+
+
+string path = Enviroment.GetFolderPath(Enviroment.SpecialFolder.Desktop)
+
+-Con Enviroment se puede acceder a las carpetas de la pc, indistintamente si cambia la ruta en pc a pc-
+
+path += @"\XmlJson"
+
+if(!Directory.Exists(path)) 	Existe la ruta?
+Directory.CreateDirectory(path) Creo La ruta.
+
+using(StreamWriter sw = new(path+ @"\archivo.txt", true);
+{
+	sw.WriteLine("ESTO ES UN ARCHIVO DE TEXTO11");
+}
+
+
+
+
+
+
+
+
+
+
 
 ++++++++++++++++++++++PATHS(Rutas)++++++++++++++++++++++++++++++++++++++
 

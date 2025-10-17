@@ -105,19 +105,21 @@ namespace CRUD
                 }
             } 
 
+            //guardo la ruta del escritorio y, le agrego una carpeta.
                 string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "SerializeJson");
             if (!Directory.Exists(pathJson))
                 Directory.CreateDirectory(pathJson);
 
             if (File.Exists(pathJson = Path.Combine(pathJson,"Datos.json")))
-            {
-                using (StreamReader Read = new(pathJson))
+            {//Creo el archivo .json y, guardo la nueva ruta.
+
+                using (StreamReader archivo = new(pathJson))
                 {
                     //Leo todo el archivo de texto
-                    string objJson = Read.ReadToEnd();
+                    string textArchive = archivo.ReadToEnd();
 
                     //Deserializo el json a una List<Productos>, me devuelve un tipo object y lo casteo
-                    _Productos = (List<Producto>)JsonSerializer.Deserialize(objJson, typeof(List<Producto>));
+                    _Productos = (List<Producto>)JsonSerializer.Deserialize(textArchive, typeof(List<Producto>));
 
                 }
             }
@@ -140,7 +142,9 @@ namespace CRUD
                     guardar.Serialize(archivo, _Productos);
             }
 
+
             string pathJson = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            
             pathJson = Path.Combine(pathJson, "SerializeJson", "Datos.json");
 
             JsonSerializerOptions json = new JsonSerializerOptions();

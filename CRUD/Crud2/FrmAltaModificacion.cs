@@ -1,0 +1,188 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
+using static System.Net.Mime.MediaTypeNames;
+
+namespace WinFormCRUD.Crud2
+{
+    public partial class FrmAltaModificacion : Form
+    {
+
+        private List<string> _supermercado; 
+        public FrmAltaModificacion()
+        {
+            InitializeComponent();
+            _supermercado = new List<string>();
+        }
+
+        private void FrmAltaModificacion_Load(object sender, EventArgs e)
+        {
+            /*string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop),"ListaSuper");
+            string archivo = Path.Combine(path, "lista.xml");
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            if(File.Exists(archivo))
+            {
+  
+                using (XmlTextReader text = new(archivo))
+                {
+                    XmlSerializer s = new XmlSerializer(typeof(List<string>));
+                    _supermercado = (List<string>)s.Deserialize(text);
+                }
+            if(_supermercado is not null)
+                ActualizarVisor();
+            }*/
+
+            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "ListaSuperjson");
+            string archivo = Path.Combine(path, "lista.json");
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            if (File.Exists(archivo))
+            {
+
+                using (StreamReader text = new(archivo))
+                {
+                    string textArchive = text.ReadToEnd();
+
+                    _supermercado = (List<string>)JsonSerializer.Deserialize(textArchive, typeof(List<string>));
+                }
+
+                if (_supermercado is not null)
+                    ActualizarVisor();
+            }
+            SetToolTips();
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+
+            string text = OpenModalForm("Agregar Objeto", String.Empty, "Agregar");
+            if (text != string.Empty)
+            {
+                _supermercado.Add(text);
+                ActualizarVisor();
+            }
+            btnAgregar.Focus();
+        }
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            if (SelectItemList(lstObjetos.SelectedIndex))
+            {
+                string? text = lstObjetos.SelectedItem?.ToString();
+                string txtModal = OpenModalForm("Modificar Objeto", text, "Modificar");
+                if (txtModal != string.Empty)
+                {
+                    _supermercado[lstObjetos.SelectedIndex] = txtModal;
+                    ActualizarVisor();
+                }
+            }
+
+        }
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            if (SelectItemList(lstObjetos.SelectedIndex))
+            {
+                int i = lstObjetos.SelectedIndex;
+                if (i >= 0)
+                {
+                    _supermercado.RemoveAt(i);
+                    ActualizarVisor();
+                }
+            }
+        }
+
+        private string OpenModalForm(string titulo, string texto, string textoBtn)
+        {
+
+            AltaBajaModificacion frmABM = new(titulo, texto, textoBtn);
+            DialogResult result = frmABM.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                return frmABM.Objeto;
+            }
+            else return string.Empty;
+        }
+
+        private bool SelectItemList(int indexSelected)
+        {
+            if (indexSelected < 0)
+            {
+                MessageBox.Show("Debe Seleccionar un elemento", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
+            }
+
+            return true;
+        }
+
+        private void ActualizarVisor()
+        {
+            lstObjetos.Items.Clear();
+            foreach (string p in _supermercado)
+            {
+                if (!string.IsNullOrEmpty(p))
+                    lstObjetos.Items.Add(p);
+            }
+
+        }
+
+        private void SetToolTips()
+        {
+            toolTip1.SetToolTip(btnAgregar, "Agregar Objeto");
+            toolTip1.SetToolTip(btnEliminar, "Eliminar Objeto");
+            toolTip1.SetToolTip(btnModificar, "Modificar Objeto");
+        }
+
+        private string MostrarProductos()
+        {
+            StringBuilder sb = new();
+            int i = 1;
+            foreach (string value in _supermercado)
+            {
+                sb.AppendLine($"{i++}- {value}");
+            }
+
+            return sb.ToString();
+        }
+
+        private void FrmAltaModificacion_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+            if(_supermercado is not null)
+            {
+                string path =
+                        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "ListaSuperjson", "lista.json");
+                JsonSerializerOptions json = new();
+                json.WriteIndented = true;
+
+                //
+                string text = JsonSerializer.Serialize(_supermercado, json);
+
+                File.WriteAllText(path, text);
+
+            }
+            /*string path =
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "ListaSuper","lista.xml");
+
+                using (XmlTextWriter archivo = new(path,Encoding.UTF8))
+                {
+                    XmlSerializer guardar = new(typeof(List<string>));
+
+                    guardar.Serialize(archivo, _supermercado);
+                }*/
+
+
+        }
+    }
+}
