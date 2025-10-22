@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Utilidades\Utilidades.csproj" />
     <ProjectReference Include="..\Utilidades{8\Utilidades{8.csproj" />
   </ItemGroup>
 

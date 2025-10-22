@@ -31,7 +31,7 @@ namespace Utilidades
            
             foreach (Jugador player in _jugadores)
             {
-                player.MostrarDatos();
+                Console.WriteLine($"{player.MostrarDatos()}"); 
             }
         }
         public static bool operator +(Equipo e, Jugador j)
@@ -42,7 +42,10 @@ namespace Utilidades
                 foreach (Jugador value in e._jugadores)
                 {
                     if (value == j)
+                    {
                         r = false;
+                        break;
+                    }
                 }
 
                 if (r)

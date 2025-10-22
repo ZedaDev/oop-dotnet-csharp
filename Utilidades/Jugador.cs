@@ -13,16 +13,56 @@ namespace Utilidades
         private int _dni;
         private string _nombre;
         private int _partidosJugados;
-        private float _promedioGoles;
+       // private float _promedioGoles;
         private int _totalGoles;
 
+        public int PartidosJugados
+        {
+            get => _partidosJugados;
+        }
+        /*public float PromedioGoles
+        {
+            get => _promedioGoles;
+        }*/
+        public int GolesTotales
+        {
+            get => _totalGoles;
+        }
+        public string Nombre
+        {
+            get => _nombre;
 
-        private Jugador()
+            set
+            {
+                _nombre = value;
+            }
+        }
+        public string Dni
+        {
+            get => _dni.ToString();
+
+            set
+            {
+                int.TryParse(value, out _dni);
+            }
+        }
+
+        public float PromedioGoles
+        {
+            get
+            {
+                if (_partidosJugados > 0)
+                    return (float)_totalGoles / _partidosJugados;
+
+                else
+                    return 0;
+            }
+        }
+        /*private Jugador()
         {
             _promedioGoles = 0;
-        }
+        }*/
         public Jugador(int dni, string nombre)
-           : this()
         {
             _dni = dni;
             _nombre = nombre;
@@ -35,23 +75,16 @@ namespace Utilidades
             _partidosJugados = partidosJugados;
         }
 
-        public float GetPromedioGoles()
-        {
-            if(_partidosJugados > 0)
-                _promedioGoles = (float)_totalGoles / _partidosJugados;
 
-            return _promedioGoles;
-        } 
 
         public string MostrarDatos()
         {
             StringBuilder sb = new();
-            GetPromedioGoles();
-            sb.AppendLine($"Nombre : {_nombre}");
-            sb.AppendLine($"Dni : {_dni}");
-            sb.AppendLine($"Partidos Jugados : {_partidosJugados}");
-            sb.AppendLine($"Goles : {_totalGoles}");
-            sb.AppendLine($"Promedio De Gol : {this.GetPromedioGoles():0.00}");
+            sb.AppendLine($"Nombre : {Nombre}");
+            sb.AppendLine($"Dni : {Dni}");
+            sb.AppendLine($"Partidos Jugados : {PartidosJugados}");
+            sb.AppendLine($"Goles : {GolesTotales}");
+            sb.AppendLine($"Promedio De Gol : {PromedioGoles:0.00}");
 
             return sb.ToString();
         }
