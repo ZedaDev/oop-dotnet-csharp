@@ -56,7 +56,7 @@ namespace Clase8Encapsulamiento
             #endregion
 
             #region Ejercicio 2 - Consultar Indice
-
+            /*
             Console.Title = "Consultar Indice";
 
             Libro libro = new();
@@ -66,6 +66,7 @@ namespace Clase8Encapsulamiento
             libro[1] = "YO A VOS TE SIGO AUNQUE VOS VAYAS BIEN YO A VOS TE SIGO AUNQUE VOS VAYAS MAL";
             Console.WriteLine($"{libro[1]}");
             Console.WriteLine($"{libro[2]}");
+            */
             #endregion
 
             #region 3 - Estadistica Deportiva(Ej.4 Coleciones, Ahora Con Propiedades)
