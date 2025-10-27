@@ -52,8 +52,10 @@ namespace Clase9Herencia
 
             Console.WriteLine($"\nGANANCIAS TOTALES : \n{l.MostrarTotalFacturado()}");*/
 
-            Ejercicio1 ejercicio1 = new();
-            ejercicio1.Ejecutar();
+            /*Ejercicio1 ejercicio1 = new();
+            ejercicio1.Ejecutar();*/
+            Ejercicio2 ejercicio2 = new();
+            ejercicio2.Ejecutar();
         }
     }
 }
