@@ -1,11 +1,12 @@
-﻿using Utilidades_8;
+﻿using Clase9Herencia.Ejercicios;
+using Utilidades_8;
 namespace Clase9Herencia
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.Title = "Lavadero Heredado";
+            /*Console.Title = "Lavadero Heredado";
 
             float priceCar = (float)EVehiculos.Auto;
             float priceMotorBike = (float)EVehiculos.Moto;
@@ -27,13 +28,20 @@ namespace Clase9Herencia
             {
                 Console.WriteLine("Vehiculo 2 Agregado");
             }
-            if(l + v2)
+
+            if (l - v1)
+            {
+                Console.WriteLine("Vehiculo 2 REMOVE");
+            }
+
+
+            if (l + v2)
             {
                 Console.WriteLine("Vehiculo 3 Agregado");
             }
             if(l + v3)
             {
-                Console.WriteLine("Vehiculo 3 Agregado");
+                Console.WriteLine("Vehiculo 4 Agregado");
             }else Console.WriteLine("ERROR CAMION");
 
             Console.WriteLine("++++++++++++++++++++++++++++++++++++++++++++++++");
@@ -42,7 +50,10 @@ namespace Clase9Herencia
 
             Console.WriteLine("++++++++++++++++++++++++++++++++++++++++++++++++");
 
-            Console.WriteLine($"\nGANANCIAS TOTALES : \n{l.MostrarTotalFacturado()}");
+            Console.WriteLine($"\nGANANCIAS TOTALES : \n{l.MostrarTotalFacturado()}");*/
+
+            Ejercicio1 ejercicio1 = new();
+            ejercicio1.Ejecutar();
         }
     }
 }

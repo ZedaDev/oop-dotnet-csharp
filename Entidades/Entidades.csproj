@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Clase9Herencia\Clase9Herencia.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -107,6 +107,7 @@ namespace Utilidades_8
                     {
                         l.Vehiculos.Remove(v1);
                         result = true;
+                        break;
                     }
                 }
             }

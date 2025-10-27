@@ -20,3 +20,12 @@ public enum EVehiculos
     Moto = 50,
     Camion = 250
 }
+
+public enum Colores
+{   
+    Rojo,
+    Blanco,
+    Azul,
+    Gris,
+    Negro 
+}
