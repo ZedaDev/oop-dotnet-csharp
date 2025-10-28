@@ -28,6 +28,7 @@ namespace Utilidades_8
             set
             {
 
+                //Logica de validacion
                 _dni = value;
             }
         }
@@ -37,7 +38,7 @@ namespace Utilidades_8
 
             set
             {
-
+                //Logica de validacion
                 _name = value;
             }
         }

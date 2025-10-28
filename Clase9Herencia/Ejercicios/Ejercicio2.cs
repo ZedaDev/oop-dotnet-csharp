@@ -23,8 +23,14 @@ namespace Clase9Herencia.Ejercicios
             Persona player = new Jugador(11, "Don Adriano", 11, 8);
             DateTime dato = new(1918, 9, 18);
             Persona dT = new DirectorTecnico("Angel Labruna", dato);
+            Persona dT1 = new DirectorTecnico("Angel Labruna", dato);
 
-            Team team = new(11, "River Plate");
+            if(((DirectorTecnico)dT) == ((DirectorTecnico)dT1))
+            {
+                Console.WriteLine("DTS SON IGUALES");
+            }
+
+            Team team = new(11, "River Plate", (DirectorTecnico)dT);
 
             if(team + ((Jugador)player))
             {

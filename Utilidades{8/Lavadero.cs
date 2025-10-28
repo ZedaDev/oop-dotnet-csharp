@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -117,6 +118,15 @@ namespace Utilidades_8
 
         #region Methods
 
+        public static int OrdenarVehiculosPorPatente(Vehiculo v, Vehiculo v1)
+        {
+            return string.Compare(v.Patente, v1.Patente);
+        }
+        public int OrdenarVehiculosPorMarca(Vehiculo v, Vehiculo v1)
+        {
+            //return string.Compare(v.Marca.ToString(), v1.Marca.ToString());
+           return v.Marca.ToString().CompareTo(v1.Marca.ToString());
+        }
         public double MostrarTotalFacturado()
         {
             double total = 0;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utilidades_8;
 
 namespace Clase9Herencia.Clases
 {
@@ -12,12 +13,14 @@ namespace Clase9Herencia.Clases
         private short _cantidadDeJugadores;
         private List<Jugador> _jugadores;
         private string _nombre;
+        private DirectorTecnico _directorTecnico;
 
-        public Team(short cantidadDeJugadores, string nombre)
+        public Team(short cantidadDeJugadores, string nombre, DirectorTecnico dt)
             : this()
         {
             _cantidadDeJugadores = cantidadDeJugadores;
             _nombre = nombre;
+            _directorTecnico = dt;
         }
         private Team()
         {
