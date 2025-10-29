@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clase9Herencia", "Clase9Her
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CentralTelefonica", "CentralTelefonica\CentralTelefonica.csproj", "{6DB467A6-792E-4DD8-B1E2-861608D48085}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCentralita", "TestCentralita\TestCentralita.csproj", "{B58D34D5-9DCB-4F35-B0EB-E6A5E3F25E19}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,10 @@ Global
 		{6DB467A6-792E-4DD8-B1E2-861608D48085}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DB467A6-792E-4DD8-B1E2-861608D48085}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DB467A6-792E-4DD8-B1E2-861608D48085}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B58D34D5-9DCB-4F35-B0EB-E6A5E3F25E19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B58D34D5-9DCB-4F35-B0EB-E6A5E3F25E19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B58D34D5-9DCB-4F35-B0EB-E6A5E3F25E19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B58D34D5-9DCB-4F35-B0EB-E6A5E3F25E19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

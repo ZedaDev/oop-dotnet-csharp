@@ -8,21 +8,46 @@ namespace CentralTelefonica
 {
     public class Llamada
     {
-        private float duracion;
-        private string nroDestino;
-        private string nroOrigen;
+        protected float _duracion;
+        protected string _nroDestino;
+        protected string _nroOrigen;
 
-        protected float Duracion 
-        { 
-            get => duracion;
+        public Llamada(float duracion, string nroDestino, string nroOrigen)
+        {
+            _duracion = duracion;
+            _nroDestino = nroDestino;
+            _nroOrigen = nroOrigen;
         }
-        protected string NroDestino 
+
+        public float Duracion 
         { 
-            get => nroDestino;
+            get => _duracion;
         }
-        protected string NroOrigen 
+        public string NroDestino 
         { 
-            get => nroOrigen;
+            get => _nroDestino;
+        }
+        public string NroOrigen 
+        { 
+            get => _nroOrigen;
+        }
+
+        public int OrdenarPorDuracion(Llamada a, Llamada a1)
+        {
+            if (a.Duracion == a1.Duracion) return 0;
+
+            if (a.Duracion > a1.Duracion) return 1;
+
+            return -1;
+        }
+
+        public string Mostrar()
+        {
+            StringBuilder sb = new();
+            sb.AppendLine($"Duracion De La Llamada :  {Duracion}");
+            sb.AppendLine($"Numero De Origen :  {NroOrigen}");
+            sb.AppendLine($"Numero De Destino :  {NroDestino}");
+            return sb.ToString();
         }
     }
 }
