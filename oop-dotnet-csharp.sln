@@ -41,6 +41,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CentralTelefonica", "Centra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCentralita", "TestCentralita\TestCentralita.csproj", "{B58D34D5-9DCB-4F35-B0EB-E6A5E3F25E19}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvengerMarvel", "Avenger\AvengerMarvel.csproj", "{6E83C90A-4CDC-47B6-8A86-F94E15595713}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marvel-Avengers", "Marvel-Avengers\Marvel-Avengers.csproj", "{D973835E-D459-4E57-990A-026996A33877}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -123,6 +127,14 @@ Global
 		{B58D34D5-9DCB-4F35-B0EB-E6A5E3F25E19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B58D34D5-9DCB-4F35-B0EB-E6A5E3F25E19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B58D34D5-9DCB-4F35-B0EB-E6A5E3F25E19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E83C90A-4CDC-47B6-8A86-F94E15595713}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E83C90A-4CDC-47B6-8A86-F94E15595713}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E83C90A-4CDC-47B6-8A86-F94E15595713}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E83C90A-4CDC-47B6-8A86-F94E15595713}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D973835E-D459-4E57-990A-026996A33877}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D973835E-D459-4E57-990A-026996A33877}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D973835E-D459-4E57-990A-026996A33877}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D973835E-D459-4E57-990A-026996A33877}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
