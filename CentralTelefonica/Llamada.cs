@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CentralTelefonica
 {
-    public class Llamada
+    public abstract class Llamada
     {
         protected float _duracion;
         protected string _nroDestino;
@@ -19,6 +19,7 @@ namespace CentralTelefonica
             _nroOrigen = nroOrigen;
         }
 
+        public abstract float CostoLlamada { get; }
         public float Duracion 
         { 
             get => _duracion;
@@ -40,8 +41,35 @@ namespace CentralTelefonica
 
             return -1;
         }
+        /*El operador == comparará dos llamadas y retornará true si las llamadas son del mismo tipo
+         * (utilizar el método Equals, sobrescrito en las clases derivadas)
+         * y los números de destino y origen son iguales en ambas llamadas.*/
 
-        public string Mostrar()
+        public static bool operator ==(Llamada l1, Llamada l2)
+        {
+            if (ReferenceEquals(l1, l2)) return true;
+
+            if (l1 is null || l2 is null) return false;
+
+            return l1.NroDestino == l2.NroDestino && l1.NroOrigen == l1.NroOrigen;
+        }
+        public static bool operator !=(Llamada l1, Llamada l2)
+        {
+            return !(l1 == l2);
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is null || obj.GetType() != typeof(Llamada)) return false;
+
+            return (this == (Llamada)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(NroDestino, NroOrigen);
+        }
+        protected virtual string Mostrar()
         {
             StringBuilder sb = new();
             sb.AppendLine($"Duracion De La Llamada :  {Duracion}");

@@ -37,7 +37,30 @@ namespace CentralTelefonica
         }
 
 
-       
+        public static bool operator ==(Centralita c, Llamada l)
+        {
+            foreach (Llamada value in c.Llamadas)
+            {
+                if (value == l)
+                    return true;
+            }
+            return false;
+        }
+        public static bool operator !=(Centralita c, Llamada l)
+        {
+            return !(c == l);
+        }
+
+        public static bool operator +(Centralita c, Llamada l)
+        {
+            if (c != l)
+            {
+                c.AgregarLlamada(l);
+                return true;
+            }
+
+            return false;
+        }
 
         public void OrdenarLlamadas()
         {
@@ -57,7 +80,11 @@ namespace CentralTelefonica
          * ganancia por llamados locales y provinciales y el detalle de las llamadas
          * realizadas.*/
 
-        public string Mostrar()
+        public override string ToString()
+        {
+            return Mostrar();
+        }
+        private string Mostrar()
         {
             StringBuilder sb = new();
 
@@ -72,16 +99,18 @@ namespace CentralTelefonica
             sb.AppendLine($"+++++++++++++++++++++++++++++");
                 if(l is Local local)
                 {
-                 sb.AppendLine($"\n{local.Mostrar()}");
+                 sb.AppendLine($"\n{local.ToString()}");
                 }
                 else if(l is Provincial prov)
                 {
-                 sb.AppendLine($"\n{prov.Mostrar()}");
+                 sb.AppendLine($"\n{prov.ToString()}");
                 }
             }
 
             return sb.ToString();
         }
+
+
         private float CalcularGanancia(ETipoDeLlamada tipoDeLlamada)
         {
             float result = 0.0f;
@@ -122,6 +151,11 @@ namespace CentralTelefonica
                 }
             }
             return result;
+        }
+
+        private void AgregarLlamada(Llamada nuevaLlamada)
+        {
+            this.Llamadas.Add(nuevaLlamada);
         }
     }
 }

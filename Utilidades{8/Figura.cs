@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace Utilidades_8
 {
-    internal class Figura
+    public abstract class Figura
     {
+
+
+        public virtual string Dibujando()
+        {
+            return "Dibujando forma...";
+        }
+
+        public abstract double CalcularSuperficie();
+        public abstract double CalcularPerimetro();
     }
 }

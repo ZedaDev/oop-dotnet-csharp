@@ -20,7 +20,7 @@ namespace CentralTelefonica
             _franjaHoraria = franjaHoraria;
         }
 
-        public float CostoLlamada
+        public override float CostoLlamada
         {
             get => CalcularCosto();
         }
@@ -35,12 +35,23 @@ namespace CentralTelefonica
             
                 return 0.66f * base.Duracion;
         }
-        public string Mostrar()
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is null || obj.GetType() != typeof(Provincial)) return false;
+            return true;
+        }
+        public override string ToString()
+        {
+            return this.Mostrar();
+        }
+        protected override string Mostrar()
         {
             StringBuilder sb = new();
             sb.AppendLine($"Llamada Local");
             sb.AppendLine($"{base.Mostrar()}");
             sb.AppendLine($"Franja Horaria :  {_franjaHoraria.ToString()}");
+            sb.AppendLine($"Costo Llamada :  {this.CostoLlamada}");
 
             return sb.ToString();
         }

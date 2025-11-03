@@ -6,7 +6,23 @@ using System.Threading.Tasks;
 
 namespace Clase10Polimorfismo
 {
-    internal class SobreSobrescrito
+    public class SobreSobrescrito : Sobrescrito
     {
+
+        public SobreSobrescrito() : base()
+        {
+        }
+
+        protected override string MiAtributo
+        {
+            get
+            {
+                return base._miAtributo;
+            }
+        }
+        public override string MiMetodo()
+        {
+            return MiAtributo;
+        }
     }
 }

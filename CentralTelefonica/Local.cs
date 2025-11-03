@@ -11,7 +11,7 @@ namespace CentralTelefonica
 
         private float _costo;
 
-        public float CostoLlamada
+        public override float CostoLlamada
         { 
             get => CalcularCosto(); 
         }
@@ -26,7 +26,13 @@ namespace CentralTelefonica
         {
             _costo = costo;
         }
-        public string Mostrar()
+        /*Sobrescribir el método Mostrar. Será protegido. Reutilizará el código escrito
+         * en la clase base y además agregará la propiedad CostoLlamada, utilizando
+         * un StringBuilder.*/
+
+       
+
+        protected override string Mostrar()
         {
             StringBuilder sb = new();
             sb.AppendLine($"Llamada Local");
@@ -36,6 +42,16 @@ namespace CentralTelefonica
             return sb.ToString();
         }
 
+        public override string ToString()
+        {
+            return this.Mostrar();
+        }
+        public override bool Equals(object? obj)
+        {
+            if (obj is null || obj.GetType() != typeof(Local)) return false;
+
+                return true;
+        }
         /*CalcularCosto será privado. Retornará el valor de la llamada a partir
          * de la duración y el costo de la misma.
         La propiedad CostoLlamada retornará el precio,

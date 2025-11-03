@@ -6,13 +6,26 @@ using System.Threading.Tasks;
 
 namespace Clase10Polimorfismo
 {
-    public class Sobrescrito
+    public abstract class Sobrescrito
     {
+        protected string _miAtributo;
+
+        protected Sobrescrito()
+        {
+            _miAtributo = "Probar abstractos";
+        }
+
+        protected abstract string MiAtributo { get; }
+
+        public abstract string MiMetodo();
 
         public override string ToString()
         {
             return "¡Este es mi método ToString sobrescrito!";
         }
+        
+        
+
 
         public override bool Equals(object? obj)
         {
