@@ -45,6 +45,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvengerMarvel", "Avenger\Av
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marvel-Avengers", "Marvel-Avengers\Marvel-Avengers.csproj", "{D973835E-D459-4E57-990A-026996A33877}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clase10Polimorfismo", "Clase10Polimorfismo\Clase10Polimorfismo.csproj", "{610BBCA9-4100-44AE-B0F0-A2C91E60517A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -135,6 +137,10 @@ Global
 		{D973835E-D459-4E57-990A-026996A33877}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D973835E-D459-4E57-990A-026996A33877}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D973835E-D459-4E57-990A-026996A33877}.Release|Any CPU.Build.0 = Release|Any CPU
+		{610BBCA9-4100-44AE-B0F0-A2C91E60517A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{610BBCA9-4100-44AE-B0F0-A2C91E60517A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{610BBCA9-4100-44AE-B0F0-A2C91E60517A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{610BBCA9-4100-44AE-B0F0-A2C91E60517A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

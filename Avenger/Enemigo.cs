@@ -26,9 +26,9 @@ namespace AvengerMarvel
         public string Mostrar()
         {
             StringBuilder sb = new();
-            sb.AppendLine($"{base.Mostrar()}\n");
+            sb.AppendLine($"{base.Mostrar()}");
             sb.AppendLine($"Nombre : {Nombre}");
-            sb.AppendLine($"Objetivo :\n {_objetivo}");
+            sb.AppendLine($"Objetivo : {_objetivo}");
             return sb.ToString();
         }
     }
