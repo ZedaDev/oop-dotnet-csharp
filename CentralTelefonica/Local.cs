@@ -35,9 +35,9 @@ namespace CentralTelefonica
         protected override string Mostrar()
         {
             StringBuilder sb = new();
-            sb.AppendLine($"Llamada Local");
+            sb.AppendLine($"\nLlamada Local");
             sb.AppendLine($"{base.Mostrar()}");
-            sb.AppendLine($"Costo :  {this.CostoLlamada}");
+            sb.AppendLine($"Costo :  {this.CostoLlamada:F2}");
 
             return sb.ToString();
         }

@@ -21,7 +21,10 @@ namespace CentralTelefonica
 
         public List<Llamada> Llamadas
         {
-            get => _llamadas;
+            get 
+            {
+              return _llamadas;
+            } 
         }
         public  float GananciasPorLocal
         {
@@ -33,33 +36,34 @@ namespace CentralTelefonica
         }
         public  float GananciasPorTotal
         {
-            get => CalcularGanancia(ETipoDeLlamada.Provincial);
+            get => CalcularGanancia(ETipoDeLlamada.Todas);
         }
 
 
         public static bool operator ==(Centralita c, Llamada l)
         {
-            foreach (Llamada value in c.Llamadas)
+            /*foreach (var value in c._llamadas)
             {
                 if (value == l)
                     return true;
             }
-            return false;
+            return false;*/
+            return c.Llamadas.Contains(l);
         }
         public static bool operator !=(Centralita c, Llamada l)
         {
             return !(c == l);
         }
 
-        public static bool operator +(Centralita c, Llamada l)
+        public static Centralita operator +(Centralita c, Llamada l)
         {
             if (c != l)
             {
                 c.AgregarLlamada(l);
-                return true;
+
             }
 
-            return false;
+            return c;
         }
 
         public void OrdenarLlamadas()
@@ -89,9 +93,9 @@ namespace CentralTelefonica
             StringBuilder sb = new();
 
             sb.AppendLine($"{_razonSocial}");
-            sb.AppendLine($"\nGanancia Local : {CalcularGanancia(ETipoDeLlamada.Local)}");
-            sb.AppendLine($"\nGanancia Provincial : {CalcularGanancia(ETipoDeLlamada.Provincial)}");
-            sb.AppendLine($"\nGanancia Total : {CalcularGanancia(ETipoDeLlamada.Todas)}");
+            sb.AppendLine($"\nGanancia Local : {CalcularGanancia(ETipoDeLlamada.Local):F2}");
+            sb.AppendLine($"\nGanancia Provincial : {CalcularGanancia(ETipoDeLlamada.Provincial):F2}");
+            sb.AppendLine($"\nGanancia Total : {CalcularGanancia(ETipoDeLlamada.Todas):F2}");
 
             sb.AppendLine($"\nDetalles :");
             foreach (Llamada l in Llamadas)

@@ -48,7 +48,7 @@ namespace CentralTelefonica
         protected override string Mostrar()
         {
             StringBuilder sb = new();
-            sb.AppendLine($"Llamada Local");
+            sb.AppendLine($"\nLlamada Provincial");
             sb.AppendLine($"{base.Mostrar()}");
             sb.AppendLine($"Franja Horaria :  {_franjaHoraria.ToString()}");
             sb.AppendLine($"Costo Llamada :  {this.CostoLlamada}");

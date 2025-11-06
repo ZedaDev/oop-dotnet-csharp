@@ -72,7 +72,7 @@ namespace CentralTelefonica
         protected virtual string Mostrar()
         {
             StringBuilder sb = new();
-            sb.AppendLine($"Duracion De La Llamada :  {Duracion}");
+            sb.AppendLine($"Duracion De La Llamada :  {Duracion:F2}");
             sb.AppendLine($"Numero De Origen :  {NroOrigen}");
             sb.AppendLine($"Numero De Destino :  {NroDestino}");
             return sb.ToString();

@@ -47,6 +47,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marvel-Avengers", "Marvel-A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clase10Polimorfismo", "Clase10Polimorfismo\Clase10Polimorfismo.csproj", "{610BBCA9-4100-44AE-B0F0-A2C91E60517A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Centralita", "Centralita\Centralita.csproj", "{3F5150EC-4508-4C56-BA50-7015E90216E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,6 +143,10 @@ Global
 		{610BBCA9-4100-44AE-B0F0-A2C91E60517A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{610BBCA9-4100-44AE-B0F0-A2C91E60517A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{610BBCA9-4100-44AE-B0F0-A2C91E60517A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F5150EC-4508-4C56-BA50-7015E90216E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F5150EC-4508-4C56-BA50-7015E90216E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F5150EC-4508-4C56-BA50-7015E90216E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F5150EC-4508-4C56-BA50-7015E90216E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
