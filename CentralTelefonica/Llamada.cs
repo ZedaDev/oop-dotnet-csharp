@@ -41,9 +41,7 @@ namespace CentralTelefonica
 
             return -1;
         }
-        /*El operador == comparará dos llamadas y retornará true si las llamadas son del mismo tipo
-         * (utilizar el método Equals, sobrescrito en las clases derivadas)
-         * y los números de destino y origen son iguales en ambas llamadas.*/
+
 
         public static bool operator ==(Llamada l1, Llamada l2)
         {
