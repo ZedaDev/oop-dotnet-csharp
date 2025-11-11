@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLogin));
             txtNickName = new TextBox();
             txtPw = new TextBox();
             btnRegistrarse = new Button();
@@ -38,7 +39,7 @@
             // 
             // txtNickName
             // 
-            txtNickName.Location = new Point(289, 212);
+            txtNickName.Location = new Point(348, 219);
             txtNickName.Name = "txtNickName";
             txtNickName.PlaceholderText = "Nombre Usuario";
             txtNickName.Size = new Size(239, 23);
@@ -46,7 +47,7 @@
             // 
             // txtPw
             // 
-            txtPw.Location = new Point(289, 253);
+            txtPw.Location = new Point(348, 259);
             txtPw.Name = "txtPw";
             txtPw.PasswordChar = '*';
             txtPw.PlaceholderText = "Password";
@@ -55,16 +56,17 @@
             // 
             // btnRegistrarse
             // 
-            btnRegistrarse.Location = new Point(289, 310);
+            btnRegistrarse.Location = new Point(365, 304);
             btnRegistrarse.Name = "btnRegistrarse";
             btnRegistrarse.Size = new Size(89, 29);
             btnRegistrarse.TabIndex = 2;
             btnRegistrarse.Text = "Registrarse";
             btnRegistrarse.UseVisualStyleBackColor = true;
+            btnRegistrarse.Click += btnRegistrarse_Click;
             // 
             // btnIngreso
             // 
-            btnIngreso.Location = new Point(439, 310);
+            btnIngreso.Location = new Point(477, 304);
             btnIngreso.Name = "btnIngreso";
             btnIngreso.Size = new Size(89, 29);
             btnIngreso.TabIndex = 3;
@@ -75,20 +77,18 @@
             // lbMessage
             // 
             lbMessage.AutoSize = true;
-            lbMessage.Location = new Point(289, 279);
+            lbMessage.Location = new Point(348, 285);
             lbMessage.Name = "lbMessage";
-            lbMessage.Size = new Size(51, 15);
+            lbMessage.Size = new Size(0, 15);
             lbMessage.TabIndex = 4;
-            lbMessage.Text = "Mensaje";
             // 
             // cbPass
             // 
             cbPass.AutoSize = true;
-            cbPass.Location = new Point(539, 258);
+            cbPass.Location = new Point(593, 268);
             cbPass.Name = "cbPass";
-            cbPass.Size = new Size(77, 19);
+            cbPass.Size = new Size(15, 14);
             cbPass.TabIndex = 5;
-            cbPass.Text = "View Pass";
             cbPass.UseVisualStyleBackColor = true;
             cbPass.CheckedChanged += cbPass_CheckedChanged;
             // 
@@ -96,7 +96,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            ClientSize = new Size(859, 516);
             Controls.Add(cbPass);
             Controls.Add(lbMessage);
             Controls.Add(btnIngreso);
@@ -105,7 +106,7 @@
             Controls.Add(txtNickName);
             Name = "FrmLogin";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form1";
+            TopMost = true;
             Load += FrmLogin_Load;
             ResumeLayout(false);
             PerformLayout();

@@ -1,10 +1,13 @@
-﻿namespace Models
+﻿using System.Text.Json.Serialization;
+
+namespace Models
 {
     public class User
     {
         private string _nickName;
         private string _pw;
 
+        [JsonConstructor]
         public User(string nickName, string pw)
         {
             _nickName = nickName;
@@ -35,7 +38,7 @@
             }
 
         }
-        public string Pass
+        public string Pw
         { 
             get => _pw;
             set 
@@ -48,34 +51,24 @@
 
         #endregion
 
-        public static bool operator ==(List<User> listaUsuarios, User u2)
+        public static bool operator ==(User u1, User u2)
         {
-            if(u2 is not null)
-            {
-                foreach (User value in listaUsuarios)
-                {
-                    if (value.NickName == u2.NickName)
-                        return true;
-                }
 
-            }
-            return false;
+            if (ReferenceEquals(u1, u2)) return true;
 
+            if (u1 is null || u2 is null) return false;
+
+            return u1.NickName == u2.NickName;
+           
         }
-        public static bool operator !=(List<User> listaUsuarios, User u2)
+        public static bool operator !=(User u1, User u2)
         {
-            return !(listaUsuarios == u2);
+            return !(u1 == u2);
         }
 
         public override bool Equals(object? obj)
         {
-            if(obj is not null && this.GetType() == obj.GetType())
-            {
-                if (this.NickName == ((User)obj).NickName)
-                    return true;
-            }
-
-             return false;
+             return this == ((User)obj);
         }
 
         public override int GetHashCode()
@@ -88,7 +81,7 @@
         }
         private string Mostrar()
         {
-            return $"User : {NickName} - Pw : {Pass}";
+            return $"User : {NickName} - Pw : {Pw}";
         }
     }
 }

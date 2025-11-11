@@ -41,7 +41,29 @@ using(StreamWriter sw = new(path+ @"\archivo.txt", true);
 }
 
 
+Estoy trabajando en una aplicación WinForms en C# (.NET) con un sistema de login y registro de usuarios, usando serialización y deserialización JSON.
 
+Tengo una clase User con propiedades NickName y Pw, y una clase estática Usuarios que contiene una lista UsersList de tipo List<User>.
+
+Además, manejo los formularios FrmLogin (para registrarse e iniciar sesión) y FrmMenu (para mostrar los datos del usuario logueado).
+
+Quiero que me ayudes a seguir las mejores prácticas en serialización JSON con System.Text.Json, tanto para listas como para clases individuales.
+
+También necesito ejemplos claros y buenas prácticas para:
+
+Crear una clase de utilidad Serializer global (para serializar y deserializar cualquier tipo de objeto, no solo usuarios).
+
+Manejar correctamente las rutas (crear carpeta si no existe, guardar y leer el JSON).
+
+Evitar duplicados o datos corruptos al guardar listas.
+
+Cargar automáticamente la lista de usuarios al iniciar el programa (en el Load del login).
+
+Pasar el usuario logueado al menú principal.
+
+Quiero ejemplos con código limpio, seguro, con buenas prácticas de manejo de archivos, control de excepciones y comentarios claros.
+
+Importante: mantené la sintaxis similar a la que venía usando (uso de Path.Combine, Environment.GetFolderPath, JsonSerializerOptions, etc.), y explicá cada decisión o patrón que uses (por ejemplo, try-catch, uso de using, buenas prácticas con StreamWriter, etc.).
 
 
 
@@ -117,7 +139,7 @@ Escribe una cadena de texto en un archivo sin provoar un salto de linea al final
 StreamWriter.WriteLine(string value)
 Escribe una cadena de texto en un archivo provocando un salto de linea la final
 
-Colse()
+Close()
 Cierra el objeto StreamWriter
 
 +++++++++++++++++++++++++++++

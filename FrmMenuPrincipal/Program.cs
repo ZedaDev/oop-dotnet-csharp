@@ -1,6 +1,4 @@
-using Entidades;
-using WinFormCRUD.Crud2;
-namespace CRUD
+namespace FrmMenuPrincipal
 {
     internal static class Program
     {
@@ -13,7 +11,7 @@ namespace CRUD
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new FrmCRUD());
+            Application.Run(new frmMenuPrincipal());
         }
     }
 }
