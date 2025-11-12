@@ -1,11 +1,12 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Models
+namespace Entities
 {
     public class User
     {
         private string _nickName;
         private string _pw;
+        
 
         [JsonConstructor]
         public User(string nickName, string pw)
@@ -18,7 +19,7 @@ namespace Models
         public string NickName 
         {
             get => _nickName;
-            set 
+            /*set 
             {
                 string _value = value.Trim();
                 if (!string.IsNullOrEmpty(_value))
@@ -35,7 +36,7 @@ namespace Models
                         if (ok)
                          _nickName = _value;
                 }
-            }
+            }*/
 
         }
         public string Pw
@@ -45,6 +46,7 @@ namespace Models
             {
                 if (string.IsNullOrEmpty(value.Trim()))
                     _pw = value;
+
             } 
 
         }

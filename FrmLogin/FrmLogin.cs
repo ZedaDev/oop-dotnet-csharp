@@ -1,7 +1,11 @@
 using FrmMenuPrincipal;
-using Models;
+
 using System.Text.Json;
 using FrmMenuPrincipal;
+
+using Entities;
+using Service;
+
 namespace FrmLogin
 {
     public partial class FrmLogin : Form
@@ -19,12 +23,13 @@ namespace FrmLogin
 
             if (string.IsNullOrEmpty(nick) || string.IsNullOrEmpty(pw))
                 lbMessage.Text = "Asegurese De Completar Los Campos";
-           else
+            else
             {
                 if (Usuarios.UsersList.Count == 0)
-                    Usuarios.SetUser = usuarioNuevo;
+                    lbMessage.Text = "Usuario No Registrado";
+                    //Usuarios.SetUser = usuarioNuevo;
 
-                else if (Usuarios.UsersList.Count > 0 && !(Usuarios.UsersList.Contains(usuarioNuevo)))
+                if (Usuarios.UsersList.Count > 0 && !(Usuarios.UsersList.Contains(usuarioNuevo)))
                 {
                     lbMessage.Text = "El Nombre De Usuario No Existe";
                     lbMessage.ForeColor = Color.Red;
@@ -38,15 +43,13 @@ namespace FrmLogin
 
                     this.Hide(); //oculta el formulario
                     DialogResult result = menu.ShowDialog();
+                    this.Close();
                 } //Agregar el else para iniciar el FrmMenu.
             }
 
 
         }
-        //guardo la ruta del escritorio y, le agrego una carpeta.
-        //Serialize ser = new();
-        //string path = ser.UsersPath;
-        //List<User> usuarios = Usuarios.UsersList;
+
         private void FrmLogin_Load(object sender, EventArgs e)
         {
             // Ruta del archivo JSON
@@ -76,15 +79,7 @@ namespace FrmLogin
                 }
             }
         }
-        /*using (StreamReader archivo = new(pathJson))
-        {
-            //Leo todo el archivo de texto
-            string textArchive = archivo.ReadToEnd();
 
-            //Deserializo el json a una List<Productos>, me devuelve un tipo object y lo casteo
-            Usuarios.UsersList = (List<User>)JsonSerializer.Deserialize(textArchive, typeof(List<User>));
-
-        }*/
 
         private void cbPass_CheckedChanged(object sender, EventArgs e)
         {

@@ -6,7 +6,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 
 
-namespace Models
+namespace Entities
 {
     public class Serialize
     {

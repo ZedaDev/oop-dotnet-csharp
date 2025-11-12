@@ -10,7 +10,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FrmMenuPrincipal\FrmMenuPrincipal.csproj" />
-    <ProjectReference Include="..\Models\Models.csproj" />
+    <ProjectReference Include="..\Models\Entities.csproj" />
+    <ProjectReference Include="..\Services\Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>

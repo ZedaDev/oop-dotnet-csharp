@@ -8,7 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Models\Models.csproj" />
+    <ProjectReference Include="..\Models\Entities.csproj" />
+    <ProjectReference Include="..\Services\Service.csproj" />
   </ItemGroup>
 
 </Project>

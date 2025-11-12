@@ -15,7 +15,7 @@ namespace Clase6Colecciones
 
             Console.WriteLine("Bienvenido a la Carrera");
 
-            Competencia carrera = new(11, 22);
+            Competencia carrera = new (11, 22, ECompetencia.F1);
             AutoF1 a = new(11, "Ferrari");
             AutoF1 a1 = new(11, "Ferrari");
             AutoF1 a2 = new(10, "McLaren");

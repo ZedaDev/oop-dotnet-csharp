@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Entities;
-
-namespace Services
+namespace Service
 {
     public static class Usuarios
     {
@@ -56,3 +55,5 @@ namespace Services
         }
     }
 }
+
+

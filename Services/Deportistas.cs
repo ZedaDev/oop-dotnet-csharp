@@ -1,8 +1,7 @@
 ﻿using Entities;
-using Models;
 using System.Runtime.CompilerServices;
 using System.Text;
-namespace Services
+namespace Service
 {
     public class Deportistas
     {
@@ -15,7 +14,7 @@ namespace Services
             _atletas = new();
         }
         #region Properties
-            public  List<Deportista> Atletas
+            public List<Deportista> Atletas
             {
                 get => _atletas;
                 set
@@ -23,7 +22,7 @@ namespace Services
                     _atletas = value;
                 }
             }
-            public  Deportista AgregarAtleta
+            public Deportista AgregarAtleta
             {
                 set
                 {
@@ -31,7 +30,7 @@ namespace Services
                         Atletas.Add(value);
                 }
             }
-            public  Deportista BorrarAtleta
+            public Deportista BorrarAtleta
             {
                 set
                 {
@@ -60,7 +59,8 @@ namespace Services
             {
                 if(deportistas != atleta)
                 {
-                    deportistas.Atletas.Add(atleta);
+                    //deportistas.Atletas.Add(atleta);
+                    deportistas.AgregarAtleta = atleta;
                      return true;
                 }
 
@@ -70,7 +70,8 @@ namespace Services
             {
                 if(deportistas == atleta)
                 {
-                    deportistas.Atletas.Remove(atleta);
+                    //deportistas.Atletas.Remove(atleta);
+                    deportistas.BorrarAtleta = atleta;
                     return true;
                 }
 
@@ -94,7 +95,7 @@ namespace Services
             }
         #endregion
 
-
+        #region Methods
         public void OrdenarListaMayorMenor()
         {
             this.Atletas.Sort(IComparison);
@@ -129,6 +130,8 @@ namespace Services
             sb.AppendLine($"Total : {Atletas.Count} Atletas Registrados");
             return sb.ToString();
         }
+
+        #endregion
 
     }
 }

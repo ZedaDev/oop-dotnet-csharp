@@ -1,4 +1,6 @@
-﻿using Models;
+﻿
+using Entities;
+using Services;
 namespace TesterUser
 {
     internal class Program

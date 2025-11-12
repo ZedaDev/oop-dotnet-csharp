@@ -30,36 +30,110 @@
         {
             lbUser = new Label();
             lbDateTime = new Label();
+            btnAgregar = new Button();
+            btnVer = new Button();
+            lvTexto = new ListView();
+            cmbDeporte = new ComboBox();
+            button1 = new Button();
+            button2 = new Button();
             SuspendLayout();
             // 
             // lbUser
             // 
             lbUser.AutoSize = true;
-            lbUser.Location = new Point(47, 34);
+            lbUser.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lbUser.Location = new Point(12, 19);
             lbUser.Name = "lbUser";
-            lbUser.Size = new Size(38, 15);
+            lbUser.Size = new Size(50, 19);
             lbUser.TabIndex = 0;
             lbUser.Text = "label1";
             // 
             // lbDateTime
             // 
             lbDateTime.AutoSize = true;
-            lbDateTime.Location = new Point(658, 28);
+            lbDateTime.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lbDateTime.Location = new Point(452, 19);
             lbDateTime.Name = "lbDateTime";
-            lbDateTime.Size = new Size(38, 15);
+            lbDateTime.Size = new Size(50, 19);
             lbDateTime.TabIndex = 1;
             lbDateTime.Text = "label1";
+            // 
+            // btnAgregar
+            // 
+            btnAgregar.Font = new Font("Segoe UI", 10F, FontStyle.Italic);
+            btnAgregar.Location = new Point(268, 295);
+            btnAgregar.Name = "btnAgregar";
+            btnAgregar.Size = new Size(163, 36);
+            btnAgregar.TabIndex = 2;
+            btnAgregar.Text = "Agregar Deportista";
+            btnAgregar.UseVisualStyleBackColor = true;
+            // 
+            // btnVer
+            // 
+            btnVer.Location = new Point(549, 52);
+            btnVer.Name = "btnVer";
+            btnVer.Size = new Size(166, 36);
+            btnVer.TabIndex = 3;
+            btnVer.Text = "Estadisticas";
+            btnVer.UseVisualStyleBackColor = true;
+            // 
+            // lvTexto
+            // 
+            lvTexto.ImeMode = ImeMode.Off;
+            lvTexto.LabelWrap = false;
+            lvTexto.Location = new Point(3, 52);
+            lvTexto.Name = "lvTexto";
+            lvTexto.Size = new Size(540, 173);
+            lvTexto.TabIndex = 6;
+            lvTexto.UseCompatibleStateImageBehavior = false;
+            // 
+            // cmbDeporte
+            // 
+            cmbDeporte.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbDeporte.FormattingEnabled = true;
+            cmbDeporte.Location = new Point(12, 304);
+            cmbDeporte.Name = "cmbDeporte";
+            cmbDeporte.Size = new Size(241, 23);
+            cmbDeporte.TabIndex = 7;
+            cmbDeporte.SelectedIndexChanged += cmbDeporte_SelectedIndexChanged;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(549, 106);
+            button1.Name = "button1";
+            button1.Size = new Size(166, 36);
+            button1.TabIndex = 8;
+            button1.Text = "Eliminar";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(549, 189);
+            button2.Name = "button2";
+            button2.Size = new Size(166, 36);
+            button2.TabIndex = 9;
+            button2.Text = "Modificar";
+            button2.UseVisualStyleBackColor = true;
             // 
             // frmMenuPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            BackgroundImage = Properties.Resources._11;
+            BackgroundImageLayout = ImageLayout.Center;
+            ClientSize = new Size(716, 343);
+            Controls.Add(button2);
+            Controls.Add(button1);
+            Controls.Add(cmbDeporte);
+            Controls.Add(lvTexto);
+            Controls.Add(btnVer);
+            Controls.Add(btnAgregar);
             Controls.Add(lbDateTime);
             Controls.Add(lbUser);
             Name = "frmMenuPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Player Stats";
+            FormClosing += frmMenuPrincipal_FormClosing;
             Load += frmMenuPrincipal_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -69,5 +143,11 @@
 
         private Label lbUser;
         private Label lbDateTime;
+        private Button btnAgregar;
+        private Button btnVer;
+        private ListView lvTexto;
+        private ComboBox cmbDeporte;
+        private Button button1;
+        private Button button2;
     }
 }
