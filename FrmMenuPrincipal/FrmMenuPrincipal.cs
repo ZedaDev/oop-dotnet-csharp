@@ -10,7 +10,13 @@ namespace FrmMenuPrincipal
 {
     public partial class frmMenuPrincipal : Form
     {
+        /*
+         Configurar click de botones, Agregar,
+        Estadisticas(Mismo formulario para agregar estadisticas, no deportistas),
+        Eliminar, Modificar.
 
+        Luego de agregar deportistas, chequear el mostrado del visor.
+         */
         public User UserLogueado
         {
             get;
@@ -109,8 +115,13 @@ namespace FrmMenuPrincipal
         {
             if (cmbDeporte.SelectedIndex != -1)
                 btnAgregar.Enabled = true;
-            else 
+            else
                 btnAgregar.Enabled = false;
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            //Abrir FrmCargarDeportista, heredando segun el deportista seleccionado.
         }
     }
 }

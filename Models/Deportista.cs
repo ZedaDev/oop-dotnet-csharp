@@ -14,6 +14,7 @@ namespace Entities
         private int _edad;
         private DateTime _fechaDebut;
         private EDeporte _Edeporte;
+        //Lista de estadisticas(Crear Clase y, heredarla).
 
         #region Contructores
         protected Deportista(string fullName, int edad, DateTime fechaDebut,EDeporte deporte)
@@ -23,14 +24,15 @@ namespace Entities
             _fullName = fullName;
         }
         private Deportista(DateTime fechaDebut, EDeporte deporte)
-            : this(deporte)
+            : this()
         {
             _fechaDebut = fechaDebut;
+            _Edeporte = deporte;
 
         }
-        private Deportista(EDeporte deporte)
+        private Deportista()
         {
-            _Edeporte = deporte;
+            //lista estadisticas new();
         }
 
         #endregion

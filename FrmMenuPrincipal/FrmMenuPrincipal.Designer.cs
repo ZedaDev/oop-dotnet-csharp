@@ -44,9 +44,9 @@
             lbUser.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lbUser.Location = new Point(12, 19);
             lbUser.Name = "lbUser";
-            lbUser.Size = new Size(50, 19);
+            lbUser.Size = new Size(104, 19);
             lbUser.TabIndex = 0;
-            lbUser.Text = "label1";
+            lbUser.Text = "Usuario Name";
             // 
             // lbDateTime
             // 
@@ -54,9 +54,9 @@
             lbDateTime.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lbDateTime.Location = new Point(452, 19);
             lbDateTime.Name = "lbDateTime";
-            lbDateTime.Size = new Size(50, 19);
+            lbDateTime.Size = new Size(47, 19);
             lbDateTime.TabIndex = 1;
-            lbDateTime.Text = "label1";
+            lbDateTime.Text = "Fecha";
             // 
             // btnAgregar
             // 
@@ -67,6 +67,7 @@
             btnAgregar.TabIndex = 2;
             btnAgregar.Text = "Agregar Deportista";
             btnAgregar.UseVisualStyleBackColor = true;
+            btnAgregar.Click += btnAgregar_Click;
             // 
             // btnVer
             // 
@@ -119,9 +120,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = Properties.Resources._11;
-            BackgroundImageLayout = ImageLayout.Center;
-            ClientSize = new Size(716, 343);
+            BackgroundImageLayout = ImageLayout.None;
+            ClientSize = new Size(718, 332);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(cmbDeporte);
