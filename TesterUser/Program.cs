@@ -1,6 +1,6 @@
 ﻿
 using Entities;
-using Services;
+using Service;
 namespace TesterUser
 {
     internal class Program
@@ -16,15 +16,15 @@ namespace TesterUser
             Usuarios.SetUser = u3;
 
             Console.WriteLine($"{Usuarios.Mostrar()}");
-            Console.WriteLine($"{Usuarios.UsersList == u1}");
-            Console.WriteLine($"{Usuarios.UsersList != u1}");
+           // Console.WriteLine($"{Usuarios.UsersList == u1}");
+          //  Console.WriteLine($"{Usuarios.UsersList != u1}");
             Console.WriteLine($"{u1.ToString()}");
 
-            u1.NickName = "Don1";
+           // u1.NickName = "Don1";
             Console.WriteLine($"{u1.ToString()}");
             Console.WriteLine("+++++++++++++\n");
 
-            u1.NickName = "Don Dono";
+           // u1.NickName = "Don Dono";
             Console.WriteLine($"NICKNAME CAMBIADO : {u1.ToString()}");
             Console.WriteLine($"{Usuarios.Mostrar()}");
             Console.WriteLine("+++++++++++++\n");

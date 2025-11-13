@@ -13,21 +13,19 @@ namespace Entities
         private string _clubActual;
 
 
-       
 
-
-        public Futbolista(string fullName, int edad, EDeporte deporte, DateTime fechaDebut, string posicion, string clubActual)
-            : this(posicion, fullName, edad, deporte, fechaDebut)
+        public Futbolista(string fullName, int edad, EDeporte deporte, DateTime fechaDebut, string posicion, string clubActual, string phHabil, string altura)
+            : this(posicion, fullName, edad, deporte, fechaDebut, phHabil, altura)
         {
             _clubActual = clubActual;
         }
-        private Futbolista(string posicion, string fullName, int edad, EDeporte deporte, DateTime fechaDebut)
-                : this(fullName, edad, deporte, fechaDebut)
+        private Futbolista(string posicion, string fullName, int edad, EDeporte deporte, DateTime fechaDebut, string phHabil, string altura)
+                : this(fullName, edad, deporte, fechaDebut, phHabil, altura)
         {
             _posicion = posicion;
         }
-        private Futbolista(string fullName, int edad, EDeporte deporte, DateTime fechaDebut)
-             : base(fullName, edad, fechaDebut ,deporte)
+        private Futbolista(string fullName, int edad, EDeporte deporte, DateTime fechaDebut, string phHabil, string altura)
+             : base(fullName, edad, fechaDebut ,deporte, phHabil, altura)
         {
             //inicializar lista estadisticas;
         }

@@ -11,17 +11,22 @@ namespace Entities
     public abstract class Deportista
     {
         private string _fullName;
+        private string _apodo;
         private int _edad;
         private DateTime _fechaDebut;
         private EDeporte _Edeporte;
-        //Lista de estadisticas(Crear Clase y, heredarla).
+        private string _phHabil;
+        private string _altura;
+        private List<Estadisticas> _stats;
 
         #region Contructores
-        protected Deportista(string fullName, int edad, DateTime fechaDebut,EDeporte deporte)
+        protected Deportista(string fullName, int edad, DateTime fechaDebut, EDeporte deporte, string phHabil, string altura)
             : this(fechaDebut, deporte)
         {
             _edad = edad;
             _fullName = fullName;
+            _altura = altura; 
+            _phHabil = phHabil;
         }
         private Deportista(DateTime fechaDebut, EDeporte deporte)
             : this()
@@ -32,18 +37,44 @@ namespace Entities
         }
         private Deportista()
         {
-            //lista estadisticas new();
+            _stats = new();
         }
 
         #endregion
 
         #region Properties
+        public List<Estadisticas> Estadisticas
+        { 
+            get => _stats;
+            set
+            {
+                if(value is not null)
+                    _stats = value;
+            }
+        }
+        public Estadisticas AgregarEstadistica
+        { 
+            set
+            {
+                if (value is not null && !(_stats.Contains(value)))
+                    _stats.Add(value);
+            }
+        }
+
         public string FullName
         { 
             get => _fullName;
             set
             {
                 _fullName = value;
+            }
+        }
+        public string Apodo
+        { 
+            get => _apodo;
+            set
+            {
+                _apodo = value;
             }
         }
         public int Edad
@@ -70,6 +101,15 @@ namespace Entities
             {
                 _Edeporte = value;
             }
+        }
+
+        public string PhHabil 
+        { 
+            get => _phHabil;
+        }
+        public string Altura 
+        { 
+            get => _altura;
         }
 
         #endregion
