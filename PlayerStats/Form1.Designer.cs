@@ -1,6 +1,6 @@
-﻿namespace FrmCargarFutbolista
+﻿namespace PlayerStats
 {
-    partial class FrmCargarFutbolista : FrmCargarDeportista.FrmCargarDeportista
+    partial class Form1
     {
         /// <summary>
         ///  Required designer variable.

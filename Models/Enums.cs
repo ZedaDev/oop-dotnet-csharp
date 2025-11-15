@@ -4,3 +4,8 @@
     Boxeo,
     Tenis
 }
+public enum ELadoHabil
+{
+    Der,
+    Izq
+}

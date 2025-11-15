@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.Marshalling;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,28 +13,36 @@ namespace Entities
     {
         private string _fullName;
         private string _apodo;
-        private int _edad;
+        private string _edad;
         private DateTime _fechaDebut;
         private EDeporte _Edeporte;
         private string _phHabil;
         private string _altura;
+        private string _pais;
+        private DateTime _fechaDeRegistro;
         private List<Estadisticas> _stats;
 
         #region Contructores
-        protected Deportista(string fullName, int edad, DateTime fechaDebut, EDeporte deporte, string phHabil, string altura)
-            : this(fechaDebut, deporte)
+
+        /*public Deportista()
+        {
+            _stats = new();
+        }*/
+        public Deportista(string fullName, string edad, DateTime fechaDebut, EDeporte deporte, string phHabil, string altura,string pais)
+            : this(fechaDebut, deporte, pais)
         {
             _edad = edad;
             _fullName = fullName;
             _altura = altura; 
             _phHabil = phHabil;
         }
-        private Deportista(DateTime fechaDebut, EDeporte deporte)
+        private Deportista(DateTime fechaDebut, EDeporte deporte, string pais)
             : this()
         {
             _fechaDebut = fechaDebut;
             _Edeporte = deporte;
-
+            _pais = pais;
+            _fechaDeRegistro = DateTime.Now;
         }
         private Deportista()
         {
@@ -69,6 +78,11 @@ namespace Entities
                 _fullName = value;
             }
         }
+        public string FechaDeRegistro
+        { 
+            get => _fechaDeRegistro.ToString();
+
+        }
         public string Apodo
         { 
             get => _apodo;
@@ -77,12 +91,20 @@ namespace Entities
                 _apodo = value;
             }
         }
-        public int Edad
+        public string Edad
         {
             get => _edad;
             set
             {
                 _edad = value;
+            }
+        }
+        public string Nacionalidad
+        {
+            get => _pais;
+            set
+            {
+                _pais = value;
             }
         }
         protected DateTime FechaDebut
@@ -147,7 +169,8 @@ namespace Entities
 
         //Agregar Metodo Abstracto.
 
-
+        //public abstract void AbrirFormulario();
+        
         protected virtual string Mostrar()
         {
             StringBuilder sb = new();

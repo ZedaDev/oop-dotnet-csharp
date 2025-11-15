@@ -108,9 +108,9 @@ namespace Service
 
         private int IComparison(Deportista d, Deportista d1)
         {
-            if (d.Edad > d1.Edad)
+            if (int.Parse(d.Edad) > int.Parse(d1.Edad))
                 return -1;
-            else if (d.Edad < d1.Edad)
+            else if (int.Parse(d.Edad) < int.Parse(d1.Edad))
                 return 1;
             else
                 return 0;

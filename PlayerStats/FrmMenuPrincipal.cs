@@ -3,10 +3,10 @@ using Service;
 using System.Text;
 using System.Text.Json;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
-using CargarFutbolista = FrmCargarFutbolista.CargarFutbolista;
 
 
-namespace FrmMenuPrincipal
+
+namespace PlayerStats
 {
     public partial class frmMenuPrincipal : Form
     {
@@ -32,6 +32,8 @@ namespace FrmMenuPrincipal
         public frmMenuPrincipal()
         {
             InitializeComponent();
+            UserLogueado = new();
+           
         }
 
         private void frmMenuPrincipal_Load(object sender, EventArgs e)
@@ -45,7 +47,7 @@ namespace FrmMenuPrincipal
             btnAgregar.Enabled = false;
 
             D = new();
-            
+
 
 
             //Cargo la lista de deportistas desde Json
@@ -80,17 +82,11 @@ namespace FrmMenuPrincipal
             //Cargo los deportistas [Nombre - Deporte] en el visor.
             if (D.Atletas.Count > 0)
             {
-                StringBuilder sb = new();
-                int i = 1;
-                foreach (Deportista value in D.Atletas)
-                {
-                    sb.AppendLine($"{i++}. {value.FullName} - {value.Deporte}");
-                }
-
-                lstVisor.Items.Add(sb.ToString());
+                ActualizarVisor();
             }
             else
-                lstVisor.Items.Add("No Hay Deportistas Cargados");
+                lvVisor.Items.Add("Aun No Hay Deportistas Cargados..");
+
         }
 
         private void frmMenuPrincipal_FormClosing(object sender, FormClosingEventArgs e)
@@ -125,42 +121,60 @@ namespace FrmMenuPrincipal
         {
             if (ComprobarCamposNull())
             {
-                
+
                 //Abrir FrmCargarDeportista, heredando segun el deportista seleccionado.
-                CargarFutbolista frm = new();
-                frm.D = this.D;
-                frm.UserLogueado = this.UserLogueado;
-                this.Hide();
-                frm.ShowDialog();
-                this.Show();
-                ActualizarVisor();
+                FrmCargarDeportista frm = new();
+                //if (cmbDeporte.SelectedIndex.ToString() == EDeporte.Futbol.ToString())
+                frm = new FrmCargarFutbolista();
+                /*else if(cmbDeporte.SelectedIndex.ToString() == EDeporte.Boxeo.ToString())
+                         frm = new FrmCargarFutbolista ();
+                else if(cmbDeporte.SelectedIndex.ToString() == EDeporte.Tenis.ToString())
+                         frm = new FrmCargarFutbolista ();*/
+                if (frm != null)
+                {
+                    frm.D = this.D;
+                    frm.UserLogueado = this.UserLogueado;
+                    this.Hide();
+                    frm.ShowDialog();
+                    this.Show();
+                    ActualizarVisor();
+                }
             }
             else
-                MessageBox.Show("Complete todos los campos");
-
-            //Aplicar Polimorfismo aqui
-
+                MessageBox.Show("Asegurese de completar todos los campos", "Campos Incompletos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
         private void ActualizarVisor()
         {
-            lstVisor.Clear();
+            lvVisor.Clear();
+            StringBuilder sb = new();
             foreach (Deportista value in D.Atletas)
             {
                 if (value != null)
-                    lstVisor.Items.Add($"{value.FullName} - {value.Deporte}");
+                    lvVisor.Items.Add($"{value.FullName} - {value.Deporte} | DATE  {value.FechaDeRegistro}");
             }
         }
         private bool ComprobarCamposNull()
         {
             foreach (Control value in this.Controls)
             {
-                if(value is TextBox txt && string.IsNullOrEmpty(txt.Text.Trim()))
+                if (value is TextBox txt && string.IsNullOrEmpty(txt.Text.Trim()))
                 {
                     return false;
                 }
             }
             return true;
+        }
+
+        private void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private void btnVer_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

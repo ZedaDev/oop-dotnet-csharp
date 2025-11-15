@@ -14,6 +14,11 @@ namespace Entities
             _nickName = nickName;
             _pw = pw;
         }
+        public User()
+        {
+            _nickName = "";
+            _pw = "";
+        }
 
         #region Properties
         public string NickName 

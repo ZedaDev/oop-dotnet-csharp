@@ -1,4 +1,4 @@
-﻿namespace FrmMenuPrincipal
+﻿namespace PlayerStats
 {
     partial class frmMenuPrincipal
     {
@@ -32,10 +32,11 @@
             lbDateTime = new Label();
             btnAgregar = new Button();
             btnVer = new Button();
-            lstVisor = new ListView();
             cmbDeporte = new ComboBox();
             button1 = new Button();
             button2 = new Button();
+            lvVisor = new ListView();
+            btnCerrarSesion = new Button();
             SuspendLayout();
             // 
             // lbUser
@@ -77,16 +78,7 @@
             btnVer.TabIndex = 3;
             btnVer.Text = "Estadisticas";
             btnVer.UseVisualStyleBackColor = true;
-            // 
-            // lstVisor
-            // 
-            lstVisor.ImeMode = ImeMode.Off;
-            lstVisor.LabelWrap = false;
-            lstVisor.Location = new Point(3, 52);
-            lstVisor.Name = "lstVisor";
-            lstVisor.Size = new Size(540, 173);
-            lstVisor.TabIndex = 6;
-            lstVisor.UseCompatibleStateImageBehavior = false;
+            btnVer.Click += btnVer_Click;
             // 
             // cmbDeporte
             // 
@@ -116,16 +108,36 @@
             button2.Text = "Modificar";
             button2.UseVisualStyleBackColor = true;
             // 
+            // lvVisor
+            // 
+            lvVisor.Location = new Point(3, 53);
+            lvVisor.Name = "lvVisor";
+            lvVisor.Size = new Size(530, 236);
+            lvVisor.TabIndex = 10;
+            lvVisor.UseCompatibleStateImageBehavior = false;
+            lvVisor.View = View.List;
+            // 
+            // btnCerrarSesion
+            // 
+            btnCerrarSesion.Location = new Point(579, 300);
+            btnCerrarSesion.Name = "btnCerrarSesion";
+            btnCerrarSesion.Size = new Size(127, 27);
+            btnCerrarSesion.TabIndex = 11;
+            btnCerrarSesion.Text = "Cerrar Sesion";
+            btnCerrarSesion.UseVisualStyleBackColor = true;
+            btnCerrarSesion.Click += btnCerrarSesion_Click;
+            // 
             // frmMenuPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImageLayout = ImageLayout.None;
             ClientSize = new Size(718, 332);
+            Controls.Add(btnCerrarSesion);
+            Controls.Add(lvVisor);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(cmbDeporte);
-            Controls.Add(lstVisor);
             Controls.Add(btnVer);
             Controls.Add(btnAgregar);
             Controls.Add(lbDateTime);
@@ -145,9 +157,10 @@
         private Label lbDateTime;
         private Button btnAgregar;
         private Button btnVer;
-        private ListView lstVisor;
         private ComboBox cmbDeporte;
         private Button button1;
         private Button button2;
+        private ListView lvVisor;
+        private Button btnCerrarSesion;
     }
 }

@@ -10,6 +10,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FrmCargarDeportista\FrmCargarDeportista.csproj" />
+    <ProjectReference Include="..\Models\Entities.csproj" />
+    <ProjectReference Include="..\Services\Service.csproj" />
   </ItemGroup>
 
 </Project>
