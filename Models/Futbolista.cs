@@ -40,7 +40,11 @@ namespace Entities
             set => _clubActual = value; 
         }
 
-
+        protected override string StatsPath()
+        {
+            string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "LOGS", "STATS", base.FullName, "Futbol.json");
+            return pathJson;
+        }
 
     }
 }

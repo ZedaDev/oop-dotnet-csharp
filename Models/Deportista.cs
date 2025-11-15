@@ -133,7 +133,12 @@ namespace Entities
         { 
             get => _altura;
         }
+        public string PathStats
+        { 
+            get => StatsPath();
+        }
 
+        protected abstract string StatsPath();
         #endregion
 
         #region Sobrecargas

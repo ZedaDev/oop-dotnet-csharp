@@ -111,6 +111,7 @@
             // lvVisor
             // 
             lvVisor.Location = new Point(3, 53);
+            lvVisor.MultiSelect = false;
             lvVisor.Name = "lvVisor";
             lvVisor.Size = new Size(530, 236);
             lvVisor.TabIndex = 10;
@@ -153,14 +154,14 @@
 
         #endregion
 
-        private Label lbUser;
-        private Label lbDateTime;
-        private Button btnAgregar;
-        private Button btnVer;
-        private ComboBox cmbDeporte;
-        private Button button1;
-        private Button button2;
-        private ListView lvVisor;
-        private Button btnCerrarSesion;
+        protected Label lbUser;
+        protected Label lbDateTime;
+        protected Button btnAgregar;
+        protected Button btnVer;
+        protected ComboBox cmbDeporte;
+        protected Button button1;
+        protected Button button2;
+        protected ListView lvVisor;
+        protected Button btnCerrarSesion;
     }
 }

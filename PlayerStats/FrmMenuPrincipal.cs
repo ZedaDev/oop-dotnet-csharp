@@ -55,6 +55,20 @@ namespace PlayerStats
             string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "LOGS", UserLogueado.NickName, "Deportistas.json");
 
             // Crear directorio si no existe
+           
+            //Cargo los deportistas [Nombre - Deporte] en el visor.
+            if (D.Atletas.Count > 0)
+            {
+                ActualizarVisor(); 
+            }
+            else
+                lvVisor.Items.Add("Aun No Hay Deportistas Cargados..");
+
+        }
+
+        //Enviar una lista de object por parametro para poder serialziar.(usuarios,estadisticas,etc)
+        protected void TraerDatosArchivo(string pathJson)
+        {
             string dir = Path.GetDirectoryName(pathJson);
             if (!Directory.Exists(dir))
             {
@@ -79,16 +93,8 @@ namespace PlayerStats
                 }
             }
 
-            //Cargo los deportistas [Nombre - Deporte] en el visor.
-            if (D.Atletas.Count > 0)
-            {
-                ActualizarVisor();
-            }
-            else
-                lvVisor.Items.Add("Aun No Hay Deportistas Cargados..");
 
         }
-
         private void frmMenuPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Ruta del archivo JSON donde guardaremos los usuarios
@@ -144,7 +150,7 @@ namespace PlayerStats
                 MessageBox.Show("Asegurese de completar todos los campos", "Campos Incompletos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
-        private void ActualizarVisor()
+        protected virtual void ActualizarVisor()
         {
             lvVisor.Clear();
             StringBuilder sb = new();
@@ -154,7 +160,7 @@ namespace PlayerStats
                     lvVisor.Items.Add($"{value.FullName} - {value.Deporte} | DATE  {value.FechaDeRegistro}");
             }
         }
-        private bool ComprobarCamposNull()
+        protected bool ComprobarCamposNull()
         {
             foreach (Control value in this.Controls)
             {
@@ -174,7 +180,14 @@ namespace PlayerStats
 
         private void btnVer_Click(object sender, EventArgs e)
         {
+            if(D.Atletas.Count > 0)
+            {
+                FrmVerEstadisticas frmEstadisticas = new();
+                int i = lvVisor.SelectedIndices[0]; //devuelve los indices seleccionados, al estar multiselect en false, solo se selecciona un item por eso el index 0.
+                Deportista atleta = D.Atletas[i];
+                frmEstadisticas.Atleta = atleta;
 
+            }
         }
     }
 }

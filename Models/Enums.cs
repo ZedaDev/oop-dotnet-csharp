@@ -9,3 +9,19 @@ public enum ELadoHabil
     Der,
     Izq
 }
+public enum EOrderStatsv1
+{
+    MasRecientes,
+    MasAntiguas
+}
+public enum EOrdenStats
+{
+    Goles,
+    Asistencias,
+    TiroLibre,
+    Penales,
+    MVP,
+    HatTrick,
+    Roja,
+    Amarilla
+}
