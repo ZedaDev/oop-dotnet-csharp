@@ -42,7 +42,12 @@ namespace Entities
 
         protected override string StatsPath()
         {
-            string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "LOGS", "STATS", base.FullName, "Futbol.json");
+            string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "LOGS", "Users", base.FullName, "STATS", "Futbol", "Futbol.json");
+            return pathJson;
+        }
+        protected override string UsersPath()
+        {
+            string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "LOGS", "Users", base.FullName,"Deportistas.json");
             return pathJson;
         }
 

@@ -24,10 +24,10 @@ namespace Entities
 
         #region Contructores
 
-        /*public Deportista()
+        public Deportista()
         {
             _stats = new();
-        }*/
+        }
         public Deportista(string fullName, string edad, DateTime fechaDebut, EDeporte deporte, string phHabil, string altura,string pais)
             : this(fechaDebut, deporte, pais)
         {
@@ -44,10 +44,10 @@ namespace Entities
             _pais = pais;
             _fechaDeRegistro = DateTime.Now;
         }
-        private Deportista()
+        /*private Deportista()
         {
             _stats = new();
-        }
+        }*/
 
         #endregion
 
@@ -137,8 +137,13 @@ namespace Entities
         { 
             get => StatsPath();
         }
+        public string PathUsers
+        { 
+            get => UsersPath();
+        }
 
         protected abstract string StatsPath();
+        protected abstract string UsersPath();
         #endregion
 
         #region Sobrecargas

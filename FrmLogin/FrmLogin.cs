@@ -17,11 +17,11 @@ namespace FrmLogin
 
         private void btnIngreso_Click(object sender, EventArgs e)
         {
-            string nick = txtNickName.Text;
+            string nickName = txtNickName.Text;
             string pw = txtPw.Text;
-            User usuarioNuevo = new(nick, pw);
+            User usuarioNuevo = new(nickName, pw);
 
-            if (string.IsNullOrEmpty(nick) || string.IsNullOrEmpty(pw))
+            if (string.IsNullOrEmpty(nickName) || string.IsNullOrEmpty(pw))
                 lbMessage.Text = "Asegurese De Completar Los Campos";
             else
             {
@@ -38,9 +38,16 @@ namespace FrmLogin
                 }
                 else
                 {
-                    frmMenuPrincipal menu = new();
-                    menu.UserLogueado = usuarioNuevo;
 
+                    frmMenuPrincipal menu = new();
+                    //Deportistas d = new();
+                    //menu.UserLogueado = new();
+                    //menu.D = new();
+                    menu.UserLogueado = usuarioNuevo;
+                    //d.PathD = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "LOGS", "Users", nickName, "Deportistas.json");
+                    //menu.D = d;
+                    //menu.D.PathD = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "LOGS", "Users", nickName, "Deportistas.json");
+                    //MessageBox.Show($"{d.PathD}");
                     this.Hide(); //oculta el formulario
                     DialogResult result = menu.ShowDialog();
                     this.Close();

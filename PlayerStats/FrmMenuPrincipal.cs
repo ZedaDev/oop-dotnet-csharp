@@ -29,15 +29,20 @@ namespace PlayerStats
             set;
         }
 
+
         public frmMenuPrincipal()
         {
             InitializeComponent();
-            UserLogueado = new();
-           
         }
 
         private void frmMenuPrincipal_Load(object sender, EventArgs e)
         {
+            
+            D = new();
+
+            /*UserLogueado = new();*/
+
+
             lbDateTime.Text = DateTime.Now.Date.ToShortDateString();
             lbDateTime.ForeColor = Color.Green;
             lbUser.Text = UserLogueado.NickName;
@@ -46,16 +51,13 @@ namespace PlayerStats
             cmbDeporte.SelectedIndex = -1;
             btnAgregar.Enabled = false;
 
-            D = new();
-
-
 
             //Cargo la lista de deportistas desde Json
             // Ruta del archivo JSON
-            string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "LOGS", UserLogueado.NickName, "Deportistas.json");
 
             // Crear directorio si no existe
-           
+           D.PathD = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "LOGS", "Users", UserLogueado.NickName, "Deportistas.json");
+            D.TraerDeportistasDelArchivo(D.PathD, D.Atletas);
             //Cargo los deportistas [Nombre - Deporte] en el visor.
             if (D.Atletas.Count > 0)
             {
@@ -67,7 +69,7 @@ namespace PlayerStats
         }
 
         //Enviar una lista de object por parametro para poder serialziar.(usuarios,estadisticas,etc)
-        protected void TraerDatosArchivo(string pathJson)
+        /*protected void TraerDatosArchivo(string pathJson, List<Deportista> atletas)
         {
             string dir = Path.GetDirectoryName(pathJson);
             if (!Directory.Exists(dir))
@@ -88,17 +90,20 @@ namespace PlayerStats
                     string textArchive = archivo.ReadToEnd();
 
                     if (!string.IsNullOrEmpty(textArchive.Trim()))
-                        D.Atletas = JsonSerializer.Deserialize<List<Deportista>>(textArchive, options);
-                    // Deserializamos la lista de usuarios
+                        atletas.AddRange(JsonSerializer.Deserialize<List<Deportista>>(textArchive, options));
+                    // Deserializamos la lista de usuarios con addRange sumando a la lista, no igualando que seira sobreescribir.
                 }
             }
 
 
-        }
+        }*/
         private void frmMenuPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Ruta del archivo JSON donde guardaremos los usuarios
-            string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "LOGS", UserLogueado.NickName, "Deportistas.Json");
+            //string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "LOGS", "Users", UserLogueado.NickName, "Deportistas.Json");
+            
+            D.CargarDeportistaAlArchivo(D.PathD, D.Atletas, UserLogueado.NickName);
+
+            /*// Ruta del archivo JSON donde guardaremos los usuarios
 
 
             // Configurar opciones para serialización
@@ -112,9 +117,30 @@ namespace PlayerStats
             string jsonDeportistas = JsonSerializer.Serialize(D.Atletas, jsonObject);
 
             // Sobrescribir el archivo JSON con la lista actualizada
-            File.WriteAllText(pathJson, jsonDeportistas);
+            File.WriteAllText(pathJson, jsonDeportistas);*/
+
         }
 
+        /*protected void CargarDatosAlArchivo(string path, List<Deportista> atletas)
+        {
+            string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "LOGS", UserLogueado.NickName, "Deportistas.Json");
+
+            //setteo las opciones del json al serialiar(Identa como json, guarda los datos privados)
+            JsonSerializerOptions jsonObject = new()
+            {
+                WriteIndented = true,
+                IncludeFields = true
+            };
+
+            
+            //guardo el string que traje de la lista de atletas, con las opciones del jsonobject(identa como json el texto, inlcuye campos privados al serializar).
+            string jsonDeportistas = JsonSerializer.Serialize(atletas, jsonObject);
+            //string jsonDeportistas = JsonSerializer.Serialize(D.Atletas, jsonObject);
+
+            //serializo todo el texto, en donde?, en el la ruta del archivo, de donde?, del string que serialize de la lista.
+            File.WriteAllText(pathJson, jsonDeportistas);
+            
+        }*/
         private void cmbDeporte_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbDeporte.SelectedIndex != -1)

@@ -27,8 +27,12 @@ namespace PlayerStats
                 string altura = txtAltura.Text;
                 string pais = txtNacionalidad.Text;
 
+                
                 Deportista futbolista = new Futbolista(fullName, edad, deporte, fechaDebut, posicion, clubActual, phHabil, altura, pais);
+               string pathJson = futbolista.PathUsers;
+               
                 D.AgregarAtleta = futbolista;
+                D.CargarDeportistaAlArchivo(pathJson, D.Atletas, base.UserLogueado.NickName);
                 MessageBox.Show("Deportista Cargado Con Exito", "Congratulations", MessageBoxButtons.OK);
 
                 ClearCamps(); //Limpio todos los textboxs,etc.
