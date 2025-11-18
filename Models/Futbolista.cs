@@ -7,25 +7,29 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
+    [Serializable]
     public class Futbolista : Deportista
     {
         private string _posicion;
         private string _clubActual;
 
+        public Futbolista()
+        {
 
-        public Futbolista(string fullName, string edad, EDeporte deporte, DateTime fechaDebut, string posicion, string clubActual, string phHabil, string altura,string pais)
-            : this(posicion, fullName, edad, deporte, fechaDebut, phHabil, altura, pais)
+        }
+        public Futbolista(string fullName, string edad,string apodo, EDeporte deporte, string fechaDebut, string posicion, string clubActual, string phHabil, string altura,string pais)
+            : this(posicion, fullName, edad, apodo, deporte, fechaDebut, phHabil, altura, pais)
         {
             _clubActual = clubActual;
         }
        
-        private Futbolista(string posicion, string fullName, string edad, EDeporte deporte, DateTime fechaDebut, string phHabil, string altura, string pais)
-                : this(fullName, edad, deporte, fechaDebut, phHabil, altura, pais)
+        private Futbolista(string posicion, string fullName, string edad, string apodo, EDeporte deporte, string fechaDebut, string phHabil, string altura, string pais)
+                : this(fullName, edad, apodo, deporte, fechaDebut, phHabil, altura, pais)
         {
             _posicion = posicion;
         }
-        private Futbolista(string fullName, string edad, EDeporte deporte, DateTime fechaDebut, string phHabil, string altura, string pais)
-             : base(fullName, edad, fechaDebut ,deporte, phHabil, altura, pais)
+        private Futbolista(string fullName, string edad, string apodo, EDeporte deporte, string fechaDebut, string phHabil, string altura, string pais)
+             : base(fullName, edad, apodo, fechaDebut ,deporte, phHabil, altura, pais)
         {
             //inicializar lista estadisticas;
         }
@@ -40,14 +44,14 @@ namespace Entities
             set => _clubActual = value; 
         }
 
-        protected override string StatsPath()
+        public override string MisEstadisticas(string nickName)
         {
-            string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "LOGS", "Users", base.FullName, "STATS", "Futbol", "Futbol.json");
+            string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "LOGS", "Users", nickName, "STATS", "Futbol", "Futbol.json");
             return pathJson;
         }
-        protected override string UsersPath()
+        public override string MisDeportistas(string nickName)
         {
-            string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "LOGS", "Users", base.FullName,"Deportistas.json");
+            string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "LOGS", "Users", nickName,"Deportistas","Deportistas.json");
             return pathJson;
         }
 

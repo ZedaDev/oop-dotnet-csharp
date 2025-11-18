@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 namespace Service
 {
     public class Deportistas
@@ -111,30 +112,31 @@ namespace Service
             this.Atletas.Sort(IComparisonM);
         }
 
-        public void CargarDeportistaAlArchivo(string pathJson, List<Deportista> atletas, string nombreUsuario)
+        public void CargarDeportistaAlArchivo(string pathJson,Deportistas D)
         {
             //string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "LOGS", "Users", nombreUsuario, "Deportistas.Json");
             string dir = Path.GetDirectoryName(pathJson);
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
             //setteo las opciones del json al serialiar(Identa como json, guarda los datos privados)
-            JsonSerializerOptions jsonObject = new()
-            {
-                WriteIndented = true,
-                IncludeFields = true
-            };
+            JsonSerializerOptions jsonObject = new();
 
-
+            jsonObject.WriteIndented = true;
+                
             //guardo el string que traje de la lista de atletas, con las opciones del jsonobject(identa como json el texto, inlcuye campos privados al serializar).
-            string jsonDeportistas = JsonSerializer.Serialize(atletas, jsonObject);
+            string jsonDeportistas = JsonSerializer.Serialize(D.Atletas, jsonObject);
             //string jsonDeportistas = JsonSerializer.Serialize(D.Atletas, jsonObject);
 
             //serializo todo el texto, en donde?, en el la ruta del archivo, de donde?, del string que serialize de la lista.
-            File.WriteAllText(pathJson, jsonDeportistas);
+            using (StreamWriter writer = new StreamWriter(pathJson, false,Encoding.UTF8))
+            {
+                writer.Write(jsonDeportistas);
+            }
+           // File.WriteAllText(pathJson, jsonDeportistas);
 
         }
 
-        public void TraerDeportistasDelArchivo(string pathJson, List<Deportista> atletas)
+        public void TraerDeportistasDelArchivo(string pathJson,Deportistas D)
         {
             if (string.IsNullOrEmpty(pathJson))
             {
@@ -153,17 +155,30 @@ namespace Service
             {
                 using (StreamReader archivo = new(pathJson))
                 {
-                    JsonSerializerOptions options = new JsonSerializerOptions
-                    {
-                        IncludeFields = true, // Incluir campos privados durante la deserialización
-                    };
+                    var options = new JsonSerializerOptions();
+                    //options.Converters = new JsonStringEnumConverter();
+                    
+                      // Para enum
+                        //IncludeFields = true,
+                        //WriteIndented = true // Incluir campos privados durante la deserialización
+                   
+
 
                     string textArchive = archivo.ReadToEnd();
 
                     if (!string.IsNullOrEmpty(textArchive.Trim()))
-                        atletas.AddRange(JsonSerializer.Deserialize<List<Deportista>>(textArchive, options));
+                    {
+
+                        List<Futbolista> deportistasJson = JsonSerializer.Deserialize<List<Futbolista>>(textArchive, options);
+                       
+                        if(deportistasJson.Count > 0)
+                            D.Atletas.AddRange(deportistasJson);
+
+                    }
+                   
                     // Deserializamos el archivo, cargando la lista con los datos del file.
                 }
+
             }
 
 

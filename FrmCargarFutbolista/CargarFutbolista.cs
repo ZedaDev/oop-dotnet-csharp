@@ -13,7 +13,7 @@ namespace FrmCargarFutbolista
             btnCargar.Text = "Cargar Futbolista";
         }
 
-        protected override void btnCargar_Click(object sender, EventArgs e)
+        protected void btnCargar_Click(object sender, EventArgs e)
         {
             if (ComprobarCamposNull())
             {
@@ -33,15 +33,16 @@ namespace FrmCargarFutbolista
                 else
                     fechaDebut = mCalendar.SelectionStart; //Asigno la fecha seleccionada
 
-
-                Deportista futbolista = new Futbolista(fullName, edad, deporte, fechaDebut, posicion, clubActual, phHabil, altura);
+                
+                //Deportista futbolista = new Futbolista(fullName, edad, deporte, fechaDebut, posicion, clubActual, phHabil, altura);
                 D.AgregarAtleta = futbolista;
                 MessageBox.Show("Deportista Cargado Con Exito", "Congratulations", MessageBoxButtons.OK);
 
                 ClearCamps(); //Limpio todos los textboxs,etc.
 
             }
-            else MessageBox.Show("Asegurese de completar todos los campos");
+            else
+                MessageBox.Show("Asegurese de completar todos los campos");
         }
     }
 }

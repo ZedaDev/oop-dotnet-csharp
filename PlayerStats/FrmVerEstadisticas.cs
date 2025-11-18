@@ -46,7 +46,7 @@ namespace PlayerStats
 
             
                         
-           string pathJson = Atleta.PathStats;
+           string pathJson = Atleta.MisEstadisticas(base.UserLogueado.NickName);
             // Crear directorio si no existe
             string dir = Path.GetDirectoryName(pathJson);
             if (!Directory.Exists(dir))

@@ -106,7 +106,14 @@
             Controls.Add(txtPosicion);
             Controls.Add(lbPosicion);
             Name = "CargarFutbolista";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Futbolista";
+            Controls.SetChildIndex(txtFullName, 0);
+            Controls.SetChildIndex(txtEdad, 0);
+            Controls.SetChildIndex(txtAltura, 0);
+            Controls.SetChildIndex(txtApodo, 0);
+            Controls.SetChildIndex(cmbPhHabil, 0);
+            Controls.SetChildIndex(mCalendar, 0);
             Controls.SetChildIndex(lbPosicion, 0);
             Controls.SetChildIndex(txtPosicion, 0);
             Controls.SetChildIndex(txtClubActual, 0);

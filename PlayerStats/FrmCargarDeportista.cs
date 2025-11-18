@@ -1,5 +1,6 @@
 using Entities;
 using Service;
+using System.Text;
 
 namespace PlayerStats
 {
@@ -37,6 +38,8 @@ namespace PlayerStats
             }
             return true;
         }
+
+
         protected bool ClearCamps()
         {
             foreach (Control value in this.Controls)

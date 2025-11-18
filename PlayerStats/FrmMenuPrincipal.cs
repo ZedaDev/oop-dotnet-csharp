@@ -37,110 +37,33 @@ namespace PlayerStats
 
         private void frmMenuPrincipal_Load(object sender, EventArgs e)
         {
-            
             D = new();
-
-            /*UserLogueado = new();*/
-
-
             lbDateTime.Text = DateTime.Now.Date.ToShortDateString();
             lbDateTime.ForeColor = Color.Green;
             lbUser.Text = UserLogueado.NickName;
-
             cmbDeporte.DataSource = Enum.GetValues(typeof(EDeporte));
             cmbDeporte.SelectedIndex = -1;
             btnAgregar.Enabled = false;
 
 
-            //Cargo la lista de deportistas desde Json
-            // Ruta del archivo JSON
+            D.PathD = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Logs", "Users",UserLogueado.NickName , "Deportistas", "Deportistas.json");
+            D.TraerDeportistasDelArchivo(D.PathD, D);
 
-            // Crear directorio si no existe
-           D.PathD = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "LOGS", "Users", UserLogueado.NickName, "Deportistas.json");
-            D.TraerDeportistasDelArchivo(D.PathD, D.Atletas);
             //Cargo los deportistas [Nombre - Deporte] en el visor.
-            if (D.Atletas.Count > 0)
-            {
-                ActualizarVisor(); 
-            }
-            else
+            if (D.Atletas.Count == 0)
                 lvVisor.Items.Add("Aun No Hay Deportistas Cargados..");
+            else
+                ActualizarVisor(); 
 
         }
 
-        //Enviar una lista de object por parametro para poder serialziar.(usuarios,estadisticas,etc)
-        /*protected void TraerDatosArchivo(string pathJson, List<Deportista> atletas)
-        {
-            string dir = Path.GetDirectoryName(pathJson);
-            if (!Directory.Exists(dir))
-            {
-                Directory.CreateDirectory(dir);
-            }
-
-            // Si el archivo existe, deserializamos los usuarios
-            if (File.Exists(pathJson))
-            {
-                using (StreamReader archivo = new(pathJson))
-                {
-                    JsonSerializerOptions options = new JsonSerializerOptions
-                    {
-                        IncludeFields = true, // Incluir campos privados durante la deserialización
-                    };
-
-                    string textArchive = archivo.ReadToEnd();
-
-                    if (!string.IsNullOrEmpty(textArchive.Trim()))
-                        atletas.AddRange(JsonSerializer.Deserialize<List<Deportista>>(textArchive, options));
-                    // Deserializamos la lista de usuarios con addRange sumando a la lista, no igualando que seira sobreescribir.
-                }
-            }
-
-
-        }*/
+       
         private void frmMenuPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "LOGS", "Users", UserLogueado.NickName, "Deportistas.Json");
-            
-            D.CargarDeportistaAlArchivo(D.PathD, D.Atletas, UserLogueado.NickName);
-
-            /*// Ruta del archivo JSON donde guardaremos los usuarios
-
-
-            // Configurar opciones para serialización
-            JsonSerializerOptions jsonObject = new JsonSerializerOptions
-            {
-                WriteIndented = true,   // Formato legible (con indentación)
-                IncludeFields = true    // Incluir campos privados
-            };
-
-            // Serializar la lista de usuarios
-            string jsonDeportistas = JsonSerializer.Serialize(D.Atletas, jsonObject);
-
-            // Sobrescribir el archivo JSON con la lista actualizada
-            File.WriteAllText(pathJson, jsonDeportistas);*/
-
+            //D.CargarDeportistaAlArchivo(D.PathD, D.Atletas);
         }
 
-        /*protected void CargarDatosAlArchivo(string path, List<Deportista> atletas)
-        {
-            string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "LOGS", UserLogueado.NickName, "Deportistas.Json");
-
-            //setteo las opciones del json al serialiar(Identa como json, guarda los datos privados)
-            JsonSerializerOptions jsonObject = new()
-            {
-                WriteIndented = true,
-                IncludeFields = true
-            };
-
-            
-            //guardo el string que traje de la lista de atletas, con las opciones del jsonobject(identa como json el texto, inlcuye campos privados al serializar).
-            string jsonDeportistas = JsonSerializer.Serialize(atletas, jsonObject);
-            //string jsonDeportistas = JsonSerializer.Serialize(D.Atletas, jsonObject);
-
-            //serializo todo el texto, en donde?, en el la ruta del archivo, de donde?, del string que serialize de la lista.
-            File.WriteAllText(pathJson, jsonDeportistas);
-            
-        }*/
+       
         private void cmbDeporte_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbDeporte.SelectedIndex != -1)
@@ -168,6 +91,7 @@ namespace PlayerStats
                     frm.UserLogueado = this.UserLogueado;
                     this.Hide();
                     frm.ShowDialog();
+                    frm.Close();
                     this.Show();
                     ActualizarVisor();
                 }
@@ -179,11 +103,19 @@ namespace PlayerStats
         protected virtual void ActualizarVisor()
         {
             lvVisor.Clear();
-            StringBuilder sb = new();
-            foreach (Deportista value in D.Atletas)
+            if(D.Atletas.Count > 0)
             {
-                if (value != null)
-                    lvVisor.Items.Add($"{value.FullName} - {value.Deporte} | DATE  {value.FechaDeRegistro}");
+                StringBuilder sb = new();
+                foreach (Deportista value in D.Atletas)
+                {
+                    //if (value is not null)
+                    string fechaRegistro = !string.IsNullOrEmpty(value.FechaDeRegistro)
+               ? value.FechaDeRegistro
+               : "Fecha no disponible";
+
+                    lvVisor.Items.Add($"{value.FullName} - {value.Deporte} | Registro {fechaRegistro} - Debut {value.FechaDebut}");
+                }
+
             }
         }
         protected bool ComprobarCamposNull()

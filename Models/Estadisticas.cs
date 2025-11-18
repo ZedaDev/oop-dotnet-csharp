@@ -15,6 +15,10 @@ namespace Entities
         private string _estadio;
         private string _comentario;
 
+        public Estadisticas()
+        {
+
+        }
         protected Estadisticas(string resultado, string fecha, string rival, string estadio, string competicion, string comentario)
         {
             _resultado = resultado;

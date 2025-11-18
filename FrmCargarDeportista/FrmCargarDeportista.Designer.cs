@@ -174,6 +174,7 @@
             Controls.Add(txtEdad);
             Controls.Add(txtFullName);
             Name = "FrmCargarDeportista";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Deportista";
             ResumeLayout(false);
             PerformLayout();

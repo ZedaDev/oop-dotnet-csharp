@@ -11,13 +11,15 @@ namespace PlayerStats
             InitializeComponent();
             btnCargar.Text = "Cargar Futbolista";
             cmbPhHabil.DataSource = Enum.GetValues(typeof(EDeporte));
+           
         }
 
         public void btnCargar_Click(object sender, EventArgs e)
         {
             if (base.CheckCamps())
             {
-                DateTime fechaDebut = DateTime.Today.Date;
+                DateTime d = mCalendar.SelectionStart;
+                string fechaDebut = d.ToString("dd-MM-yyyy");
                 string fullName = txtFullName.Text;
                 string edad = txtEdad.Text;
                 EDeporte deporte = EDeporte.Futbol;
@@ -26,16 +28,22 @@ namespace PlayerStats
                 string phHabil = cmbPhHabil.SelectedIndex.ToString();
                 string altura = txtAltura.Text;
                 string pais = txtNacionalidad.Text;
+                string apodo = txtApodo.Text;
 
                 
-                Deportista futbolista = new Futbolista(fullName, edad, deporte, fechaDebut, posicion, clubActual, phHabil, altura, pais);
-               string pathJson = futbolista.PathUsers;
-               
+                Deportista futbolista = new Futbolista(fullName, edad, apodo, deporte, fechaDebut, posicion, clubActual, phHabil, altura, pais);
+                string pathJson = futbolista.MisDeportistas(base.UserLogueado.NickName);
                 D.AgregarAtleta = futbolista;
-                D.CargarDeportistaAlArchivo(pathJson, D.Atletas, base.UserLogueado.NickName);
-                MessageBox.Show("Deportista Cargado Con Exito", "Congratulations", MessageBoxButtons.OK);
 
-                ClearCamps(); //Limpio todos los textboxs,etc.
+               // if (D + futbolista)
+                //{
+                    D.CargarDeportistaAlArchivo(pathJson, D);
+                    MessageBox.Show($"Deportista Cargado Con Exito", "Congratulations", MessageBoxButtons.OK);
+               // }
+               // else
+                  //  MessageBox.Show("El Deportista Que Intenta Registrar, Ya Se Encuentra Cargado..");
+
+                    ClearCamps(); //Limpio todos los textboxs,etc.
             }
 
 
