@@ -10,52 +10,67 @@ namespace PlayerStats
 {
     public partial class frmMenuPrincipal : Form
     {
-        /*
-         Configurar click de botones, Agregar,
-        Estadisticas(Mismo formulario para agregar estadisticas, no deportistas),
-        Eliminar, Modificar.
 
-        Luego de agregar deportistas, chequear el mostrado del visor.
-         */
-        //private Deportista _deportista;
+        private User _userLogueado;
+        private Deportistas _d;
         public User UserLogueado
         {
-            get;
-            set;
+            get => _userLogueado;
+            set
+            {
+                if (value is not null)
+                    _userLogueado = value;
+            }
         }
         public Deportistas D
         {
-            get;
-            set;
+            get => _d;
+            set
+            {
+                if(value is not null)
+                    _d = value;
+            }
         }
-
+       
 
         public frmMenuPrincipal()
         {
             InitializeComponent();
+            _d = new();
+            _userLogueado = new();
         }
+
+        public void InitialiteAttributes(Deportistas d, User usuario)
+        {
+            _d = d;
+            _userLogueado = usuario;
+        }
+
 
         private void frmMenuPrincipal_Load(object sender, EventArgs e)
         {
-            D = new();
-            lbDateTime.Text = DateTime.Now.Date.ToShortDateString();
-            lbDateTime.ForeColor = Color.Green;
-            lbUser.Text = UserLogueado.NickName;
-            cmbDeporte.DataSource = Enum.GetValues(typeof(EDeporte));
-            cmbDeporte.SelectedIndex = -1;
-            btnAgregar.Enabled = false;
+            //D = new();
+        
+                lbDateTime.Text = DateTime.Now.Date.ToShortDateString();
+                lbDateTime.ForeColor = Color.Green;
+                lbUser.Text = UserLogueado.NickName;
+                cmbDeporte.DataSource = Enum.GetValues(typeof(EDeporte));
+                cmbDeporte.SelectedIndex = -1;
+                btnAgregar.Enabled = false;
 
 
-            D.PathD = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Logs", "Users",UserLogueado.NickName , "Deportistas", "Deportistas.json");
-            D.TraerDeportistasDelArchivo(D.PathD, D);
+                D.PathD = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Logs", "Users",UserLogueado.NickName , "Deportistas", "Deportistas.json");
+                D.TraerDeportistasDelArchivo(D.PathD, D);
+            
+                //Cargo los deportistas [Nombre - Deporte] en el visor.
+                if (D.Atletas.Count == 0)
+                    lvVisor.Items.Add("Aun No Hay Deportistas Cargados..");
+                else
+                    ActualizarVisor(); 
 
-            //Cargo los deportistas [Nombre - Deporte] en el visor.
-            if (D.Atletas.Count == 0)
-                lvVisor.Items.Add("Aun No Hay Deportistas Cargados..");
-            else
-                ActualizarVisor(); 
+            }
 
-        }
+        
 
        
         private void frmMenuPrincipal_FormClosing(object sender, FormClosingEventArgs e)
@@ -108,12 +123,7 @@ namespace PlayerStats
                 StringBuilder sb = new();
                 foreach (Deportista value in D.Atletas)
                 {
-                    //if (value is not null)
-                    string fechaRegistro = !string.IsNullOrEmpty(value.FechaDeRegistro)
-               ? value.FechaDeRegistro
-               : "Fecha no disponible";
-
-                    lvVisor.Items.Add($"{value.FullName} - {value.Deporte} | Registro {fechaRegistro} - Debut {value.FechaDebut}");
+                      lvVisor.Items.Add($"{value.FullName} - {value.Deporte} | Registrado {value.FechaDeRegistro}");
                 }
 
             }
@@ -135,17 +145,71 @@ namespace PlayerStats
             DialogResult = DialogResult.OK;
             this.Close();
         }
-
         private void btnVer_Click(object sender, EventArgs e)
         {
-            if(D.Atletas.Count > 0)
+            // Verifica que haya al menos un ítem seleccionado
+            if (lvVisor.SelectedIndices.Count > 0)
             {
-                FrmVerEstadisticas frmEstadisticas = new();
-                int i = lvVisor.SelectedIndices[0]; //devuelve los indices seleccionados, al estar multiselect en false, solo se selecciona un item por eso el index 0.
-                Deportista atleta = D.Atletas[i];
-                frmEstadisticas.Atleta = atleta;
+                // Obtén el índice del elemento seleccionado
+                int i = lvVisor.SelectedIndices[0];
 
+                // Mostrar información de depuración
+                MessageBox.Show($"Índice seleccionado: {i}, Total de atletas: {D.Atletas.Count}");
+
+                // Verificar que el índice esté dentro de un rango válido
+                if (i >= 0 && i < D.Atletas.Count)
+                {
+                    // Obtener el atleta correspondiente al índice
+                    Deportista atleta = D.Atletas[i];  // Aquí accedemos directamente a D.Atletas[i]
+                    // Crear y mostrar el formulario de estadísticas
+                    // Verificar si el atleta es null
+                    if (atleta != null)
+                    {
+                        MessageBox.Show($"{atleta.ToString()}");
+                        FrmVerEstadisticas frmEstadisticas = new ();
+                        frmEstadisticas.InicializarAttributos(UserLogueado, D, atleta);
+                        //frmEstadisticas.LogUser = UserLogueado;
+                        //frmEstadisticas.Atleta = atleta;  // Asigna el atleta al formulario
+
+                        frmEstadisticas.ShowDialog();
+                        cmbDeporte.SelectedIndex = -1;
+                    }
+                    else
+                    {
+                        MessageBox.Show("El atleta seleccionado no existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                   
+                }
+                else
+                {
+                    // Si el índice está fuera del rango de la lista
+                    MessageBox.Show($"Índice seleccionado fuera del rango: {i}", "Error de índice", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                // Si no se ha seleccionado ningún elemento
+                MessageBox.Show("Asegúrese de seleccionar un deportista.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+        /*rivate void btnVer_Click(object sender, EventArgs e)
+        {
+                int i = lvVisor.SelectedIndices[0]; //devuelve los indices seleccionados, al estar multiselect en false, solo se selecciona un item por eso el index 0.
+            MessageBox.Show($"Índice seleccionado: {i}, Total de atletas: {D.Atletas.Count}");
+            if (i >= 0)
+            {
+            MessageBox.Show($"Índice seleccionado: {i}, Total de atletas: {D.Atletas.Count}");
+                //Deportista atleta = D.Atletas[i];
+                 FrmVerEstadisticas frmEstadisticas = new();
+            MessageBox.Show($"Índice seleccionado: {i}, Total de atletas: {D.Atletas.Count}");
+                frmEstadisticas.Atleta = D.Atletas[i]; 
+                 //frmEstadisticas.Atleta = atleta;
+                 frmEstadisticas.Show();
+
+                 cmbDeporte.SelectedIndex = -1;
+            }
+            else
+                MessageBox.Show("Asegurese De Seleccionar Un Deportista","Error", MessageBoxButtons.OK ,MessageBoxIcon.Information);
+        }*/
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Service;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,37 +17,58 @@ namespace PlayerStats
 {
     public partial class FrmVerEstadisticas : frmMenuPrincipal
     {
-
+        private Deportista _atleta;
+        //private User _user;
         public Deportista Atleta
         {
-            get;
-            set;
+            get => _atleta;
+            set
+            {
+                if(value is not null)
+                    _atleta = value;
+            }
         }
+        /*public User LogUser
+        {
+            get => _user;
+            set
+            {
+                if(value is not null)
+                    _user  = value;
+            }
+        }*/
         public FrmVerEstadisticas()
+
         {
             InitializeComponent();
-
         }
+        public void InicializarAttributos(User usuario, Deportistas d, Deportista atleta)
+        {
+            base.InitialiteAttributes(d, usuario);
+                _atleta = atleta;
+        }
+        
 
         private void FrmVerEstadisticas_Load(object sender, EventArgs e)
         {
             lvVisor.Items.Clear();
-            lvVisor.Items.Add("Aun No hay estadsiticas cargadas");
             btnAgregar.Text = "Agregar Estadistica";
             btnVer.Text = "Ver Estadistica";
             btnCerrarSesion.Text = "Guardar";
+            lbUser.Text = base.UserLogueado.NickName;
             cmbDeporte.Visible = false;
+            btnAgregar.Enabled = true;
             cmbOrdenStats.DataSource = Enum.GetValues(typeof(EOrdenStats));
-            cmbDeporte.Items.Add("Ordenar Mas Recientes");
-            cmbDeporte.Items.Add("Ordenar Mas Antiguas");
+            cmbOrdenStats.SelectedIndex = -1;
+
 
 
             //Cargo la lista de deportistas desde Json
 
 
-            
-                        
-           string pathJson = Atleta.MisEstadisticas(base.UserLogueado.NickName);
+
+
+            string pathJson = Atleta.MisEstadisticas(base.UserLogueado.NickName);
             // Crear directorio si no existe
             string dir = Path.GetDirectoryName(pathJson);
             if (!Directory.Exists(dir))
@@ -76,7 +98,10 @@ namespace PlayerStats
             if (Atleta.Estadisticas is not null && Atleta.Estadisticas.Count > 0)
                 this.ActualizarVisor();
             else
+            {
+                lvVisor.Clear();
                 lvVisor.Items.Add("Aun No Hay Estadisticas Cargadas..");
+            }
         }
 
 

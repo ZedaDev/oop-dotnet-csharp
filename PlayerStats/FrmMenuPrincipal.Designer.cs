@@ -62,7 +62,7 @@
             // btnAgregar
             // 
             btnAgregar.Font = new Font("Segoe UI", 10F, FontStyle.Italic);
-            btnAgregar.Location = new Point(268, 295);
+            btnAgregar.Location = new Point(280, 294);
             btnAgregar.Name = "btnAgregar";
             btnAgregar.Size = new Size(163, 36);
             btnAgregar.TabIndex = 2;

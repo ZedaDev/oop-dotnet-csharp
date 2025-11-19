@@ -16,6 +16,7 @@ public enum EOrderStatsv1
 }
 public enum EOrdenStats
 {
+    MasRecientes,
     Goles,
     Asistencias,
     TiroLibre,
@@ -23,5 +24,6 @@ public enum EOrdenStats
     MVP,
     HatTrick,
     Roja,
-    Amarilla
+    Amarilla,
+    MasAntiguas
 }
