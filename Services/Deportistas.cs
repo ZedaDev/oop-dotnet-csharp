@@ -112,6 +112,67 @@ namespace Service
             this.Atletas.Sort(IComparisonM);
         }
 
+        public void CargarEstadisticaAlArchivo(string pathJson,Estadisticas stat)
+        {
+            string dir = Path.GetDirectoryName(pathJson);
+            if (!Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
+
+            JsonSerializerOptions jsonObject = new();
+
+            jsonObject.WriteIndented = true;
+                
+            //guardo el string que traje de la lista de atletas, con las opciones del jsonobject(identa como json el texto, inlcuye campos privados al serializar).
+            string jsonDeportistas = JsonSerializer.Serialize(stat, jsonObject);
+            //string jsonDeportistas = JsonSerializer.Serialize(D.Atletas, jsonObject);
+
+            //serializo todo el texto, en donde?, en el la ruta del archivo, de donde?, del string que serialize de la lista.
+            using (StreamWriter writer = new StreamWriter(pathJson, false,Encoding.UTF8))
+            {
+                writer.WriteLine(jsonDeportistas);
+            }
+           // File.WriteAllText(pathJson, jsonDeportistas);
+
+        }
+        public void TraerEstadisticasDelArchivo(string pathJson, List<Estadisticas> stats)
+        {
+            if (string.IsNullOrEmpty(pathJson))
+            {
+                throw new ArgumentNullException(nameof(pathJson), "La ruta del archivo no puede ser nula o vacía.");
+            }
+            //obtengo el directorio de la ruta, excluye archivos.
+            string? dir = Path.GetDirectoryName(pathJson);
+            
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
+
+            // Si existe un archivo.json dentro de la ruta general, deserializamos el archivo json.
+            if (File.Exists(pathJson))
+            {
+                using (StreamReader archivo = new(pathJson))
+                {
+                    var options = new JsonSerializerOptions();
+
+                    string textArchive = archivo.ReadToEnd();
+
+                    if (!string.IsNullOrEmpty(textArchive.Trim()))
+                    {
+
+                        List<Estadisticas> deportistasJson = JsonSerializer.Deserialize<List<Estadisticas>>(textArchive, options);
+                       
+                        if(deportistasJson.Count > 0)
+                           stats.AddRange(deportistasJson);
+
+                    }
+                   
+                }
+
+            }
+
+
+        }
         public void CargarDeportistaAlArchivo(string pathJson,Deportistas D)
         {
             //string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "LOGS", "Users", nombreUsuario, "Deportistas.Json");
@@ -136,7 +197,7 @@ namespace Service
 
         }
 
-        public void TraerDeportistasDelArchivo(string pathJson,Deportistas D)
+        public void TraerDeportistasDelArchivo(string pathJson, Deportistas D)
         {
             if (string.IsNullOrEmpty(pathJson))
             {
@@ -144,7 +205,7 @@ namespace Service
             }
             //obtengo el directorio de la ruta, excluye archivos.
             string? dir = Path.GetDirectoryName(pathJson);
-            
+
             if (!Directory.Exists(dir))
             {
                 Directory.CreateDirectory(dir);
@@ -157,11 +218,11 @@ namespace Service
                 {
                     var options = new JsonSerializerOptions();
                     //options.Converters = new JsonStringEnumConverter();
-                    
-                      // Para enum
-                        //IncludeFields = true,
-                        //WriteIndented = true // Incluir campos privados durante la deserialización
-                   
+
+                    // Para enum
+                    //IncludeFields = true,
+                    //WriteIndented = true // Incluir campos privados durante la deserialización
+
 
 
                     string textArchive = archivo.ReadToEnd();
@@ -170,18 +231,16 @@ namespace Service
                     {
 
                         List<Futbolista> deportistasJson = JsonSerializer.Deserialize<List<Futbolista>>(textArchive, options);
-                       
-                        if(deportistasJson.Count > 0)
+
+                        if (deportistasJson.Count > 0)
                             D.Atletas.AddRange(deportistasJson);
 
                     }
-                   
+
                     // Deserializamos el archivo, cargando la lista con los datos del file.
                 }
 
             }
-
-
         }
         private int IComparison(Deportista d, Deportista d1)
         {

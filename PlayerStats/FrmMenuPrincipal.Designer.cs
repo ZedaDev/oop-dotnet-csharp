@@ -37,13 +37,14 @@
             button2 = new Button();
             lvVisor = new ListView();
             btnCerrarSesion = new Button();
+            lbVisorCargado = new Label();
             SuspendLayout();
             // 
             // lbUser
             // 
             lbUser.AutoSize = true;
             lbUser.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lbUser.Location = new Point(12, 19);
+            lbUser.Location = new Point(3, 9);
             lbUser.Name = "lbUser";
             lbUser.Size = new Size(104, 19);
             lbUser.TabIndex = 0;
@@ -53,7 +54,7 @@
             // 
             lbDateTime.AutoSize = true;
             lbDateTime.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lbDateTime.Location = new Point(452, 19);
+            lbDateTime.Location = new Point(620, 9);
             lbDateTime.Name = "lbDateTime";
             lbDateTime.Size = new Size(47, 19);
             lbDateTime.TabIndex = 1;
@@ -128,12 +129,24 @@
             btnCerrarSesion.UseVisualStyleBackColor = true;
             btnCerrarSesion.Click += btnCerrarSesion_Click;
             // 
+            // lbVisorCargado
+            // 
+            lbVisorCargado.AutoSize = true;
+            lbVisorCargado.Font = new Font("Segoe UI", 8F, FontStyle.Italic);
+            lbVisorCargado.ForeColor = Color.Red;
+            lbVisorCargado.Location = new Point(15, 34);
+            lbVisorCargado.Name = "lbVisorCargado";
+            lbVisorCargado.Size = new Size(39, 13);
+            lbVisorCargado.TabIndex = 12;
+            lbVisorCargado.Text = "VISOR ";
+            // 
             // frmMenuPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImageLayout = ImageLayout.None;
             ClientSize = new Size(718, 332);
+            Controls.Add(lbVisorCargado);
             Controls.Add(btnCerrarSesion);
             Controls.Add(lvVisor);
             Controls.Add(button2);
@@ -163,5 +176,6 @@
         protected Button button2;
         protected ListView lvVisor;
         protected Button btnCerrarSesion;
+        protected Label lbVisorCargado;
     }
 }

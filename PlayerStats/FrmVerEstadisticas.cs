@@ -18,48 +18,43 @@ namespace PlayerStats
     public partial class FrmVerEstadisticas : frmMenuPrincipal
     {
         private Deportista _atleta;
-        //private User _user;
         public Deportista Atleta
         {
             get => _atleta;
             set
             {
-                if(value is not null)
+                if (value is not null)
                     _atleta = value;
             }
         }
-        /*public User LogUser
-        {
-            get => _user;
-            set
-            {
-                if(value is not null)
-                    _user  = value;
-            }
-        }*/
-        public FrmVerEstadisticas()
 
+        public FrmVerEstadisticas()
         {
             InitializeComponent();
         }
         public void InicializarAttributos(User usuario, Deportistas d, Deportista atleta)
         {
             base.InitialiteAttributes(d, usuario);
-                _atleta = atleta;
+            _atleta = atleta;
         }
-        
+
 
         private void FrmVerEstadisticas_Load(object sender, EventArgs e)
         {
-            lvVisor.Items.Clear();
+
             btnAgregar.Text = "Agregar Estadistica";
             btnVer.Text = "Ver Estadistica";
             btnCerrarSesion.Text = "Guardar";
-            lbUser.Text = base.UserLogueado.NickName;
-            cmbDeporte.Visible = false;
+
             btnAgregar.Enabled = true;
-            cmbOrdenStats.DataSource = Enum.GetValues(typeof(EOrdenStats));
-            cmbOrdenStats.SelectedIndex = -1;
+            lbDateTime.Text = DateTime.Now.Date.ToShortDateString();
+            lbDateTime.ForeColor = Color.Green;
+            lbUser.Text = base.UserLogueado.NickName;
+
+            cmbDeporte.Visible = false;
+            lvVisor.Items.Clear();
+
+
 
 
 
@@ -68,7 +63,7 @@ namespace PlayerStats
 
 
 
-            string pathJson = Atleta.MisEstadisticas(base.UserLogueado.NickName);
+            string pathJson = Atleta.MisEstadisticas(base.UserLogueado.NickName, Atleta.FullName);
             // Crear directorio si no existe
             string dir = Path.GetDirectoryName(pathJson);
             if (!Directory.Exists(dir))
@@ -95,25 +90,63 @@ namespace PlayerStats
             }
 
             //Cargo los deportistas [Nombre - Deporte] en el visor.
-            if (Atleta.Estadisticas is not null && Atleta.Estadisticas.Count > 0)
-                this.ActualizarVisor();
-            else
-            {
-                lvVisor.Clear();
-                lvVisor.Items.Add("Aun No Hay Estadisticas Cargadas..");
-            }
+
+            this.ActualizarVisor();
+
         }
 
 
         protected override void ActualizarVisor()
         {
             lvVisor.Clear();
-            StringBuilder sb = new();
-            foreach (Estadisticas value in Atleta.Estadisticas)
+            lvVisor.Items.Clear();
+            if (Atleta.Estadisticas is not null && Atleta.Estadisticas.Count > 0)
             {
-                if (value != null)
-                    lvVisor.Items.Add($"Vs {value.Rival} ({value.Fecha}) | Stadium {value.Estadio}");
+                StringBuilder sb = new();
+                foreach (Estadisticas value in Atleta.Estadisticas)
+                {
+                    if (value != null)
+                        lvVisor.Items.Add($"Vs {value.Rival} ({value.Fecha}) | {value.Competicion}");
+                }
             }
+
+            if(Atleta.Estadisticas.Count > 0)
+            {
+                lbVisorCargado.ForeColor = Color.Green;
+                lbVisorCargado.Text = $"Estadisticas Cargadas : {Atleta.Estadisticas.Count}";
+
+            }
+            else
+            {
+                lbVisorCargado.ForeColor = Color.Red;
+                lbVisorCargado.Text = "No hay estadisticas cargadas aun.";
+
+            }
+
         }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            int i = lvVisor.SelectedIndices[0];
+
+            if (i != -1)
+            {
+                FrmCargarEstadisticaFutbolista frmCEF = new();
+
+                frmCEF.Atleta = this.Atleta;
+                this.Hide();
+                frmCEF.NickName = base.UserLogueado.NickName;
+                frmCEF.D = D;
+                frmCEF.Show();
+
+
+                ActualizarVisor();
+
+            }
+            else
+                MessageBox.Show("Seleccione Una Estadistica", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+
     }
 }

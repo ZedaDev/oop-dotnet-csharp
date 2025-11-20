@@ -37,8 +37,7 @@ namespace PlayerStats
                     Deportistas d = new();
                     frmMenuPrincipal menu = new();
                     menu.InitialiteAttributes(d, usuarioNuevo);
-                    //menu.UserLogueado = usuarioNuevo;
-                    //menu.D = d;
+
                     this.Hide(); //oculta el formulario
                     DialogResult result = menu.ShowDialog();
                     if(result == DialogResult.OK)

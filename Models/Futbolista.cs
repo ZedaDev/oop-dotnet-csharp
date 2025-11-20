@@ -44,9 +44,9 @@ namespace Entities
             set => _clubActual = value; 
         }
 
-        public override string MisEstadisticas(string nickName)
+        public override string MisEstadisticas(string nickName, string deportista)
         {
-            string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "LOGS", "Users", nickName, "STATS", "Futbol", "Futbol.json");
+            string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "LOGS", "Users", nickName, "STATS", deportista, "Futbol.json");
             return pathJson;
         }
         public override string MisDeportistas(string nickName)

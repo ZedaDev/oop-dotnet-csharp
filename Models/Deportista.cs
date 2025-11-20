@@ -144,7 +144,7 @@ namespace Entities
             get => UsersPath();
         }*/
 
-        public abstract string MisEstadisticas(string nickName);
+        public abstract string MisEstadisticas(string nickName, string deportista);
         public abstract string MisDeportistas(string nickName);
         #endregion
 
@@ -158,6 +158,7 @@ namespace Entities
 
             return d.FullName == d1.FullName && d.GetType() == d1.GetType();
         }
+
         public static bool operator !=(Deportista d, Deportista d1)
         {
             return !(d == d1);

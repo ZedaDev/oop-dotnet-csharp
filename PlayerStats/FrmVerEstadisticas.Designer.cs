@@ -28,53 +28,52 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Service.Deportistas deportistas1 = new Service.Deportistas();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmVerEstadisticas));
-            cmbOrdenStats = new ComboBox();
-            lbOrdenar = new Label();
+
             SuspendLayout();
             // 
-            // cmbOrdenStats
+            // lbUser
             // 
-            cmbOrdenStats.BackColor = SystemColors.Desktop;
-            cmbOrdenStats.Font = new Font("Microsoft YaHei", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cmbOrdenStats.ForeColor = Color.LawnGreen;
-            cmbOrdenStats.FormattingEnabled = true;
-            cmbOrdenStats.Location = new Point(549, 254);
-            cmbOrdenStats.Name = "cmbOrdenStats";
-            cmbOrdenStats.Size = new Size(156, 27);
-            cmbOrdenStats.TabIndex = 12;
+            lbUser.Size = new Size(71, 19);
+            lbUser.Text = "USUARIO";
             // 
-            // lbOrdenar
+            // lbDateTime
             // 
-            lbOrdenar.AutoSize = true;
-            lbOrdenar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lbOrdenar.Location = new Point(544, 234);
-            lbOrdenar.Name = "lbOrdenar";
-            lbOrdenar.Size = new Size(71, 15);
-            lbOrdenar.TabIndex = 13;
-            lbOrdenar.Text = "Stats Order";
+            lbDateTime.ForeColor = Color.Green;
+            lbDateTime.Location = new Point(621, -1);
+            lbDateTime.Size = new Size(85, 19);
+            lbDateTime.Text = "19/11/2025";
+            // 
+            // btnAgregar
+            // 
+            btnAgregar.Click += btnAgregar_Click;
+            // 
+            // cmbDeporte
+            // 
+            cmbDeporte.DataSource = new EDeporte[]
+    {
+    EDeporte.Futbol,
+    EDeporte.Boxeo,
+    EDeporte.Tenis
+    };
+            // 
+            // lvVisor
+            // 
+            //lvVisor.Items.AddRange(new ListViewItem[] { listViewItem1, listViewItem2, listViewItem3, listViewItem4 });
             // 
             // FrmVerEstadisticas
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(721, 335);
-            Controls.Add(lbOrdenar);
-            Controls.Add(cmbOrdenStats);
-            D = deportistas1;
+            ClientSize = new Size(718, 332);
             Name = "FrmVerEstadisticas";
             Text = "FrmVerEstadisticas";
             Load += FrmVerEstadisticas_Load;
-            Controls.SetChildIndex(cmbOrdenStats, 0);
-            Controls.SetChildIndex(lbOrdenar, 0);
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private ComboBox cmbOrdenStats;
-        private Label lbOrdenar;
+        //private ComboBox cmbOrdenStats;
+        //private Label lbOrdenar;
     }
 }
