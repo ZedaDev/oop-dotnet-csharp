@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-
             SuspendLayout();
             // 
             // lbUser
@@ -41,10 +40,11 @@
             lbDateTime.ForeColor = Color.Green;
             lbDateTime.Location = new Point(621, -1);
             lbDateTime.Size = new Size(85, 19);
-            lbDateTime.Text = "19/11/2025";
+            lbDateTime.Text = "21/11/2025";
             // 
             // btnAgregar
             // 
+            btnAgregar.Location = new Point(3, 295);
             btnAgregar.Click += btnAgregar_Click;
             // 
             // cmbDeporte
@@ -55,10 +55,17 @@
     EDeporte.Boxeo,
     EDeporte.Tenis
     };
+            //cmbDeporte.Items.AddRange(new object[] { EDeporte.Futbol, EDeporte.Boxeo, EDeporte.Tenis });
+            cmbDeporte.Location = new Point(247, 12);
             // 
             // lvVisor
             // 
-            //lvVisor.Items.AddRange(new ListViewItem[] { listViewItem1, listViewItem2, listViewItem3, listViewItem4 });
+            lvVisor.Location = new Point(15, 53);
+            // 
+            // lbVisorCargado
+            // 
+            lbVisorCargado.Size = new Size(170, 13);
+            lbVisorCargado.Text = "No Hay Deportistas Cargados Aun";
             // 
             // FrmVerEstadisticas
             // 

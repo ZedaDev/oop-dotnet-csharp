@@ -16,32 +16,13 @@ namespace PlayerStats
 {
     public partial class FrmCargarEstadisticaFutbolista : FrmCargarEstadisticas
     {
-        private Deportista _atleta;
-        private Deportistas _d;
-        public string NickName { get; set; }
-        public Deportista Atleta
-        {
-            get => _atleta;
-            set
-            {
-                if (value is not null)
-                    _atleta = value;
-            }
-        }
-        public Deportistas D
-        {
-            get => _d;
-            set
-            {
-                if (value is not null)
-                    _d = value;
-            }
-        }
+
 
         public FrmCargarEstadisticaFutbolista()
         {
             InitializeComponent();
-            _d = new();
+            //base._d = new();
+            
         }
 
         private void FrmCargarEstadisticaFutbolista_Load(object sender, EventArgs e)
@@ -83,15 +64,30 @@ namespace PlayerStats
 
                 bool roja = cbTRoja.Checked;
                 bool titular = cbTitutlar.Checked;
-                Estadisticas stat = new EFutbolista(titular, goles, asistencias, amarilla, roja, minutos, resultado, fecha, rival, competicion, estadio, comentario);
+                EFutbolista stat = new EFutbolista(titular, goles, asistencias, amarilla, roja, minutos, resultado, fecha, rival, competicion, estadio, comentario, Atleta.FullName);
+                //Atleta.AgregarEstadistica = stat;
                 if(Atleta + stat)
                 {
-                    string pathJson = Atleta.MisEstadisticas(NickName, Atleta.FullName);
-                    D.CargarEstadisticaAlArchivo(pathJson, stat);
-                    MessageBox.Show($"Estadistica Cargada Con Exito", "Congratulations", MessageBoxButtons.OK);
+                    List<EFutbolista> lista = new();
+                    foreach (Estadisticas value in Atleta.Estadisticas)
+                    {
+                        if(value is EFutbolista futbolStat)
+                        {
+                            lista.Add(futbolStat);
+                        }
+                    }
+                  D.CargarEstadisticaAlArchivo(Atleta.MisEstadisticas(NickName), lista);
+                  MessageBox.Show($"Estadistica Cargada Con Exito", "Congratulations", MessageBoxButtons.OK);
                 }
                 else
+                {
                     MessageBox.Show("Su Estadistica A Cargar, Ya Existe", "Stat", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                    // D.CargarEstadisticaAlArchivo(pathJson, ((Futbolista)Atleta).ListaEstadisticas);
+                    // D.CargarDeportistaAlArchivo(Atleta.MisDeportistas(NickName), D);
+                    // MessageBox.Show($"Estadistica Cargada Con Exito", "Congratulations", MessageBoxButtons.OK);
+
+
 
                 ClearCamps(); //Limpio todos los textboxs,etc.
         }

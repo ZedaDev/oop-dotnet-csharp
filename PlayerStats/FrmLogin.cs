@@ -19,28 +19,32 @@ namespace PlayerStats
 
             if (string.IsNullOrEmpty(nick) || string.IsNullOrEmpty(pw))
                 lbMessage.Text = "Asegurese De Completar Los Campos";
-            else
+            else if (Usuarios.UsersList.Count == 0)
+                lbMessage.Text = "Usuario No Registrado";
+            else if(Usuarios.UsersList.Count > 0)
             {
-                if (Usuarios.UsersList.Count == 0)
-                    lbMessage.Text = "Usuario No Registrado";
-                    //Usuarios.SetUser = usuarioNuevo;
 
-                if (Usuarios.UsersList.Count > 0 && !(Usuarios.UsersList.Contains(usuarioNuevo)))
+                //Usuarios.SetUser = usuarioNuevo;
+                if(!Usuarios.UsersList.Contains(usuarioNuevo))
                 {
+
                     lbMessage.Text = "El Nombre De Usuario No Existe";
                     lbMessage.ForeColor = Color.Red;
 
                     txtNickName.Clear(); txtNickName.Focus();
+
                 }
                 else
                 {
                     Deportistas d = new();
                     frmMenuPrincipal menu = new();
-                    menu.InitialiteAttributes(d, usuarioNuevo);
+                    menu.NickName = usuarioNuevo.NickName;
+                    menu.deportistas = d;
+                    //menu.InitialiteAttributes(d, usuarioNuevo);
 
                     this.Hide(); //oculta el formulario
                     DialogResult result = menu.ShowDialog();
-                    if(result == DialogResult.OK)
+                    if (result == DialogResult.OK)
                     {
                         this.txtNickName.Clear();
                         this.txtPw.Clear();
@@ -51,19 +55,20 @@ namespace PlayerStats
                 }
             }
 
-
+        
         }
 
         private void FrmLogin_Load(object sender, EventArgs e)
         {
             // Ruta del archivo JSON
-            string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Logs", "Usuarios.json");
+            string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Logs","Users", "Usuarios.json");
 
             // Crear directorio si no existe
             string dir = Path.GetDirectoryName(pathJson);
             if (!Directory.Exists(dir))
             {
                 Directory.CreateDirectory(dir);
+                //File.Create(pathJson);
             }
 
             // Si el archivo existe, deserializamos los usuarios
@@ -107,7 +112,7 @@ namespace PlayerStats
             else
             {
                 bool usuarioExistente = false;
-
+                
                 // foreach para comprobar si el usuario ya existe en la lista
                 foreach (User value in listaUsuarios)
                 {
@@ -140,27 +145,24 @@ namespace PlayerStats
         private void GuardarUsuariosEnArchivo(string carpeta, string archivo)
         {
             // Ruta del archivo JSON donde guardaremos los usuarios
-            string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), carpeta, archivo);
-
-            // Crear directorio si no existe
-            string dir = Path.GetDirectoryName(pathJson);
-            if (!Directory.Exists(dir))
+            string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), carpeta, "Users", archivo);
+            /*if (!File.Exists(pathJson))
             {
-                Directory.CreateDirectory(dir);
-            }
+                File.Create(pathJson);
+            }*/
 
             // Configurar opciones para serialización
             JsonSerializerOptions jsonObject = new JsonSerializerOptions
             {
                 WriteIndented = true,   // Formato legible (con indentación)
-                IncludeFields = true    // Incluir campos privados
+                //IncludeFields = true    // Incluir campos privados
             };
 
             // Serializar la lista de usuarios
             string jsonUsuarios = JsonSerializer.Serialize(Usuarios.UsersList, jsonObject);
 
             // Sobrescribir el archivo JSON con la lista actualizada
-            File.WriteAllText(pathJson, jsonUsuarios);
+            File.WriteAllText(pathJson, jsonUsuarios); //crea el archivo si no existe.
         }
     }
 

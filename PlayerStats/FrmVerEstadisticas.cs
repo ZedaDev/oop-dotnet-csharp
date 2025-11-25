@@ -18,6 +18,7 @@ namespace PlayerStats
     public partial class FrmVerEstadisticas : frmMenuPrincipal
     {
         private Deportista _atleta;
+
         public Deportista Atleta
         {
             get => _atleta;
@@ -31,10 +32,13 @@ namespace PlayerStats
         public FrmVerEstadisticas()
         {
             InitializeComponent();
+
         }
-        public void InicializarAttributos(User usuario, Deportistas d, Deportista atleta)
+        public void InicializarAttributos(string usuario, Deportistas d, Deportista atleta)
         {
-            base.InitialiteAttributes(d, usuario);
+            //base.InitialiteAttributes(deportistas, usuario);            base.UserLogueado = usuario;
+            base.deportistas = d;
+            base.NickName = usuario;
             _atleta = atleta;
         }
 
@@ -49,10 +53,10 @@ namespace PlayerStats
             btnAgregar.Enabled = true;
             lbDateTime.Text = DateTime.Now.Date.ToShortDateString();
             lbDateTime.ForeColor = Color.Green;
-            lbUser.Text = base.UserLogueado.NickName;
+            lbUser.Text = base.NickName;
 
             cmbDeporte.Visible = false;
-            lvVisor.Items.Clear();
+            //lvVisor.Items.Clear();
 
 
 
@@ -63,8 +67,9 @@ namespace PlayerStats
 
 
 
-            string pathJson = Atleta.MisEstadisticas(base.UserLogueado.NickName, Atleta.FullName);
+           /* string pathJson = Atleta.MisEstadisticas(base.UserLogueado.NickName, Atleta.FullName);
             // Crear directorio si no existe
+
             string dir = Path.GetDirectoryName(pathJson);
             if (!Directory.Exists(dir))
             {
@@ -78,16 +83,20 @@ namespace PlayerStats
                 {
                     JsonSerializerOptions options = new JsonSerializerOptions
                     {
-                        IncludeFields = true, // Incluir campos privados durante la deserialización
+                        WriteIndented = true
                     };
 
                     string textArchive = archivo.ReadToEnd();
 
                     if (!string.IsNullOrEmpty(textArchive.Trim()))
-                        Atleta.Estadisticas = JsonSerializer.Deserialize<List<Estadisticas>>(textArchive, options);
+                    {
+                        List<EFutbolista> lista = new();
+                        lista = JsonSerializer.Deserialize<List<EFutbolista>>(textArchive, options);
+
+                    }
                     // Deserializamos la lista de Estadisticas
                 }
-            }
+            }*/
 
             //Cargo los deportistas [Nombre - Deporte] en el visor.
 
@@ -110,7 +119,7 @@ namespace PlayerStats
                 }
             }
 
-            if(Atleta.Estadisticas.Count > 0)
+            if (Atleta.Estadisticas.Count > 0)
             {
                 lbVisorCargado.ForeColor = Color.Green;
                 lbVisorCargado.Text = $"Estadisticas Cargadas : {Atleta.Estadisticas.Count}";
@@ -125,28 +134,34 @@ namespace PlayerStats
 
         }
 
-        private void btnAgregar_Click(object sender, EventArgs e)
+        protected override void btnAgregar_Click(object sender, EventArgs e)
         {
-            int i = lvVisor.SelectedIndices[0];
 
-            if (i != -1)
+            /*if (lvVisor.SelectedIndices.Count > 0)
             {
-                FrmCargarEstadisticaFutbolista frmCEF = new();
+                int i = lvVisor.SelectedIndices[0];
 
-                frmCEF.Atleta = this.Atleta;
-                this.Hide();
-                frmCEF.NickName = base.UserLogueado.NickName;
-                frmCEF.D = D;
-                frmCEF.Show();
+                if (i != -1)
+                }
+                else
+                    MessageBox.Show("Seleccione Una Estadistica", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                {*/
+                    FrmCargarEstadisticas frm = new();
+                    frm = new FrmCargarEstadisticaFutbolista();
 
 
-                ActualizarVisor();
 
-            }
-            else
-                MessageBox.Show("Seleccione Una Estadistica", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    frm.Atleta = this.Atleta;
+                    frm.NickName = base.NickName;
+                    frm.D = deportistas;
+                    this.Hide();
+                    frm.ShowDialog();
+
+                    ActualizarVisor();
+                    this.Show();
+
+
+            
         }
-
-
     }
 }

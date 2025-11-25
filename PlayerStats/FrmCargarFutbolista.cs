@@ -32,12 +32,13 @@ namespace PlayerStats
 
                 
                 Deportista futbolista = new Futbolista(fullName, edad, apodo, deporte, fechaDebut, posicion, clubActual, phHabil, altura, pais);
-                string pathJson = futbolista.MisDeportistas(base.UserLogueado.NickName);
+                string pathJson = futbolista.MisDeportistas(base.NickName);
+                //cambiar la ruta, para no sobreescribir el deportistas.json de usuarios.
                 D.AgregarAtleta = futbolista;
 
                // if (D + futbolista)
                 //{
-                    D.CargarDeportistaAlArchivo(pathJson, D);
+                    D.CargarDeportistaAlArchivo(pathJson, D.Atletas);
                     MessageBox.Show($"Deportista Cargado Con Exito", "Congratulations", MessageBoxButtons.OK);
                // }
                // else

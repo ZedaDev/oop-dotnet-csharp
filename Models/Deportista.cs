@@ -21,17 +21,17 @@ namespace Entities
         private string _altura;
         private string _pais;
         private string _fechaDeRegistro;
-        private List<Estadisticas> _stats;
+        private List<Estadisticas> _estadisticas;
 
         #region Contructores
 
         
         public Deportista()
         {
-            _stats = new();
-            _fechaDeRegistro = DateTime.Now.Date.ToString("dd-MM-yyyy");
+            _estadisticas = new();
         }
 
+        [JsonConstructor]
         public Deportista(string fullName, string edad, string apodo, string fechaDebut, EDeporte deporte, string phHabil, string altura,string pais)
             : this(fechaDebut, deporte, pais)
         {
@@ -40,6 +40,7 @@ namespace Entities
             _altura = altura; 
             _phHabil = phHabil;
             _apodo = apodo;
+            _fechaDeRegistro = "2524";//DateTime.Now.Date.ToString("dd-MM-yyyy");
         }
         private Deportista(string fechaDebut, EDeporte deporte, string pais)
             : this()
@@ -54,19 +55,19 @@ namespace Entities
         #region Properties
         public List<Estadisticas> Estadisticas
         { 
-            get => _stats;
+            get => _estadisticas;
             set
             {
                 if(value is not null)
-                    _stats = value;
+                    _estadisticas.AddRange(value);
             }
         }
         public Estadisticas AgregarEstadistica
         { 
             set
             {
-                if (value is not null && !(_stats.Contains(value)))
-                    _stats.Add(value);
+                if (value is not null && !(_estadisticas.Contains(value)))
+                    _estadisticas.Add(value);
             }
         }
 
@@ -118,6 +119,7 @@ namespace Entities
             }
         }
 
+        [JsonConverter(typeof(JsonStringEnumConverter<EDeporte>))]
         public EDeporte Deporte
         {
             get => _Edeporte;
@@ -144,7 +146,8 @@ namespace Entities
             get => UsersPath();
         }*/
 
-        public abstract string MisEstadisticas(string nickName, string deportista);
+        public abstract void CargarStat(List<EFutbolista> stats, List<Deportista> d, string nick);
+        public abstract string MisEstadisticas(string nickName);
         public abstract string MisDeportistas(string nickName);
         #endregion
 

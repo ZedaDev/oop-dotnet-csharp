@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Entities
 {
+    [Serializable]
     public class EFutbolista : Estadisticas
     {
         private bool _titular;
@@ -15,31 +17,37 @@ namespace Entities
         private string _tarjetaAmarilla;
         private bool _tarjetaRoja;
 
-        public EFutbolista(bool titular, string goles, string asistencias,string tA, bool tR, string minutosJ, string res, string fe, string riv, string comp, string estadio, string comentario)
-          : this(goles, asistencias, tA, tR, res, fe, riv, comp, estadio, comentario)
+
+        public EFutbolista()
+            : base()
+        { }
+
+       
+        public EFutbolista(bool titular, string goles, string asistencias,string tA, bool tR, string minutosJ, string res, string fe, string riv, string comp, string estadio, string comentario, string usuario)
+          : this(goles, asistencias, tA, tR, res, fe, riv, comp, estadio, comentario, usuario)
         {
             _titular = titular;
             _minutosJugados = minutosJ;
         }
-        private EFutbolista(string goles, string asistencias,string tA, bool tR, string res, string fe, string riv, string comp, string estadio, string comentario)
-          : this(tA, tR, res, fe, riv, comp, estadio, comentario)
+        private EFutbolista(string goles, string asistencias,string tA, bool tR, string res, string fe, string riv, string comp, string estadio, string comentario, string usuario)
+          : this(tA, tR, res, fe, riv, comp, estadio, comentario, usuario)
         {
             _goles = goles;
             _asistencias = asistencias;
         }
-        private EFutbolista(string tA, bool tR, string res, string fe, string riv, string comp, string estadio, string comentario)
-          : base(res, fe, riv, estadio, comp, comentario)
+        private EFutbolista(string tA, bool tR, string res, string fe, string riv, string comp, string estadio, string comentario, string usuario)
+          : base(res, fe, riv, estadio, comp, comentario, usuario)
         {
             _tarjetaAmarilla = tA;
             _tarjetaRoja = tR;
         }
 
-        public string? GolesTiroLibre
+        private string? GolesTiroLibre
         {
             get;
             set;
         }
-        public string? GolesPenal
+        private string? GolesPenal
         {
             get;
             set;

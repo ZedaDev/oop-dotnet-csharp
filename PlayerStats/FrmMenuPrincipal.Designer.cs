@@ -44,7 +44,7 @@
             // 
             lbUser.AutoSize = true;
             lbUser.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lbUser.Location = new Point(3, 9);
+            lbUser.Location = new Point(3, -1);
             lbUser.Name = "lbUser";
             lbUser.Size = new Size(104, 19);
             lbUser.TabIndex = 0;
@@ -54,7 +54,7 @@
             // 
             lbDateTime.AutoSize = true;
             lbDateTime.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lbDateTime.Location = new Point(620, 9);
+            lbDateTime.Location = new Point(618, -1);
             lbDateTime.Name = "lbDateTime";
             lbDateTime.Size = new Size(47, 19);
             lbDateTime.TabIndex = 1;

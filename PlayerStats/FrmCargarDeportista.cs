@@ -7,7 +7,7 @@ namespace PlayerStats
     public partial class FrmCargarDeportista : Form
     {
        // public virtual void AbrirFormulario();
-        public User UserLogueado
+        public string NickName
         {
             get;
             set;
@@ -23,7 +23,7 @@ namespace PlayerStats
             cmbPhHabil.DataSource = Enum.GetValues(typeof(ELadoHabil));
             cmbPhHabil.SelectedIndex = -1;
             lbHoraActual.Text = DateTime.Now.ToString();
-            lbUser.Text = UserLogueado?.NickName;
+            lbUser.Text = NickName;
         }
 
         protected bool ComprobarCamposNull()

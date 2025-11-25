@@ -167,7 +167,7 @@
             Controls.Add(lbResultado);
             Controls.Add(lbRival);
             Name = "FrmCargarEstadisticas";
-            Text = "FrmCargarEstadisticas";
+            Text = "Cargar Stats";
             ResumeLayout(false);
             PerformLayout();
         }

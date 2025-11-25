@@ -10,23 +10,23 @@ namespace PlayerStats
 {
     public partial class frmMenuPrincipal : Form
     {
-
-        private User _userLogueado;
+        private string _nickName;
         private Deportistas _d;
-        public User UserLogueado
+        public string NickName
         {
-            get => _userLogueado;
+            get => _nickName;
             set
             {
                 if (value is not null)
-                    _userLogueado = value;
+                    _nickName = value;
             }
         }
-        public Deportistas D
+        public Deportistas deportistas
         {
             get => _d;
             set
             {
+                _d = new();
                 if(value is not null)
                     _d = value;
             }
@@ -36,40 +36,56 @@ namespace PlayerStats
         public frmMenuPrincipal()
         {
             InitializeComponent();
-            _d = new();
-            _userLogueado = new();
+          
         }
 
-        public void InitialiteAttributes(Deportistas d, User usuario)
+        /*public void InitialiteAttributes(Deportistas d, User usuario)
         {
             _d = d;
             _userLogueado = usuario;
-        }
+        }*/
 
 
         private void frmMenuPrincipal_Load(object sender, EventArgs e)
         {
-            //D = new();
-        
+
                 lbDateTime.Text = DateTime.Now.Date.ToShortDateString();
                 lbDateTime.ForeColor = Color.Green;
-                lbUser.Text = UserLogueado.NickName;
+                lbUser.Text = NickName;
                 cmbDeporte.DataSource = Enum.GetValues(typeof(EDeporte));
                 cmbDeporte.SelectedIndex = -1;
                 btnAgregar.Enabled = false;
                     
 
 
-                D.PathD = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Logs", "Users",UserLogueado.NickName , "Deportistas", "Deportistas.json");
-                D.TraerDeportistasDelArchivo(D.PathD, D);
+               
+            deportistas.PathD = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Logs", "Users",NickName , "Deportistas", "Deportistas.json");
+            MessageBox.Show($"{deportistas.PathD}");
+            deportistas.TraerDeportistasDelArchivo(deportistas.PathD, deportistas);
+            //List<EFutbolista> stats = new();
+            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Logs", "Users", NickName, "Deportistas", "Futbol.json");
+            if (File.Exists(path))
+            {
+                foreach (Deportista value in deportistas.Atletas)
+                {
+
+                    List<EFutbolista> stats = new();
+                    deportistas.TraerEstadisticasDelArchivo(value.MisEstadisticas(NickName), stats);
+                    if(stats.Count > 0)
+                    {
+                        value.Estadisticas.AddRange(stats);
+                    }
+
+                }
+            }
 
             //Cargo los deportistas [Nombre - Deporte] en el visor.
-            if (D.Atletas.Count == 0)
+            if (deportistas.Atletas.Count == 0)
                 lbVisorCargado.Text = "No Hay Deportistas Cargados Aun";
             else
             {
                 lbVisorCargado.ForeColor = Color.Green;
-                lbVisorCargado.Text = $"Deportistas Cargados : {D.Atletas.Count}";
+                lbVisorCargado.Text = $"Deportistas Cargados : {deportistas.Atletas.Count}";
                 ActualizarVisor(); 
             }
 
@@ -92,7 +108,7 @@ namespace PlayerStats
                 btnAgregar.Enabled = false;
         }
 
-        private void btnAgregar_Click(object sender, EventArgs e)
+        protected virtual void btnAgregar_Click(object sender, EventArgs e)
         {
             if (ComprobarCamposNull())
             {
@@ -107,8 +123,8 @@ namespace PlayerStats
                          frm = new FrmCargarFutbolista ();*/
                 if (frm != null)
                 {
-                    frm.D = this.D;
-                    frm.UserLogueado = this.UserLogueado;
+                    frm.D = this.deportistas;
+                    frm.NickName = this.NickName;
                     this.Hide();
                     frm.ShowDialog();
                     //frm.Close();
@@ -123,10 +139,12 @@ namespace PlayerStats
         protected virtual void ActualizarVisor()
         {
             lvVisor.Clear();
-            if(D.Atletas.Count > 0)
+            lvVisor.Items.Clear();
+           
+            if(deportistas.Atletas.Count > 0)
             {
                 StringBuilder sb = new();
-                foreach (Deportista value in D.Atletas)
+                foreach (Deportista value in deportistas.Atletas)
                 {
                       lvVisor.Items.Add($"{value.FullName} - {value.Deporte} | Registrado {value.FechaDeRegistro}");
                 }
@@ -162,10 +180,11 @@ namespace PlayerStats
                // MessageBox.Show($"Índice seleccionado: {i}, Total de atletas: {D.Atletas.Count}");
 
                 // Verificar que el índice esté dentro de un rango válido
-                if (i >= 0 && i < D.Atletas.Count)
+                if (i >= 0 && i < deportistas.Atletas.Count)
                 {
                     // Obtener el atleta correspondiente al índice
-                    Deportista atleta = D.Atletas[i];  // Aquí accedemos directamente a D.Atletas[i]
+
+                    Deportista atleta = deportistas.Atletas[i];  // Aquí accedemos directamente a D.Atletas[i]
                     // Crear y mostrar el formulario de estadísticas
                     // Verificar si el atleta es null
                     if (atleta != null)
@@ -173,7 +192,7 @@ namespace PlayerStats
                         // MessageBox.Show($"{atleta.ToString()}");
                         FrmVerEstadisticas frmEstadisticas = new FrmVerEstadisticas();
                        
-                        frmEstadisticas.InicializarAttributos(UserLogueado, D, atleta);
+                        frmEstadisticas.InicializarAttributos(NickName, deportistas, atleta);
                         this.Hide();
                         frmEstadisticas.ShowDialog();
 

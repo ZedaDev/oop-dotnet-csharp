@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Entities
 {
     public abstract class Estadisticas
     {
+        private string _deportista;
         private string _resultado;
         private string _fecha;
         private string _rival;
@@ -18,21 +21,24 @@ namespace Entities
 
         public Estadisticas()
         {
-            _fechaDeRegistro = DateTime.Now.Date.ToString("dd-MM-yyyy");
         }
-        public Estadisticas(string resultado, string fecha, string rival, string estadio, string competicion, string comentario)
+
+        [JsonConstructor]
+        public Estadisticas(string resultado, string fecha, string rival, string estadio, string competicion, string comentario, string usuario)
                 : this(estadio, competicion, comentario)
         {
             _resultado = resultado;
             _fecha = fecha;
             _rival = rival;
+            _fechaDeRegistro = DateTime.Now.Date.ToString("dd-MM-yyyy");
+            _deportista = usuario;
 
         }
         private Estadisticas(string estadio, string competicion, string comentario)
-            : this()
         {
             _estadio = estadio;
             _comentario = comentario;
+            _competicion = competicion;
         }
 
         #region Properties
@@ -40,6 +46,18 @@ namespace Entities
         {
             get => _resultado;
             set => _resultado = value;
+        }
+        public string Deportista 
+        {
+            get => _deportista;
+            set => _deportista = value;
+        }
+
+        [JsonIgnore]
+        public string Usuario 
+        {
+            get;
+            set;
         }
         public string Fecha 
         {
@@ -68,6 +86,10 @@ namespace Entities
             get => _comentario;
             set => _comentario = value;
         }
+        public string FechaRegistro 
+        { 
+            get => _fechaDeRegistro;
+        }
 
         #endregion
 
@@ -80,7 +102,7 @@ namespace Entities
 
             if (e is null || e1 is null) return false;
 
-            return e.Fecha == e1.Fecha && e.GetType() == e1.GetType();
+            return e.Fecha == e1.Fecha && e.Deportista == e1.Deportista && e.GetType() == e1.GetType();
         }
         public static bool operator !=(Estadisticas d, Estadisticas d1)
         {
@@ -112,7 +134,7 @@ namespace Entities
         }
         public override int GetHashCode()
         {
-            return HashCode.Combine(_fecha, GetType());
+            return HashCode.Combine(_fecha);
         }
         #endregion
     }
