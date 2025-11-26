@@ -1,6 +1,6 @@
 ﻿namespace PlayerStats
 {
-    partial class FrmVerEstadisticas
+    partial class FrmEstadisticas
     {
         /// <summary>
         /// Required designer variable.
@@ -45,7 +45,7 @@
             // btnAgregar
             // 
             btnAgregar.Location = new Point(3, 295);
-            btnAgregar.Click += btnAgregar_Click;
+           //this.btnAgregar.Click += this.btnAgregar_Click;
             // 
             // cmbDeporte
             // 

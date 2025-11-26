@@ -40,8 +40,31 @@ namespace Service
             }
         }
 
+        /// <summary>
+        /// Verifica si el usuario se encuentra en List<User> usuarios.
+        /// 
+        /// </summary>
+        /// <param name="usuarioNuevo"></param>
+        /// <returns>devuelve True en caso de estar, false en caso de no encontrarse en la lista.</returns>
+        public static bool VerificarUsuariosRegistrado(User usuarioNuevo)
+        {
+            bool usuarioExistente = false;
 
+            // foreach para comprobar si el usuario ya existe en la lista
+            foreach (User value in Usuarios.UsersList)
+            {
+                if (value == usuarioNuevo) // Compara el NickName
+                {
+                    usuarioExistente = true;
+                    break;
+                }
+            }
+            return usuarioExistente;
+        }
+       /* public static bool operator ==(List<User> usuarios, User usuario)
+        {
 
+        }*/
         public static string Mostrar()
         {
             StringBuilder sb = new();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Entities
@@ -57,7 +58,34 @@ namespace Entities
 
             }
         }
+        public  void TraerStatsDArchivo(string pathJson, List<EFutbolista> stats)
+        {
+            
+            // Si existe un archivo.json dentro de la ruta general, deserializamos el archivo json.
+            if (File.Exists(pathJson))
+            {
+                using (StreamReader archivo = new(pathJson))
+                {
+                    var options = new JsonSerializerOptions();
 
+                    string textArchive = archivo.ReadToEnd();
+
+                    if (!string.IsNullOrEmpty(textArchive.Trim()))
+                    {
+
+                        List<EFutbolista> deportistasJson = JsonSerializer.Deserialize<List<EFutbolista>>(textArchive, options);
+
+                        if (deportistasJson.Count > 0)
+                            stats.AddRange(deportistasJson);
+
+                    }
+
+                }
+
+            }
+
+
+        }
         public override void CargarStat(List<EFutbolista> stats, List<Deportista> atletas, string nick)
         {
             foreach (Deportista value in atletas)

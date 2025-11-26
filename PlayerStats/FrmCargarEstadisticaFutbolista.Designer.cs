@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCargarEstadisticaFutbolista));
             cbTitutlar = new CheckBox();
             txtGoles = new TextBox();
             txtAsistencias = new TextBox();
@@ -135,6 +136,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(913, 532);
             Controls.Add(cbTAmarilla);
             Controls.Add(cbTRoja);

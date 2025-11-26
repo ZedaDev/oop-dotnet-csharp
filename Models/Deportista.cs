@@ -149,6 +149,8 @@ namespace Entities
         public abstract void CargarStat(List<EFutbolista> stats, List<Deportista> d, string nick);
         public abstract string MisEstadisticas(string nickName);
         public abstract string MisDeportistas(string nickName);
+
+        //public abstract void TraerStatsDArchivo(string pathJson, List<object> stats);
         #endregion
 
         #region Sobrecargas

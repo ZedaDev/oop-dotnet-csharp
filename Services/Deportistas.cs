@@ -60,11 +60,11 @@ namespace Service
             }
             public static bool operator !=(Deportistas deportistas, Deportista atleta)
             {
-                return !(deportistas + atleta);
+                return !(deportistas == atleta);
             }
             public static bool operator +(Deportistas deportistas, Deportista atleta)
             {
-                if(deportistas != atleta)
+                if(!(deportistas == atleta))
                 {
                     //deportistas.Atletas.Add(atleta);
                     deportistas.AgregarAtleta = atleta;
@@ -134,8 +134,41 @@ namespace Service
             }*/
 
         }
-        
-        
+
+        public  void FutbolistasArchiveTooList(string pathJson, Deportistas D) //traer futbolistas, sobrecargar para mas deportistas.
+        {
+
+            // Si existe un archivo.json dentro de la ruta general, deserializamos el archivo json.
+            if (File.Exists(pathJson))
+            {
+                using (StreamReader archivo = new(pathJson))
+                {
+                    var options = new JsonSerializerOptions();
+                    //options.Converters = new JsonStringEnumConverter();
+
+                    // Para enum
+                    //IncludeFields = true,
+                    options.WriteIndented = true; // Incluir campos privados durante la deserialización
+
+
+
+                    string textArchive = archivo.ReadToEnd();
+
+                    if (!string.IsNullOrEmpty(textArchive.Trim()))
+                    {
+
+                        List<Futbolista> deportistasJson = JsonSerializer.Deserialize<List<Futbolista>>(textArchive, options);
+
+                        if (deportistasJson.Count > 0)
+                            D.Atletas.AddRange(deportistasJson);
+
+                    }
+
+                    // Deserializamos el archivo, cargando la lista con los datos del file.
+                }
+
+            }
+        }
         public void TraerEstadisticasDelArchivo(string pathJson, List<EFutbolista> stats)
         {
             if (string.IsNullOrEmpty(pathJson))

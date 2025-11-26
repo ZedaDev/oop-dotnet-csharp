@@ -63,7 +63,7 @@
             // btnAgregar
             // 
             btnAgregar.Font = new Font("Segoe UI", 10F, FontStyle.Italic);
-            btnAgregar.Location = new Point(280, 294);
+            btnAgregar.Location = new Point(280, 313);
             btnAgregar.Name = "btnAgregar";
             btnAgregar.Size = new Size(163, 36);
             btnAgregar.TabIndex = 2;
@@ -85,7 +85,7 @@
             // 
             cmbDeporte.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbDeporte.FormattingEnabled = true;
-            cmbDeporte.Location = new Point(12, 304);
+            cmbDeporte.Location = new Point(12, 326);
             cmbDeporte.Name = "cmbDeporte";
             cmbDeporte.Size = new Size(241, 23);
             cmbDeporte.TabIndex = 7;
@@ -111,7 +111,7 @@
             // 
             // lvVisor
             // 
-            lvVisor.Location = new Point(3, 53);
+            lvVisor.Location = new Point(3, 52);
             lvVisor.MultiSelect = false;
             lvVisor.Name = "lvVisor";
             lvVisor.Size = new Size(530, 236);
@@ -145,7 +145,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImageLayout = ImageLayout.None;
-            ClientSize = new Size(718, 332);
+            ClientSize = new Size(721, 355);
             Controls.Add(lbVisorCargado);
             Controls.Add(btnCerrarSesion);
             Controls.Add(lvVisor);

@@ -63,9 +63,29 @@ namespace PlayerStats.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _143842_8167_argentinachilenota {
+            get {
+                object obj = ResourceManager.GetObject("143842-8167-argentinachilenota", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _23949_mast1 {
             get {
                 object obj = ResourceManager.GetObject("23949-mast1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap GjTUGczX0AAYZXc {
+            get {
+                object obj = ResourceManager.GetObject("GjTUGczX0AAYZXc", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
