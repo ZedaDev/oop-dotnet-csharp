@@ -34,78 +34,121 @@
             lbresultado = new Label();
             lbFechaPartido = new Label();
             lbFechaRegistro = new Label();
-            lboxComentario = new ListBox();
+            rtbComentario = new RichTextBox();
+            txtRival = new TextBox();
+            txtResultado = new TextBox();
+            txtEstadio = new TextBox();
+            txtCompeticion = new TextBox();
             SuspendLayout();
             // 
             // lbRival
             // 
             lbRival.AutoSize = true;
+            lbRival.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lbRival.Location = new Point(12, 64);
             lbRival.Name = "lbRival";
-            lbRival.Size = new Size(37, 15);
+            lbRival.Size = new Size(50, 19);
             lbRival.TabIndex = 0;
-            lbRival.Text = "RIVAL";
+            lbRival.Text = "Rival :";
             // 
             // lbEstadio
             // 
             lbEstadio.AutoSize = true;
+            lbEstadio.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lbEstadio.Location = new Point(12, 161);
             lbEstadio.Name = "lbEstadio";
-            lbEstadio.Size = new Size(52, 15);
+            lbEstadio.Size = new Size(65, 19);
             lbEstadio.TabIndex = 1;
-            lbEstadio.Text = "ESTADIO";
+            lbEstadio.Text = "Estadio :";
             // 
             // lbCompeticion
             // 
             lbCompeticion.AutoSize = true;
+            lbCompeticion.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lbCompeticion.Location = new Point(12, 211);
             lbCompeticion.Name = "lbCompeticion";
-            lbCompeticion.Size = new Size(86, 15);
+            lbCompeticion.Size = new Size(94, 19);
             lbCompeticion.TabIndex = 3;
-            lbCompeticion.Text = "COMPETICION";
+            lbCompeticion.Text = "Competicion";
             // 
             // lbresultado
             // 
             lbresultado.AutoSize = true;
+            lbresultado.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lbresultado.Location = new Point(12, 114);
             lbresultado.Name = "lbresultado";
-            lbresultado.Size = new Size(69, 15);
+            lbresultado.Size = new Size(83, 19);
             lbresultado.TabIndex = 4;
-            lbresultado.Text = "RESULTADO";
+            lbresultado.Text = "Resultado :";
             // 
             // lbFechaPartido
             // 
             lbFechaPartido.AutoSize = true;
+            lbFechaPartido.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             lbFechaPartido.Location = new Point(12, 9);
             lbFechaPartido.Name = "lbFechaPartido";
-            lbFechaPartido.Size = new Size(93, 15);
+            lbFechaPartido.Size = new Size(125, 20);
             lbFechaPartido.TabIndex = 5;
             lbFechaPartido.Text = "FECHA PARTIDO";
             // 
             // lbFechaRegistro
             // 
             lbFechaRegistro.AutoSize = true;
-            lbFechaRegistro.Location = new Point(520, 253);
+            lbFechaRegistro.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            lbFechaRegistro.Location = new Point(415, 253);
             lbFechaRegistro.Name = "lbFechaRegistro";
-            lbFechaRegistro.Size = new Size(99, 15);
+            lbFechaRegistro.Size = new Size(132, 20);
             lbFechaRegistro.TabIndex = 6;
             lbFechaRegistro.Text = "FECHA REGISTRO";
             // 
-            // lboxComentario
+            // rtbComentario
             // 
-            lboxComentario.FormattingEnabled = true;
-            lboxComentario.ItemHeight = 15;
-            lboxComentario.Location = new Point(2, 271);
-            lboxComentario.Name = "lboxComentario";
-            lboxComentario.Size = new Size(656, 229);
-            lboxComentario.TabIndex = 7;
+            rtbComentario.Location = new Point(3, 271);
+            rtbComentario.Name = "rtbComentario";
+            rtbComentario.Size = new Size(667, 227);
+            rtbComentario.TabIndex = 7;
+            rtbComentario.Text = "";
+            // 
+            // txtRival
+            // 
+            txtRival.Location = new Point(68, 63);
+            txtRival.Name = "txtRival";
+            txtRival.Size = new Size(186, 23);
+            txtRival.TabIndex = 8;
+            // 
+            // txtResultado
+            // 
+            txtResultado.Location = new Point(101, 113);
+            txtResultado.Name = "txtResultado";
+            txtResultado.Size = new Size(181, 23);
+            txtResultado.TabIndex = 9;
+            // 
+            // txtEstadio
+            // 
+            txtEstadio.Location = new Point(84, 161);
+            txtEstadio.Name = "txtEstadio";
+            txtEstadio.Size = new Size(182, 23);
+            txtEstadio.TabIndex = 10;
+            // 
+            // txtCompeticion
+            // 
+            txtCompeticion.Location = new Point(112, 210);
+            txtCompeticion.Name = "txtCompeticion";
+            txtCompeticion.Size = new Size(162, 23);
+            txtCompeticion.TabIndex = 11;
             // 
             // FrmVerEstadistica
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = Properties.Resources._143842_8167_argentinachilenota;
+            BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(897, 503);
-            Controls.Add(lboxComentario);
+            Controls.Add(txtCompeticion);
+            Controls.Add(txtEstadio);
+            Controls.Add(txtResultado);
+            Controls.Add(txtRival);
+            Controls.Add(rtbComentario);
             Controls.Add(lbFechaRegistro);
             Controls.Add(lbFechaPartido);
             Controls.Add(lbresultado);
@@ -120,12 +163,16 @@
 
         #endregion
 
-        private Label lbRival;
-        private Label lbEstadio;
-        private Label lbCompeticion;
-        private Label lbresultado;
-        private Label lbFechaPartido;
-        private Label lbFechaRegistro;
-        private ListBox lboxComentario;
+        protected Label lbRival;
+        protected Label lbEstadio;
+        protected Label lbCompeticion;
+        protected Label lbresultado;
+        protected Label lbFechaPartido;
+        protected Label lbFechaRegistro;
+        protected RichTextBox rtbComentario;
+        protected TextBox txtRival;
+        protected TextBox txtResultado;
+        protected TextBox txtEstadio;
+        protected TextBox txtCompeticion;
     }
 }

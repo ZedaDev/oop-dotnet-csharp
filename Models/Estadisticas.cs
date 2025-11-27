@@ -17,7 +17,7 @@ namespace Entities
         private string _competicion;
         private string _estadio;
         private string _comentario;
-        private string _fechaDeRegistro;
+        private string _fechaRegistro;
 
         public Estadisticas()
         {
@@ -30,7 +30,7 @@ namespace Entities
             _resultado = resultado;
             _fecha = fecha;
             _rival = rival;
-            _fechaDeRegistro = DateTime.Now.Date.ToString("dd-MM-yyyy");
+            _fechaRegistro = DateTime.Now.Date.ToString("dd-MM-yyyy");
             _deportista = usuario;
 
         }
@@ -88,7 +88,7 @@ namespace Entities
         }
         public string FechaRegistro 
         { 
-            get => _fechaDeRegistro;
+            get => _fechaRegistro;
         }
 
         #endregion

@@ -42,7 +42,7 @@ namespace PlayerStats
             _atleta = atleta;
         }
 
-        private void FrmVerEstadisticas_Load(object sender, EventArgs e)
+        private void FrmEstadisticas_Load(object sender, EventArgs e)
         {
             SetControlsAndVisor();
         }
@@ -98,7 +98,11 @@ namespace PlayerStats
                     MessageBox.Show("Seleccione Una Estadistica", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else
                 {
-                    MessageBox.Show("AQUI SE ABRE EL FORMULARIO PARA VER STATS");
+                    FrmVerEstadistica frm = new FrmVerEstadisticaFutbolista();
+                    frm.Stat = Atleta.Estadisticas[i];
+
+                    frm.ShowDialog();
+                    //MessageBox.Show("AQUI SE ABRE EL FORMULARIO PARA VER STATS");
 
                 }
             }

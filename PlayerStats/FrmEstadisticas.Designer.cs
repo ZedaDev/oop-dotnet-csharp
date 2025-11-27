@@ -1,6 +1,6 @@
 ﻿namespace PlayerStats
 {
-    partial class FrmEstadisticas
+   public partial class FrmEstadisticas
     {
         /// <summary>
         /// Required designer variable.
@@ -71,9 +71,9 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             ClientSize = new Size(718, 332);
-            Name = "FrmVerEstadisticas";
-            Text = "FrmVerEstadisticas";
-            Load += FrmVerEstadisticas_Load;
+            Name = "FrmEstadisticas";
+            Text = "FrmEstadisticas";
+            Load += FrmEstadisticas_Load;
             ResumeLayout(false);
             PerformLayout();
         }

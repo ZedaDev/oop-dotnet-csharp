@@ -83,6 +83,16 @@ namespace PlayerStats.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap GjTROC7W4AAuaJd {
+            get {
+                object obj = ResourceManager.GetObject("GjTROC7W4AAuaJd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap GjTUGczX0AAYZXc {
             get {
                 object obj = ResourceManager.GetObject("GjTUGczX0AAYZXc", resourceCulture);
