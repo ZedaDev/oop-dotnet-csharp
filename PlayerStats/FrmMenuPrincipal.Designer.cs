@@ -33,8 +33,8 @@
             btnAgregar = new Button();
             btnVer = new Button();
             cmbDeporte = new ComboBox();
-            button1 = new Button();
-            button2 = new Button();
+            btnEliminar = new Button();
+            btnModificar = new Button();
             lvVisor = new ListView();
             btnCerrarSesion = new Button();
             lbVisorCargado = new Label();
@@ -91,23 +91,24 @@
             cmbDeporte.TabIndex = 7;
             cmbDeporte.SelectedIndexChanged += cmbDeporte_SelectedIndexChanged;
             // 
-            // button1
+            // btnEliminar
             // 
-            button1.Location = new Point(549, 106);
-            button1.Name = "button1";
-            button1.Size = new Size(166, 36);
-            button1.TabIndex = 8;
-            button1.Text = "Eliminar";
-            button1.UseVisualStyleBackColor = true;
+            btnEliminar.Location = new Point(549, 106);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(166, 36);
+            btnEliminar.TabIndex = 8;
+            btnEliminar.Text = "Eliminar";
+            btnEliminar.UseVisualStyleBackColor = true;
+            btnEliminar.Click += btnEliminar_Click;
             // 
-            // button2
+            // btnModificar
             // 
-            button2.Location = new Point(549, 189);
-            button2.Name = "button2";
-            button2.Size = new Size(166, 36);
-            button2.TabIndex = 9;
-            button2.Text = "Modificar";
-            button2.UseVisualStyleBackColor = true;
+            btnModificar.Location = new Point(549, 189);
+            btnModificar.Name = "btnModificar";
+            btnModificar.Size = new Size(166, 36);
+            btnModificar.TabIndex = 9;
+            btnModificar.Text = "Modificar";
+            btnModificar.UseVisualStyleBackColor = true;
             // 
             // lvVisor
             // 
@@ -144,13 +145,14 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImageLayout = ImageLayout.None;
+            BackColor = SystemColors.Control;
+            BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(721, 355);
             Controls.Add(lbVisorCargado);
             Controls.Add(btnCerrarSesion);
             Controls.Add(lvVisor);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(btnModificar);
+            Controls.Add(btnEliminar);
             Controls.Add(cmbDeporte);
             Controls.Add(btnVer);
             Controls.Add(btnAgregar);
@@ -159,7 +161,6 @@
             Name = "frmMenuPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Player Stats";
-            FormClosing += frmMenuPrincipal_FormClosing;
             Load += frmMenuPrincipal_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -172,8 +173,8 @@
         protected Button btnAgregar;
         protected Button btnVer;
         protected ComboBox cmbDeporte;
-        protected Button button1;
-        protected Button button2;
+        protected Button btnEliminar;
+        protected Button btnModificar;
         protected ListView lvVisor;
         protected Button btnCerrarSesion;
         protected Label lbVisorCargado;

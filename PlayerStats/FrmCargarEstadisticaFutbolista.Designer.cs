@@ -39,6 +39,10 @@
             cmbTAmarilla = new ComboBox();
             cbTRoja = new CheckBox();
             cbTAmarilla = new CheckBox();
+            txtGTiroLibre = new TextBox();
+            txtGPenal = new TextBox();
+            lbGTiroLibre = new Label();
+            lbGPenal = new Label();
             SuspendLayout();
             // 
             // btnCargar
@@ -48,7 +52,7 @@
             // cbTitutlar
             // 
             cbTitutlar.AutoSize = true;
-            cbTitutlar.Location = new Point(330, 236);
+            cbTitutlar.Location = new Point(498, 129);
             cbTitutlar.Name = "cbTitutlar";
             cbTitutlar.Size = new Size(59, 19);
             cbTitutlar.TabIndex = 26;
@@ -61,10 +65,11 @@
             txtGoles.Name = "txtGoles";
             txtGoles.Size = new Size(100, 23);
             txtGoles.TabIndex = 27;
+            txtGoles.TextChanged += txtGoles_TextChanged;
             // 
             // txtAsistencias
             // 
-            txtAsistencias.Location = new Point(185, 236);
+            txtAsistencias.Location = new Point(171, 236);
             txtAsistencias.Name = "txtAsistencias";
             txtAsistencias.Size = new Size(100, 23);
             txtAsistencias.TabIndex = 28;
@@ -132,6 +137,38 @@
             cbTAmarilla.UseVisualStyleBackColor = true;
             cbTAmarilla.CheckedChanged += cbTAmarilla_CheckedChanged;
             // 
+            // txtGTiroLibre
+            // 
+            txtGTiroLibre.Location = new Point(327, 236);
+            txtGTiroLibre.Name = "txtGTiroLibre";
+            txtGTiroLibre.Size = new Size(100, 23);
+            txtGTiroLibre.TabIndex = 40;
+            // 
+            // txtGPenal
+            // 
+            txtGPenal.Location = new Point(498, 236);
+            txtGPenal.Name = "txtGPenal";
+            txtGPenal.Size = new Size(100, 23);
+            txtGPenal.TabIndex = 41;
+            // 
+            // lbGTiroLibre
+            // 
+            lbGTiroLibre.AutoSize = true;
+            lbGTiroLibre.Location = new Point(306, 218);
+            lbGTiroLibre.Name = "lbGTiroLibre";
+            lbGTiroLibre.Size = new Size(93, 15);
+            lbGTiroLibre.TabIndex = 42;
+            lbGTiroLibre.Text = "Gol/es Tiro Libre";
+            // 
+            // lbGPenal
+            // 
+            lbGPenal.AutoSize = true;
+            lbGPenal.Location = new Point(484, 218);
+            lbGPenal.Name = "lbGPenal";
+            lbGPenal.Size = new Size(73, 15);
+            lbGPenal.TabIndex = 43;
+            lbGPenal.Text = "Gol/es Penal";
+            // 
             // FrmCargarEstadisticaFutbolista
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -139,6 +176,10 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(913, 532);
+            Controls.Add(lbGPenal);
+            Controls.Add(lbGTiroLibre);
+            Controls.Add(txtGPenal);
+            Controls.Add(txtGTiroLibre);
             Controls.Add(cbTAmarilla);
             Controls.Add(cbTRoja);
             Controls.Add(cmbTAmarilla);
@@ -169,6 +210,10 @@
             Controls.SetChildIndex(cmbTAmarilla, 0);
             Controls.SetChildIndex(cbTRoja, 0);
             Controls.SetChildIndex(cbTAmarilla, 0);
+            Controls.SetChildIndex(txtGTiroLibre, 0);
+            Controls.SetChildIndex(txtGPenal, 0);
+            Controls.SetChildIndex(lbGTiroLibre, 0);
+            Controls.SetChildIndex(lbGPenal, 0);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -185,5 +230,9 @@
         private ComboBox cmbTAmarilla;
         private CheckBox cbTRoja;
         private CheckBox cbTAmarilla;
+        private TextBox txtGTiroLibre;
+        private TextBox txtGPenal;
+        private Label lbGTiroLibre;
+        private Label lbGPenal;
     }
 }

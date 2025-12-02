@@ -16,6 +16,8 @@ namespace Entities
         private string _minutosJugados;
         private string _tarjetaAmarilla;
         private bool _tarjetaRoja;
+        private string _golesTiroLibre;
+        private string _golesPenal;
 
 
         public EFutbolista()
@@ -23,31 +25,33 @@ namespace Entities
         { }
 
        
-        public EFutbolista(bool titular, string goles, string asistencias,string tA, bool tR, string minutosJ, string res, string fe, string riv, string comp, string estadio, string comentario, string usuario)
-          : this(goles, asistencias, tA, tR, res, fe, riv, comp, estadio, comentario, usuario)
+        public EFutbolista(bool titular, string goles, string asistencias,string tA, bool tR, string minutosJ, string res, string fe, string riv, string comp, string estadio, string comentario, string usuario, string fechaRegistro, string user)
+          : this(goles, asistencias, tA, tR, res, fe, riv, comp, estadio, comentario, usuario, fechaRegistro, user)
         {
             _titular = titular;
             _minutosJugados = minutosJ;
+            _golesTiroLibre = "";
+            _golesPenal = "";
         }
-        private EFutbolista(string goles, string asistencias,string tA, bool tR, string res, string fe, string riv, string comp, string estadio, string comentario, string usuario)
-          : this(tA, tR, res, fe, riv, comp, estadio, comentario, usuario)
+        private EFutbolista(string goles, string asistencias,string tA, bool tR, string res, string fe, string riv, string comp, string estadio, string comentario, string usuario, string fechaRegistro, string user)
+          : this(tA, tR, res, fe, riv, comp, estadio, comentario, usuario, fechaRegistro, user)
         {
             _goles = goles;
             _asistencias = asistencias;
         }
-        private EFutbolista(string tA, bool tR, string res, string fe, string riv, string comp, string estadio, string comentario, string usuario)
-          : base(res, fe, riv, estadio, comp, comentario, usuario)
+        private EFutbolista(string tA, bool tR, string res, string fe, string riv, string comp, string estadio, string comentario, string usuario, string fechaRegistro, string user)
+          : base(res, fe, riv, estadio, comp, comentario, usuario, fechaRegistro, user)
         {
             _tarjetaAmarilla = tA;
             _tarjetaRoja = tR;
         }
 
-        private string? GolesTiroLibre
+        public string GolesTiroLibre
         {
             get;
             set;
         }
-        private string? GolesPenal
+        public string GolesPenal
         {
             get;
             set;
@@ -58,5 +62,6 @@ namespace Entities
         public string MinutosJugados { get => _minutosJugados; set => _minutosJugados = value; }
         public string TarjetaAmarilla { get => _tarjetaAmarilla; set => _tarjetaAmarilla = value; }
         public bool TarjetaRoja { get => _tarjetaRoja; set => _tarjetaRoja = value; }
+
     }
 }

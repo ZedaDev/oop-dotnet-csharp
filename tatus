@@ -1,0 +1,437 @@
+[33mcommit 3ad773e69cf9efdc05040b06012844deea50ec76[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Thu Nov 27 16:25:17 2025 -0300
+
+    FrmVerEstadisticasFutbolista logic/design, data persistence
+
+[33mcommit e31b51af32080739972e1e103d3856f7e9660cb5[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Wed Nov 26 16:11:46 2025 -0300
+
+    Refactoring and FrmVerEstadisticas
+
+[33mcommit bc24333dbcef678fc95d7fc2398fca9fec6060e8[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Tue Nov 25 15:56:52 2025 -0300
+
+    Data Persistence of Users And Stats
+
+[33mcommit 162f065835d1df6fca1b9beab230f91cc3da4fbe[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Thu Nov 20 16:23:56 2025 -0300
+
+    Parcial: FrmCargarEstadisticas and Forms Refactoring
+
+[33mcommit d7ebbf553bce0f719942283ace5f7b87e7ee723f[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Wed Nov 19 16:04:10 2025 -0300
+
+    Parcial: refactoring(FrmMenu, FrmEstadisticas)
+
+[33mcommit abf693af1eaace3c6f04a11a1aa828c20a9c7bb5[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Tue Nov 18 16:26:32 2025 -0300
+
+    Parcial: Persistencia de datos CRUD(Usuarios, deportistas)
+
+[33mcommit 7ed84c495c8703d01eb24db9030bd59e9efdbede[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Mon Nov 17 15:43:50 2025 -0300
+
+    Parcial: Refactoring Data Persistence(Methods,Properties,Path)
+
+[33mcommit 1bdaf0cff0eef75e6dc62ab09e9426cb34719771[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Sat Nov 15 15:23:59 2025 -0300
+
+    FrmEstadisticas(Herencia)
+
+[33mcommit 8cdba2e3a50331baf331824cfc4e79bf6c9dd0a1[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Sat Nov 15 14:09:29 2025 -0300
+
+    FrmMenuPrincipal, FrmAgregarFutbolista(Herencia Forms)
+
+[33mcommit 4bab7f5222db4e955defda0ce72ea10b1cec2653[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Thu Nov 13 15:14:22 2025 -0300
+
+    Parcial: FrmCargarDeportistas - base
+
+[33mcommit 5c5fe4d6b570a5eb531733b50737cf734441aad8[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Thu Nov 13 13:01:41 2025 -0300
+
+    Parcial: Estadisticas Base
+
+[33mcommit 4e5fcc682bb6df6fe10c8a5bc330f7368b4d13a2[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Wed Nov 12 15:54:00 2025 -0300
+
+    Parcial: FrmMenu - Visual, Persistencia de Datos
+
+[33mcommit a7807db2e68943b5c53261a498121989d2856c34[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Tue Nov 11 16:38:39 2025 -0300
+
+    Parcial Jerarquia De Clases
+
+[33mcommit b488ee171040ea9f113d8ed2687281d212ad5242[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Fri Nov 7 15:32:52 2025 -0300
+
+    Parcial: FrmLogin - Usuario,User(class)
+
+[33mcommit 15fba905a94479a952e8a18524ce14705f7f0f67[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Thu Nov 6 15:47:21 2025 -0300
+
+    C10. E3. La Centralita Episodio 2(Polimorfismo, Winforms)
+
+[33mcommit 0a8351de225576ce9265719774d7686315fbcd82[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Mon Nov 3 16:00:25 2025 -0300
+
+    C10.Polimorfismo - Exercises 2 and 3(Console)
+
+[33mcommit e9926d766277d933a171b0b6f00b73433c890605[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Mon Nov 3 13:36:33 2025 -0300
+
+    Class 10 - Excersice 1 Polimorfismo
+
+[33mcommit 43ebfd89193bef5a3173a0a3a66fe0f01e93015d[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Thu Oct 30 15:25:18 2025 -0300
+
+    Ejercicio Pre Parcial - Marvel(Personaje,Avenger,Enemigo)
+
+[33mcommit 35b5df33b58c52ec26679f6e01ac5a95a32d7a3b[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Wed Oct 29 15:40:40 2025 -0300
+
+    C9. E4. La Centralita 1er Episodio
+
+[33mcommit 8def1dc92ab266bac80404a2447c4053aaf269ac[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Tue Oct 28 15:44:47 2025 -0300
+
+    Class 9 - Exercise 4
+
+[33mcommit 0ae39c9c175ba6f0d850d321223f7d33e0d79a8e[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Tue Oct 28 14:47:28 2025 -0300
+
+    C9. E3. 'Go Speed Racer Go'(Herencia)
+
+[33mcommit b369af24b3604817575f5a3afca1fb0cd7d89970[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Mon Oct 27 16:06:26 2025 -0300
+
+    C9. E2. Herencia Deportiva
+
+[33mcommit 61262a76c1e0db1a7c1a92bc4ed924b6ab9a1c05[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Mon Oct 27 15:01:22 2025 -0300
+
+    Class 9. Exercise 1(Herencia)
+
+[33mcommit 2ac07967fec883c70f053c65cb2ab03110f36dd5[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Fri Oct 24 15:26:55 2025 -0300
+
+    Pre-Partial Excersise - Laundry (Herencia)
+
+[33mcommit 6f31e8d2216caccca4d0d159c2e4752779c63ba3[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Thu Oct 23 15:49:41 2025 -0300
+
+    Ejercicio Pre Parcial(Herencia)
+
+[33mcommit 56ddc16d0cfeb21c1c1ee4fd5e2d43c2f2792d09[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Wed Oct 22 13:17:38 2025 -0300
+
+    C8. Ejs. 2 y 3 (Indexadores, refactoring(Ej. 4 - Clase 6))
+
+[33mcommit 9cf7d095a291e66e90a2e14e31990f7fd180ae34[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Tue Oct 21 15:33:33 2025 -0300
+
+    C8. E1. Puesto De Atencion(Propiedades, sobrecargas)
+
+[33mcommit 85482e09fdd61a898601166bd7078aa3cccb3f3f[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Sat Oct 18 15:09:55 2025 -0300
+
+    CRUD Refactoring (Encapsulamiento)
+
+[33mcommit cfaaea8739dd2051f15c445845b0ee693b2015fb[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Fri Oct 17 16:25:58 2025 -0300
+
+    CRUD + Persitencia de datos(archivos,xml,json)
+
+[33mcommit 11c20633b7b2734a758fa00eac1624a53c79d8ca[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Wed Oct 15 16:19:43 2025 -0300
+
+    CRUD WinForm Persistencia De Datos(Archivos)
+
+[33mcommit ff69f55e28bd96fcde8a4b24d5182fd67570fd5b[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Tue Oct 14 15:56:53 2025 -0300
+
+    CRUD WinForms 2da Parte - Serialize/Deserialize (JSON,XML)
+
+[33mcommit 5ca62d516821f5853b18f70321f5a966b3ded8c8[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Mon Oct 13 16:17:44 2025 -0300
+
+    txt ArchivosComandos
+
+[33mcommit f4632c23e573e5d29b68d40b79fd6b5acb32856f[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Sun Oct 12 09:17:37 2025 -0300
+
+    C6. E7. MAQUINA EXPENDEDORA WinForms(List,Stack,Queue)
+
+[33mcommit 0ac1d7ad5726082cde8dc9948c2f5b1a3524bd42[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Fri Oct 10 14:11:09 2025 -0300
+
+    C6. E7. Maquina Expendedora WinForm (Segunda Parte)
+
+[33mcommit 1df4039c70d03a9de4f4a7c9fb9da6b666a7e969[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Thu Oct 9 15:33:39 2025 -0300
+
+    C6. E7. Maquina Expendedora WinForm(Primera Parte)
+
+[33mcommit deaa560a326f3e7684c0686946452e1eff4cf5ab[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Wed Oct 8 16:33:05 2025 -0300
+
+    C6. E7. PARTE 2
+
+[33mcommit e1eb16b99dec5ae221f1831a831b59a561fe0cbd[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Wed Oct 8 13:27:08 2025 -0300
+
+    C6. E7. Maquina Expendedora Parte 2
+
+[33mcommit d3f2b01c20e10324d01e11e02a03ab5de52034c7[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Wed Oct 8 12:30:18 2025 -0300
+
+    C6. E7. Maquina Expendedora Parte 1
+
+[33mcommit 214b46dd77d9981a555b397af42e94f8f57febeb[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Wed Oct 8 11:18:57 2025 -0300
+
+    C6. E5. Enciendan Motores(Sobrecarga,Lista,AutoF1,Competencia)
+
+[33mcommit 77f16261336a6cda0865d2d7c1690ff501e6db0e[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Tue Oct 7 15:52:30 2025 -0300
+
+    C6. E4. Estadistica Deportiva(Sobrecarga,lista,Jugador,Equipo)
+
+[33mcommit 4be3e292946a1c5225993955db764741de490ab7[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Tue Oct 7 13:55:29 2025 -0300
+
+    C6. E3. Contador De Palabras WinForms/Diccionarios,Listas
+
+[33mcommit a7b6692a2a2b82f534810ac509969bb25d0ff285[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Mon Oct 6 16:27:25 2025 -0300
+
+    C6. Ejercicio 3
+
+[33mcommit dfb69f50deb72abf6425a671951dadf05f7d309d[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Mon Oct 6 14:45:00 2025 -0300
+
+    C6. E2. Numeros Locos2(Ordenar,Array,Lista,Stack)
+
+[33mcommit 7045906544e0b754f6607dd8dafd1dc23c9ff59a[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Mon Oct 6 14:36:48 2025 -0300
+
+    C6. E1. Numeros Locos(Ordenar Array)
+
+[33mcommit 25a14911a94fb29998f7f549dd3145489cb170e5[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Fri Oct 3 14:56:29 2025 -0300
+
+    Ejercicio CRUD Parte 1
+
+[33mcommit 8118a2cc32f27420ddd36d1fb60e87c9be0c2578[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Thu Oct 2 13:42:29 2025 -0300
+
+    FormClosing Validacion - Tabla de Multiplicar
+
+[33mcommit 289f167202bb8ceed5f8c839091e774bb1a09111[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Thu Oct 2 12:20:17 2025 -0300
+
+    C5. E6. Tabla De Multiplicar GUI
+
+[33mcommit af8eea995470b0b7ae680cabe909cf6d49c0c72e[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Wed Oct 1 14:02:51 2025 -0300
+
+    C5. E5. Desktop Conversor Binario
+
+[33mcommit 110529aecb4d6a25576c2c91b198d3b950c8241f[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Wed Oct 1 12:11:19 2025 -0300
+
+    C5. E4. Desktop Temperature Converter
+
+[33mcommit 8664d24411d1735cacc983d178fafc2b1ca427ff[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Wed Oct 1 11:01:24 2025 -0300
+
+    C5. E3. Cotizador Desktop
+
+[33mcommit e5fbbfb9c3f80bfdbed26e280e661d4441ea8e50[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Fri Sep 26 15:44:03 2025 -0300
+
+    C5. WinFoms - Ejercicio 2 Registrate
+
+[33mcommit aff6c3cc0d344bdbd26609c15ad56dd4f2bfa6d8[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Thu Sep 25 15:59:22 2025 -0300
+
+    C5. WinForms - Ejercicio 1 Finish.
+
+[33mcommit 0b6174e466f0fd8876194afb33d08b3aca34bbe9[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Wed Sep 24 16:09:18 2025 -0300
+
+    C5. WinForms - Ejercicio 1 P.1
+
+[33mcommit 85750eed6f87b42294beb7055a43dcdc42523074[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Mon Sep 22 16:00:55 2025 -0300
+
+    Clase 5 WinForms
+
+[33mcommit b81a8c27fae9b8031a94783d24d0e529536f9fbf[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Wed Sep 17 15:01:46 2025 -0300
+
+    C4. Ejercicio 5 Fahrenheit, Celsius, Kelvin
+
+[33mcommit 7472373a6f67919dc85b50e71be7eb24123a2f00[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Wed Sep 17 13:25:47 2025 -0300
+
+    C4. Ejercicio 4 - Estante,Producto(-,+,!=,==)
+
+[33mcommit b9ad057f77607d6490cd58c729133992e072f2e0[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Tue Sep 16 11:28:00 2025 -0300
+
+    C4. Ejercicio 3 - Conversor Binario Recargado
+
+[33mcommit 0e5f6bdd1ad28b5b14fea6c2d69dfa72c82cb76e[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Fri Sep 12 16:00:27 2025 -0300
+
+    C4. Ejercicio 2 - Biblioteca De Clases Billetes
+
+[33mcommit 031e494a887632a193ab6d98e2f220ab4619c13f[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Thu Sep 11 14:58:43 2025 -0300
+
+    Modificacion Ejercicio 1 Sumador
+
+[33mcommit d554bf560c08530d4d0b341eb09bd3fe9998c0c7[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Wed Sep 10 15:56:23 2025 -0300
+
+    C4. Ejercicio 1 - Sobrecarga Operadores
+
+[33mcommit 3297cc2409fba6bbd9f5e8446c92b66d082cba8e[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Tue Sep 9 15:41:48 2025 -0300
+
+    C4. Ejercicio 1 - Sobrecarga Contructor y Metodos
+
+[33mcommit 16747f40766d54977b669d4c69c72edb8c78a6a5[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Tue Sep 9 14:18:03 2025 -0300
+
+    Class Sumador, Sobrecarga Contructores y Metodos
+
+[33mcommit b7e941e083098d3c26ebd91974cdad691122d988[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Tue Sep 9 13:46:32 2025 -0300
+
+    C3. Ejercicio 6 Kms Recorridos
+
+[33mcommit 602543efdfc639357b451814b133b1cc635325cf[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Fri Sep 5 15:03:53 2025 -0300
+
+    C3-Ejercicio 6
+
+[33mcommit 7cddfadbee861a0e1720bd4441c935a502633ddb[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Wed Sep 3 12:38:52 2025 -0300
+
+    C3. Ejercicio 5 - Prueba De Geometria
+
+[33mcommit 1cd587413251bd6bd6e03b55af31aaa08c175980[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Tue Sep 2 13:50:13 2025 -0300
+
+    C3. Ejercicio 4 - Pintar Utilidades/Boligrafo.cs
+
+[33mcommit dd4a2ecc5387a55e86a5a41305ba8bdb0e2a6fef[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Mon Sep 1 13:34:35 2025 -0300
+
+    Clase 3 Ej.3 Class Estudiante)
+
+[33mcommit 683a1d8dafb869daf574892612b6deb38f5486b4[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Sat Aug 30 13:23:42 2025 -0300
+
+    Clase 3 - Ejercicio 2
+
+[33mcommit 242c300ece5c45612ef2d67ed730f4effc7f835e[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Sat Aug 30 09:57:53 2025 -0300
+
+    Clase 3 - Ejercicio 1
+
+[33mcommit 091f41bfbf1af0533b045c42f741a428023060f5[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Wed Aug 27 16:08:36 2025 -0300
+
+    Ejercicio 9 - Calcular Factorial (Usando Recursividad)
+
+[33mcommit b22900907728a2896bb985d1bd836fad2248e637[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Wed Aug 27 15:17:23 2025 -0300
+
+    Ejercicio 8 - Calcular Tiempo DateTime()
+
+[33mcommit 10d344f8c035f7422376c86a51a9ec83f71eef98[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Wed Aug 27 14:11:05 2025 -0300
+
+    Ejercicio 7 - Teorema de pitagoras (Resuelto)
+
+[33mcommit 8e10985d47a546ed98141c630001566552c76ec3[m
+Author: Adriano Vazquez <adriano11vazquez@gmail.com>
+Date:   Tue Aug 26 15:54:31 2025 -0300
+
+    clase 1  y clase 2 con ejercicios. gitignore agregado

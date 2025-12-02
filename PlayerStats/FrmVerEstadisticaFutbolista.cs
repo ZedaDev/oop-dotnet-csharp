@@ -33,7 +33,8 @@ namespace PlayerStats
         {
             if(Stat is EFutbolista v)
             {
-                //rtbComentario.ReadOnly = true; //Solo Lectura.
+                
+               
                 rtbComentario.Enabled = false;
 
                 txtRival.Text = v.Rival;
@@ -42,11 +43,24 @@ namespace PlayerStats
                 txtCompeticion.Text = v.Competicion;
 
                 txtGoles.Text = v.Goles;
-                /*Logica mostrar label y texbox de gol de penal y de tiro libre.
-                 * if(int.Parse(v.Goles) > 0)
+                //Logica mostrar label y texbox de gol de penal y de tiro libre.
+                if(int.Parse(v.Goles) > 0)
                 {
-                    if()
-                }*/
+                    if(int.Parse(v.GolesPenal) > 0)
+                    {
+                        lbGolPenal.Visible = true;
+                        txtGPenal.Visible = true;
+                        txtGPenal.Text = v.GolesPenal;
+                        txtGPenal.Enabled = false;
+                    }else if(int.Parse(v.GolesTiroLibre) > 0)
+                    {
+                        lbTiroLibre.Visible = true;
+                        txtGTLibre.Visible = true;
+                        txtGTLibre.Text = v.GolesTiroLibre;
+                        txtGTLibre.Enabled = false;
+                    }
+                   
+                }
                 txtAsistencias.Text = v.Asistencias;
                 txtMinutosJugados.Text = v.MinutosJugados;
                 txtTAmarilla.Text = v.TarjetaAmarilla;
@@ -56,7 +70,7 @@ namespace PlayerStats
                
 
                 lbFechaRegistro.ForeColor = Color.LightGreen;
-                lbFechaRegistro.Text = $"Estadistica Cargada {v.FechaRegistro}";
+                lbFechaRegistro.Text = $"Estadistica Cargada {v.FechaDeRegistro}";
 
                 rtbComentario.Text = v.Comentario;
                 lbFechaPartido.Text = $"[MATCH DATE] {v.Fecha}";

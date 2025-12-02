@@ -17,28 +17,30 @@ namespace Entities
         private string _competicion;
         private string _estadio;
         private string _comentario;
-        private string _fechaRegistro;
+        private string _fechaDeRegistro;
+        private string _usuario;
 
+        [JsonConstructor]
         public Estadisticas()
         {
         }
 
-        [JsonConstructor]
-        public Estadisticas(string resultado, string fecha, string rival, string estadio, string competicion, string comentario, string usuario)
-                : this(estadio, competicion, comentario)
+        public Estadisticas(string resultado, string fecha, string rival, string estadio, string competicion, string comentario, string usuario,string fechaRegistro, string user)
+                : this(estadio, competicion, comentario, user)
         {
             _resultado = resultado;
             _fecha = fecha;
             _rival = rival;
-            _fechaRegistro = DateTime.Now.Date.ToString("dd-MM-yyyy");
+            _fechaDeRegistro = fechaRegistro;
             _deportista = usuario;
 
         }
-        private Estadisticas(string estadio, string competicion, string comentario)
+        private Estadisticas(string estadio, string competicion, string comentario, string user)
         {
             _estadio = estadio;
             _comentario = comentario;
             _competicion = competicion;
+            _usuario = user;
         }
 
         #region Properties
@@ -53,11 +55,14 @@ namespace Entities
             set => _deportista = value;
         }
 
-        [JsonIgnore]
+       
         public string Usuario 
         {
-            get;
-            set;
+            get => _usuario;
+            set
+            {
+                _usuario = value;
+            }
         }
         public string Fecha 
         {
@@ -86,9 +91,14 @@ namespace Entities
             get => _comentario;
             set => _comentario = value;
         }
-        public string FechaRegistro 
+        public string FechaDeRegistro 
         { 
-            get => _fechaRegistro;
+            get => _fechaDeRegistro;
+            set => _fechaDeRegistro = value;
+        }
+        public string Tipo
+        {
+            get => this.GetType().Name;
         }
 
         #endregion
@@ -111,10 +121,15 @@ namespace Entities
         public static bool operator +(Deportista value, Estadisticas d1)
         {
             bool ok = true;
-            if (value.Estadisticas.Contains(d1))
-                ok = false;
-            else
-                value.AgregarEstadistica = d1;
+            foreach (var item in value.Estadisticas)
+            {
+                if (d1 == item)
+                    ok = false;
+            }
+
+             if(ok)
+                    value.AgregarEstadistica = d1;
+
 
                 return ok;
         }

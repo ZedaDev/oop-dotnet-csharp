@@ -17,42 +17,48 @@ namespace Entities
         private string _edad;
         private string _fechaDebut;
         private EDeporte _Edeporte;
-        private string _phHabil;
+        private ELadoHabil _phHabil;
         private string _altura;
         private string _pais;
         private string _fechaDeRegistro;
+        private string _usuario;
         private List<Estadisticas> _estadisticas;
 
         #region Contructores
 
-        
+        [JsonConstructor]
         public Deportista()
         {
             _estadisticas = new();
+           
         }
 
-        [JsonConstructor]
-        public Deportista(string fullName, string edad, string apodo, string fechaDebut, EDeporte deporte, string phHabil, string altura,string pais)
-            : this(fechaDebut, deporte, pais)
+        
+        public Deportista(string fullName, string edad, string apodo, string fechaDebut, EDeporte deporte, ELadoHabil phHabil, string altura,string pais, string fechaDeRegistro, string user)
+            : this(fechaDebut, deporte, pais, user)
         {
             _edad = edad;
             _fullName = fullName;
             _altura = altura; 
             _phHabil = phHabil;
             _apodo = apodo;
-            _fechaDeRegistro = "2524";//DateTime.Now.Date.ToString("dd-MM-yyyy");
+            _fechaDeRegistro = fechaDeRegistro;
+            _estadisticas = new();
         }
-        private Deportista(string fechaDebut, EDeporte deporte, string pais)
+        private Deportista(string fechaDebut, EDeporte deporte, string pais, string user)
             : this()
         {
             _fechaDebut = fechaDebut;
             _Edeporte = deporte;
             _pais = pais;
+            _usuario = user;
         }
 
         #endregion
 
         #region Properties
+
+        [JsonIgnore]
         public List<Estadisticas> Estadisticas
         { 
             get => _estadisticas;
@@ -79,10 +85,19 @@ namespace Entities
                 _fullName = value;
             }
         }
+        public string Usuario
+        { 
+            get => _usuario;
+            set
+            {
+                _usuario = value;
+            }
+        }
         
         public string FechaDeRegistro
         {
             get => _fechaDeRegistro;
+            set => _fechaDeRegistro = value;
 
         }
         public string Apodo
@@ -128,14 +143,18 @@ namespace Entities
                 _Edeporte = value;
             }
         }
-
-        public string PhHabil 
+        [JsonConverter(typeof(JsonStringEnumConverter<ELadoHabil>))]
+        public ELadoHabil PhHabil 
         { 
             get => _phHabil;
         }
         public string Altura 
         { 
             get => _altura;
+        }
+        public string Tipo 
+        { 
+            get => this.GetType().Name;
         }
         /*public string PathStats
         { 
@@ -146,7 +165,7 @@ namespace Entities
             get => UsersPath();
         }*/
 
-        public abstract void CargarStat(List<EFutbolista> stats, List<Deportista> d, string nick);
+        //public abstract void CargarStat(List<EFutbolista> stats, List<Deportista> d, string nick);
         public abstract string MisEstadisticas(string nickName);
         public abstract string MisDeportistas(string nickName);
 

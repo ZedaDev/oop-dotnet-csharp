@@ -54,25 +54,20 @@ namespace PlayerStats
             lvVisor.Items.Clear();
             if (Atleta.Estadisticas is not null && Atleta.Estadisticas.Count > 0)
             {
-                StringBuilder sb = new();
-                foreach (Estadisticas value in Atleta.Estadisticas)
+                //StringBuilder sb = new();
+                foreach (Estadisticas v in Atleta.Estadisticas)
                 {
-                    if (value != null)
-                        lvVisor.Items.Add($"Vs {value.Rival} ({value.Fecha}) | {value.Competicion}");
+                    if (v is EFutbolista value)
+                        lvVisor.Items.Add($"Vs {value.Rival} ({value.Fecha}) | {value.Competicion} - Estadio {value.Estadio}");
                 }
-            }
 
-            if (Atleta.Estadisticas.Count > 0)
-            {
                 lbVisorCargado.ForeColor = Color.Green;
                 lbVisorCargado.Text = $"Estadisticas Cargadas : {Atleta.Estadisticas.Count}";
-
             }
             else
             {
                 lbVisorCargado.ForeColor = Color.Red;
                 lbVisorCargado.Text = "No hay estadisticas cargadas aun.";
-
             }
 
         }
@@ -80,7 +75,9 @@ namespace PlayerStats
         public override void btnAgregar_Click(object sender, EventArgs e)
         {
                    FrmCargarEstadisticas frm = new FrmCargarEstadisticaFutbolista();
-                    frm.Atleta = this.Atleta; frm.NickName = base.NickName; frm.D = Dportistas;
+                    frm.Atleta = this.Atleta;
+            frm.NickName = base.NickName
+                ; frm.D = Dportistas;
                     this.Hide();
                     frm.ShowDialog();
 
@@ -106,6 +103,57 @@ namespace PlayerStats
 
                 }
             }
+        }
+
+        protected override void btnEliminar_Click(object sender, EventArgs e)
+        {
+            if (lvVisor.SelectedIndices.Count > 0)
+            {
+                // Obtén el índice del elemento seleccionado
+                int i = lvVisor.SelectedIndices[0];
+
+                // Mostrar información de depuración
+                // MessageBox.Show($"Índice seleccionado: {i}, Total de atletas: {D.Atletas.Count}");
+
+                // Verificar que el índice esté dentro de un rango válido
+                if (i >= 0 && i < Atleta.Estadisticas.Count)
+                {
+                    // Obtener el atleta correspondiente al índice
+
+                    Estadisticas stat = Atleta.Estadisticas[i];  // Aquí accedemos directamente a D.Atletas[i]
+                                                                // Crear y mostrar el formulario de estadísticas
+                    DialogResult res = MessageBox.Show($"Seguro Desea Eliminar Esta Estadistica? \n {stat.Fecha} - {stat.Competicion}", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (res == DialogResult.Yes)
+                    {
+                        Atleta.Estadisticas.RemoveAt(i);
+                        ActualizarVisor();
+                        /*List<EFutbolista> lista = new();
+                        Dportistas.TraerEstadisticasDelArchivo(Paths.StatsFutbolPath, Atleta.Estadisticas);
+                        
+                        List<Estadisticas> eLista = new();
+                        lista.Remove((EFutbolista)stat);
+                        eLista.AddRange(lista);
+                        //eLista.Remove(stat);
+                        //Dportistas.CargarEstadisticaAlArchivo(Paths.DeportistasPath, lista);
+
+                        Dportistas.TraerEstadisticasDelArchivo(Paths.StatsFutbolPath, eFutbolistas);
+
+                        foreach (Estadisticas value in eLista)
+                        {
+                            if (value is EFutbolista futbolStat)
+                            {
+                                if (value.Deportista == Atleta.FullName && value.Usuario == NickName)
+                                    lista.Add(futbolStat);
+                            }
+                        }*/
+                        Dportistas.CargarEstadisticasAlArchivo(Paths.StatsFutbolPath, Atleta.Estadisticas);
+                        MessageBox.Show($"Estadistica Eliminada Con Exito", "Delete", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                }
+            }
+            else
+                MessageBox.Show($"Seleccione Una Estadistica", "Seleccionar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
         }
         private void SetControlsAndVisor()
         {

@@ -31,6 +31,11 @@ namespace Service
             get;
             set;
         }
+        public static string DeportistasPathv1
+        {
+            get;
+            set;
+        }
         public static string NickName
         {
             get;
@@ -42,23 +47,40 @@ namespace Service
             set;
         }
         
-        public static void AddStatsToList(List<Deportista> atletas)
+        /*public static void AddStatsToList(List<Deportista> atletas)
         {
+            
             if (File.Exists(Paths.StatsFutbolPath))//Paths.DeportistasPath)
             {
+
                 foreach (Deportista value in atletas)
                 {
                     if (value is Futbolista v)
                     {
+
                         List<EFutbolista> stats = new();
-                        v.TraerStatsDArchivo(Paths.StatsFutbolPath, stats);
+                        //v.TraerStatsDArchivo(Paths.StatsFutbolPath, stats);
+                        v.CargarStat(stats,value, NickName);
+                    }
+                }
+                    /else if (value is Tenista v)
+                    {
+                        List<EFutbolista> stats = new();
+                        v.TraerFutbolStatsDArchivo(Paths.StatsFutbolPath, stats);
+                        if (stats.Count > 0)
+                            value.Estadisticas.AddRange(stats);
+                    }
+                    else if (value is Boxeador v)
+                    {
+                        List<EFutbolista> stats = new();
+                        v.TraerFutbolStatsDArchivo(Paths.StatsFutbolPath, stats);
                         if (stats.Count > 0)
                             value.Estadisticas.AddRange(stats);
                     }
                     ///Agregar mas casos en casos de que haya mas deportistas(Boxeador, tenista).
                 }
             }
-        }
+        }*/
 
        /* private static void DeportistaIs(Deportista value)
         {
@@ -87,6 +109,9 @@ namespace Service
         {
             DeportistasPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Logs", "Users", nick, "Deportistas", "Deportistas.json");
             CreateDirectory(DeportistasPath);
+
+            /*DeportistasPathv1 = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Logs", "Users", nick, "Deportistas.json");
+            CreateDirectory(DeportistasPathv1);*/
         }
         public static void SetFutbolStatsPath(string nick)
         {

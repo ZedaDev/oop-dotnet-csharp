@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -19,19 +20,20 @@ namespace Entities
         {
             _stats = new();
         }
-        public Futbolista(string fullName, string edad,string apodo, EDeporte deporte, string fechaDebut, string posicion, string clubActual, string phHabil, string altura,string pais)
-            : this(posicion, fullName, edad, apodo, deporte, fechaDebut, phHabil, altura, pais)
+        
+        public Futbolista(string fullName, string edad,string apodo, EDeporte deporte, string fechaDebut, string posicion, string clubActual, ELadoHabil phHabil, string altura,string pais, string fechaDeRegistro, string user)
+            : this(posicion, fullName, edad, apodo, deporte, fechaDebut, phHabil, altura, pais, fechaDeRegistro, user)
         {
             _clubActual = clubActual;
         }
        
-        private Futbolista(string posicion, string fullName, string edad, string apodo, EDeporte deporte, string fechaDebut, string phHabil, string altura, string pais)
-                : this(fullName, edad, apodo, deporte, fechaDebut, phHabil, altura, pais)
+        private Futbolista(string posicion, string fullName, string edad, string apodo, EDeporte deporte, string fechaDebut, ELadoHabil phHabil, string altura, string pais, string fechaDeRegistro,string user)
+                : this(fullName, edad, apodo, deporte, fechaDebut, phHabil, altura, pais, fechaDeRegistro, user)
         {
             _posicion = posicion;
         }
-        private Futbolista(string fullName, string edad, string apodo, EDeporte deporte, string fechaDebut, string phHabil, string altura, string pais)
-             : base(fullName, edad, apodo, fechaDebut ,deporte, phHabil, altura, pais)
+        private Futbolista(string fullName, string edad, string apodo, EDeporte deporte, string fechaDebut, ELadoHabil phHabil, string altura, string pais, string fechaDeRegistro,string user)
+             : base(fullName, edad, apodo, fechaDebut ,deporte, phHabil, altura, pais, fechaDeRegistro, user)
         {
             _stats = new();
         }
@@ -45,7 +47,8 @@ namespace Entities
             get => _clubActual;
             set => _clubActual = value; 
         }
-        public List<EFutbolista> ListaEstadisticas 
+
+        public List<EFutbolista> Stats 
         {
             get => _stats;
         }
@@ -58,51 +61,12 @@ namespace Entities
 
             }
         }
-        public  void TraerStatsDArchivo(string pathJson, List<EFutbolista> stats)
-        {
-            
-            // Si existe un archivo.json dentro de la ruta general, deserializamos el archivo json.
-            if (File.Exists(pathJson))
-            {
-                using (StreamReader archivo = new(pathJson))
-                {
-                    var options = new JsonSerializerOptions();
 
-                    string textArchive = archivo.ReadToEnd();
-
-                    if (!string.IsNullOrEmpty(textArchive.Trim()))
-                    {
-
-                        List<EFutbolista> deportistasJson = JsonSerializer.Deserialize<List<EFutbolista>>(textArchive, options);
-
-                        if (deportistasJson.Count > 0)
-                            stats.AddRange(deportistasJson);
-
-                    }
-
-                }
-
-            }
+        //implementar en los demas deportistas con su lista de estadisticas. para luego hacer en un foreach v.traer automatico.
 
 
-        }
-        public override void CargarStat(List<EFutbolista> stats, List<Deportista> atletas, string nick)
-        {
-            foreach (Deportista value in atletas)
-            {
-                if (value is Futbolista futbolista)
-                {
 
-                    foreach (Estadisticas item in futbolista.Estadisticas)
-                    {
-                        if (item is EFutbolista futbolStat && futbolStat.Deportista == value.FullName)
-                        {
-                            stats.Add(futbolStat);
-                        }
-                    }
-                }
-            }
-        }
+
         public override string MisEstadisticas(string nickName)
         {
             string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Logs", "Users", nickName, "Deportistas", "Futbol.json");

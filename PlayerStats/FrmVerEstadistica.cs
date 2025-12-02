@@ -15,17 +15,7 @@ namespace PlayerStats
 {
     public partial class FrmVerEstadistica : Form
     {
-       /* private Deportista _atleta;
 
-        public Deportista Atleta
-        {
-            get => _atleta;
-            set
-            {
-                if (value is not null)
-                    _atleta = value;
-            }
-        }*/
         private Estadisticas _stat;
 
         public Estadisticas Stat

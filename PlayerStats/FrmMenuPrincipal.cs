@@ -27,16 +27,16 @@ namespace PlayerStats
             set
             {
                 _d = new();
-                if(value is not null)
+                if (value is not null)
                     _d = value;
             }
         }
-       
+
 
         public frmMenuPrincipal()
         {
             InitializeComponent();
-          
+
         }
 
         /// <summary>
@@ -64,11 +64,16 @@ namespace PlayerStats
             SetPaths();
             SetValuesControls();
 
-            Dportistas.FutbolistasArchiveTooList(Paths.DeportistasPath, Dportistas);
-            Paths.AddStatsToList(Dportistas.Atletas);
+            Dportistas.ArchiveTooList(Paths.DeportistasPath, Dportistas);
+            //crear los mismo metodos segun el deporte, agregar propiedades de PATH tambien.
 
+            Dportistas.TraerEstadisticasDelArchivo(Paths.StatsFutbolPath, Dportistas.Estadisticas);
+            Dportistas.CargarStat(Dportistas.Estadisticas, Dportistas.Atletas, NickName);
 
-           //Cargo los deportistas [Nombre - Deporte] en el visor.
+            //Paths.AddStatsToList(Dportistas.Atletas);
+            
+
+            //Cargo los deportistas [Nombre - Deporte] en el visor.
             MessageAndVisorRefresh();
         }
 
@@ -84,13 +89,10 @@ namespace PlayerStats
             }
         }
 
-       
-        private void frmMenuPrincipal_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            //D.CargarDeportistaAlArchivo(D.PathD, D.Atletas);
-        }
 
-       
+  
+
+
         private void cmbDeporte_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbDeporte.SelectedIndex != -1)
@@ -99,7 +101,7 @@ namespace PlayerStats
                 btnAgregar.Enabled = false;
         }
 
-        public  virtual void btnAgregar_Click(object sender, EventArgs e)
+        public virtual void btnAgregar_Click(object sender, EventArgs e)
         {
             if (ComprobarCamposNull())
             {
@@ -107,21 +109,21 @@ namespace PlayerStats
                 //Abrir FrmCargarDeportista, heredando segun el deportista seleccionado.
                 FrmCargarDeportista frm = new();
                 //if (cmbDeporte.SelectedIndex.ToString() == EDeporte.Futbol.ToString())
-                frm = new FrmCargarFutbolista();
+                    frm = new FrmCargarFutbolista();
                 /*else if(cmbDeporte.SelectedIndex.ToString() == EDeporte.Boxeo.ToString())
-                         frm = new FrmCargarFutbolista ();
+                         //frm = new FrmCargarFutbolista ();
                 else if(cmbDeporte.SelectedIndex.ToString() == EDeporte.Tenis.ToString())
-                         frm = new FrmCargarFutbolista ();*/
-                if (frm != null)
-                {
+                         //frm = new FrmCargarFutbolista ();*/
+
                     frm.D = this.Dportistas;
                     frm.NickName = this.NickName;
                     this.Hide();
                     frm.ShowDialog();
-                    //frm.Close();
+
                     this.Show();
-                    ActualizarVisor();
-                }
+                    MessageAndVisorRefresh();
+                    //ActualizarVisor();
+                
             }
             else
                 MessageBox.Show("Asegurese de completar todos los campos", "Campos Incompletos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -131,13 +133,15 @@ namespace PlayerStats
         {
             lvVisor.Clear();
             lvVisor.Items.Clear();
-           
-            if(Dportistas.Atletas.Count > 0)
+
+            if (Dportistas.Atletas.Count > 0)
             {
                 StringBuilder sb = new();
                 foreach (Deportista value in Dportistas.Atletas)
                 {
-                      lvVisor.Items.Add($"{value.FullName} - {value.Deporte} | Registrado {value.FechaDeRegistro}");
+
+
+                    lvVisor.Items.Add($"{value.FullName} - {value.Deporte} | Registrado {value.FechaDeRegistro}");
                 }
 
             }
@@ -168,7 +172,7 @@ namespace PlayerStats
                 int i = lvVisor.SelectedIndices[0];
 
                 // Mostrar información de depuración
-               // MessageBox.Show($"Índice seleccionado: {i}, Total de atletas: {D.Atletas.Count}");
+                // MessageBox.Show($"Índice seleccionado: {i}, Total de atletas: {D.Atletas.Count}");
 
                 // Verificar que el índice esté dentro de un rango válido
                 if (i >= 0 && i < Dportistas.Atletas.Count)
@@ -182,7 +186,7 @@ namespace PlayerStats
                     {
                         // MessageBox.Show($"{atleta.ToString()}");
                         FrmEstadisticas frmEstadisticas = new FrmEstadisticas();
-                       
+
                         frmEstadisticas.InicializarAttributos(NickName, Dportistas, atleta);
                         this.Hide();
                         frmEstadisticas.ShowDialog();
@@ -191,24 +195,63 @@ namespace PlayerStats
                         ActualizarVisor();
                         this.Show();
                     }
-                    else
-                    {
-                        MessageBox.Show("El atleta seleccionado no existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                   
                 }
                 else
                 {
-                    // Si el índice está fuera del rango de la lista
-                    MessageBox.Show($"Índice seleccionado fuera del rango: {i}", "Error de índice", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // Si no se ha seleccionado ningún elemento
+                    MessageBox.Show("Asegúrese de seleccionar un deportista.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-            }
-            else
-            {
-                // Si no se ha seleccionado ningún elemento
-                MessageBox.Show("Asegúrese de seleccionar un deportista.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
+        protected virtual void btnEliminar_Click(object sender, EventArgs e)
+        {
+            if (lvVisor.SelectedIndices.Count > 0)
+            {
+                // Obtén el índice del elemento seleccionado
+                int i = lvVisor.SelectedIndices[0];
+
+                // Mostrar información de depuración
+                // MessageBox.Show($"Índice seleccionado: {i}, Total de atletas: {D.Atletas.Count}");
+
+                // Verificar que el índice esté dentro de un rango válido
+                if (i >= 0 && i < Dportistas.Atletas.Count)
+                {
+                    // Obtener el atleta correspondiente al índice
+
+                    Deportista atleta = Dportistas.Atletas[i];  // Aquí accedemos directamente a D.Atletas[i]
+                                                                // Crear y mostrar el formulario de estadísticas
+                   DialogResult res = MessageBox.Show($"Seguro Desea Eliminar Este Deportista?\n {atleta.ToString()}", "Question",MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if(res == DialogResult.Yes)
+                    {
+                        Dportistas.BorrarAtleta = atleta;
+                        ActualizarVisor();
+                        Dportistas.CargarDeportistaAlArchivo(Paths.DeportistasPath, Dportistas.Atletas);
+
+                        //Dportistas.TraerEstadisticasDelArchivo(Paths.StatsFutbolPath, eFutbolistas);
+
+                        List<EFutbolista> lista = new();
+                        foreach (Estadisticas value in atleta.Estadisticas)
+                        {
+                            if (value is EFutbolista futbolStat && value.Deportista != atleta.FullName)
+                            {
+                                lista.Add(futbolStat);
+                            }
+                            /*if (value.Deportista == atleta.FullName)
+                            {
+                                atleta.Estadisticas.Remove(value);
+                               
+                            }*/
+                        }
+                        Dportistas.CargarEstadisticasFutbolAlArchivo(Paths.StatsFutbolPath, lista);
+                        //Hacer Metodos similares para los demas deportistas, boxeo, tenis, etc.
+
+                        MessageBox.Show($"Deportista Eliminado Con Exito", "Deportista Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                }
+            }else
+                MessageBox.Show($"Seleccione Un Deportista", "Seleccionar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        }
     }
 }

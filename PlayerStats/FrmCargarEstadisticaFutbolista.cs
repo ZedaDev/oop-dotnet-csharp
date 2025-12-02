@@ -21,19 +21,29 @@ namespace PlayerStats
         public FrmCargarEstadisticaFutbolista()
         {
             InitializeComponent();
-            //base._d = new();
-            
+
         }
 
         private void FrmCargarEstadisticaFutbolista_Load(object sender, EventArgs e)
         {
             //setteo el combo box de tarjeta amarilla
+            SettControlsMenu();
+        }
+
+        private void SettControlsMenu()
+        {
             cmbTAmarilla.Items.Add("1");
             cmbTAmarilla.Items.Add("2");
 
-
+            IsVisible(false);
         }
-
+        private void IsVisible(bool value)
+        {
+            txtGPenal.Visible = value;
+            txtGTiroLibre.Visible = value;
+            lbGPenal.Visible = value;
+            lbGTiroLibre.Visible = value;
+        }
         private void cbTAmarilla_CheckedChanged(object sender, EventArgs e)
         {
             if (cbTAmarilla.Checked)
@@ -49,6 +59,7 @@ namespace PlayerStats
             {
 
                 //
+                string fechaRegistro = DateTime.Now.Date.ToString("dd-MM-yyyy");
                 string fecha = mcFecha.SelectionStart.ToString("dd-MM-yyyy");
                 string goles = txtGoles.Text;
                 string rival = txtRival.Text;
@@ -62,36 +73,31 @@ namespace PlayerStats
                 if (cbTAmarilla.Checked)
                     amarilla = cmbTAmarilla.SelectedIndex.ToString();
 
+
                 bool roja = cbTRoja.Checked;
                 bool titular = cbTitutlar.Checked;
-                EFutbolista stat = new EFutbolista(titular, goles, asistencias, amarilla, roja, minutos, resultado, fecha, rival, competicion, estadio, comentario, Atleta.FullName);
-                //Atleta.AgregarEstadistica = stat;
-                if(Atleta + stat)
+                EFutbolista stat = new EFutbolista(titular, goles, asistencias, amarilla, roja, minutos, resultado, fecha, rival, competicion, estadio, comentario, Atleta.FullName, fechaRegistro, NickName);
+
+                if(txtGPenal.Visible is true && txtGTiroLibre.Visible is true)
                 {
-                    List<EFutbolista> lista = new();
-                    foreach (Estadisticas value in Atleta.Estadisticas)
-                    {
-                        if(value is EFutbolista futbolStat)
-                        {
-                            lista.Add(futbolStat);
-                        }
-                    }
-                  D.CargarEstadisticaAlArchivo(Atleta.MisEstadisticas(NickName), lista);
-                  MessageBox.Show($"Estadistica Cargada Con Exito", "Congratulations", MessageBoxButtons.OK);
+                    stat.GolesPenal = txtGPenal.Text;
+                    stat.GolesTiroLibre = txtGTiroLibre.Text;
+                }
+
+                if (Atleta + stat)
+                {
+
+                    D.Estadisticas.Add(stat);
+                    D.CargarEstadisticaAlArchivo1(Atleta.MisEstadisticas(NickName), D.Estadisticas);
+                    MessageBox.Show($"Estadistica Cargada Con Exito", "Congratulations", MessageBoxButtons.OK);
                 }
                 else
-                {
-                    MessageBox.Show("Su Estadistica A Cargar, Ya Existe", "Stat", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-                    // D.CargarEstadisticaAlArchivo(pathJson, ((Futbolista)Atleta).ListaEstadisticas);
-                    // D.CargarDeportistaAlArchivo(Atleta.MisDeportistas(NickName), D);
-                    // MessageBox.Show($"Estadistica Cargada Con Exito", "Congratulations", MessageBoxButtons.OK);
-
-
+                    MessageBox.Show("Su Estadistica A Cargar, Ya Existe", "Estadistica Existense", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+         
 
                 ClearCamps(); //Limpio todos los textboxs,etc.
+            }
         }
-    }
         protected bool ClearCamps()
         {
             foreach (Control value in this.Controls)
@@ -131,18 +137,32 @@ namespace PlayerStats
         {
             foreach (Control value in this.Controls)
             {
-                if (value is TextBox txt && string.IsNullOrEmpty(txt.Text.Trim()))
+                if(value is TextBox txt && txt.Visible is true)
                 {
-                    return false;
+                    if (string.IsNullOrEmpty(txt.Text.Trim()))
+                        return false;
                 }
 
-                if(value is RichTextBox rtb && string.IsNullOrEmpty(rtb.Text.Trim()))
+                if (value is RichTextBox rtb && string.IsNullOrEmpty(rtb.Text.Trim()))
                 {
                     return false;
                 }
 
             }
             return true;
+        }
+
+        private void txtGoles_TextChanged(object sender, EventArgs e)
+        {
+            if(int.TryParse(txtGoles.Text, out int goles) && goles > 0)
+            {
+                IsVisible(true);
+            }
+            else
+            {
+                IsVisible(false);
+
+            }
         }
     }
 }
