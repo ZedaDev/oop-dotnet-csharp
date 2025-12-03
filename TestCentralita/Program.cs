@@ -1,4 +1,5 @@
 ﻿using CentralTelefonica;
+using Exceptions;
 
 namespace TestCentralita
 {
@@ -18,12 +19,21 @@ namespace TestCentralita
 
             // Las llamadas se irán registrando en la Centralita.
             // La centralita mostrará por pantalla todas las llamadas según las vaya registrando.
+            try
+            {
+                Console.WriteLine($"{c+l1} - {c+l2} - {c+l3} - {c+l4} - {c + l2}");
+                c.OrdenarLlamadas(); 
+                Console.WriteLine(c.ToString());
 
-            Console.WriteLine($"{c+l1} - {c+l2} - {c+l3} - {c+l4}");
-            c.OrdenarLlamadas(); 
-            Console.WriteLine(c.ToString());
+                Console.ReadKey();
 
-            Console.ReadKey();
+            }
+            catch (CentralitaException e)
+            {
+
+                Console.WriteLine($"{e.Message}, {e.NombreClase}, {e.NombreMetodo}");
+            }
+            
         }
     }
 }

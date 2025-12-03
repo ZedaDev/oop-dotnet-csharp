@@ -1,5 +1,5 @@
 ﻿using System.Text;
-
+using Exceptions;
 namespace CentralTelefonica
 {
     public class Centralita
@@ -62,8 +62,10 @@ namespace CentralTelefonica
                 c.AgregarLlamada(l);
 
             }
+            else
+                throw new CentralitaException("Registered Call", $"Class :'{typeof(Centralita).ToString()}'", "Method : '+'");
 
-            return c;
+                return c;
         }
 
         public void OrdenarLlamadas()
