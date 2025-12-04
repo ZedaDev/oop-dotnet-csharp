@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Schema;
 using Utilidades_8;
-
+using Exceptions;
 namespace Utilidades
 {
     public class Competencia
@@ -61,48 +61,56 @@ namespace Utilidades
         public static bool operator +(Competencia carrera, VehiculoDeCarrera corredor)
         {
             bool i = true;
-
-            if (carrera._autos.Count < carrera.CantidadCompetidores)
+            try
             {
-                if (carrera.TipoDeCompetencia == ECompetencia.F1)
+                if (carrera._autos.Count < carrera.CantidadCompetidores)
                 {
-                    foreach (AutoF1 value in carrera._autos)
+                    if (carrera.TipoDeCompetencia == ECompetencia.F1)
                     {
-                        if (value == ((AutoF1)corredor))
+                        foreach (AutoF1 value in carrera._autos)
                         {
-                            i = false;
-                            break;
+                            if (value == ((AutoF1)corredor))
+                            {
+                                i = false;
+                                break;
+                            }
+                        }
+
+                        if (i)
+                        {
+                            AutoF1.ModificarAuto(((AutoF1)corredor), carrera.CantidadVueltas);
+                            carrera._autos.Add(corredor);
+                            carrera.CantidadCompetidores += 1;
+                        }
+
+                    }else if(carrera.TipoDeCompetencia == ECompetencia.MotocCross)
+                    {
+                        foreach (MotoCross value in carrera._autos)
+                        {
+                            if (value == ((MotoCross)corredor))
+                            {
+                                i = false;
+                                break;
+                            }
+                        }
+
+                        if (i)
+                        {
+                            carrera._autos.Add(corredor);
+                            carrera.CantidadCompetidores += 1;
                         }
                     }
-
-                    if (i)
-                    {
-                        AutoF1.ModificarAuto(((AutoF1)corredor), carrera.CantidadVueltas);
-                        carrera._autos.Add(corredor);
-                        carrera.CantidadCompetidores += 1;
-                    }
-
-                }else if(carrera.TipoDeCompetencia == ECompetencia.MotocCross)
-                {
-                    foreach (MotoCross value in carrera._autos)
-                    {
-                        if (value == ((MotoCross)corredor))
-                        {
-                            i = false;
-                            break;
-                        }
-                    }
-
-                    if (i)
-                    {
-                        carrera._autos.Add(corredor);
-                        carrera.CantidadCompetidores += 1;
-                    }
-                }
                    
+                }
+                else
+                    i = false;
+
             }
-            else
-                i = false;
+            catch (CompetenciaNoDisponibleException ex)
+            {
+
+                throw new CompetenciaNoDisponibleException("Competencia incorrecta", typeof(Competencia).ToString(), "+", ex?.InnerException);
+            }
 
 
                 return i;
@@ -132,6 +140,8 @@ namespace Utilidades
                         }
                     }
                 }
+
+                
             return i;
         }
 
@@ -152,8 +162,10 @@ namespace Utilidades
                     if (value == ((AutoF1)a)) i = true;
                 }
             }
-
-                return i;
+            if (!i)
+               throw new CompetenciaNoDisponibleException("El vehículo no corresponde a la competencia", typeof(Competencia).ToString(), "==");
+                
+            return i;
         }
         public static bool operator !=(Competencia c, VehiculoDeCarrera a)
         {

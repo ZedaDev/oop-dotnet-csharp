@@ -15,11 +15,11 @@ namespace Clase9Herencia
             /*Ejercicio2 ejercicio2 = new();
             ejercicio2.Ejecutar();*/
 
-            /*Ejercicio3 ejercicio3 = new();
-            ejercicio3.Ejecutar();*/
+            Ejercicio3 ejercicio3 = new();
+            ejercicio3.Ejecutar();
 
-            EjercicioPreParcial ePreParcial = new();
-            ePreParcial.Ejecutar();
+            /*EjercicioPreParcial ePreParcial = new();
+            ePreParcial.Ejecutar();*/
         }
     }
 }
