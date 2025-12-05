@@ -1,5 +1,6 @@
 ﻿using Entities;
 using Service;
+using ProjectExceptions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -39,5 +40,7 @@ namespace PlayerStats
         {
             InitializeComponent();
         }
+
+
     }
 }

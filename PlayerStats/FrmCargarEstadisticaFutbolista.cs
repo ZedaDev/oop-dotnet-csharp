@@ -10,7 +10,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Service;
-using Entities;
+using ProjectExceptions;
+using System.Reflection;
+
+
 
 namespace PlayerStats
 {
@@ -52,9 +55,60 @@ namespace PlayerStats
                 cmbTAmarilla.Enabled = false;
         }
 
+        private void VerifyParseNumbersCamps(Control.ControlCollection controls)
+        {
+            try
+            {
+                foreach (Control item in Controls)
+                {
+                    if (item is TextBox txt && txt.Tag == "parse" && !string.IsNullOrEmpty(txt.Text.Trim()))
+                    {
+                        int.Parse(txt.Text);
+                    }
+                }
+            }
+            catch (FormatException e)
+            {
+
+                throw new txtIsNotParseNumber
+                    (
+                        "Formato De texto no valido para parsear", this.GetType().Name,
+                        MethodBase.GetCurrentMethod().Name,
+                        e
+                    );
+            }
+            catch (OverflowException ex)
+            {
+
+                throw new txtIsNotParseNumber
+                   (
+                       "Texto supera los limites INT", this.GetType().Name,
+                       MethodBase.GetCurrentMethod().Name,
+                       ex
+                   ); 
+            }
+        }
         private void btnCargar_Click(object sender, EventArgs e)
         {
+            try
+            {
 
+                VerifyParseNumbersCamps(this.Controls);
+               
+            }
+            catch (txtIsNotParseNumber ex)
+            {
+                    MessageBox.Show($"{ex}");
+                /*Console.WriteLine($"{ex.ToString()}");*/
+                //Exception inner = ex.InnerException;
+                /*Exception inner = ex;
+                while (inner is not null)
+                {
+                    MessageBox.Show($"{inner.ToString()}");
+                    inner = inner.InnerException;
+                }*/
+                ClearCamps();
+            }
             if (CheckCamps())
             {
 
@@ -78,7 +132,7 @@ namespace PlayerStats
                 bool titular = cbTitutlar.Checked;
                 EFutbolista stat = new EFutbolista(titular, goles, asistencias, amarilla, roja, minutos, resultado, fecha, rival, competicion, estadio, comentario, Atleta.FullName, fechaRegistro, NickName);
 
-                if(txtGPenal.Visible is true && txtGTiroLibre.Visible is true)
+                if (txtGPenal.Visible is true && txtGTiroLibre.Visible is true)
                 {
                     stat.GolesPenal = txtGPenal.Text;
                     stat.GolesTiroLibre = txtGTiroLibre.Text;
@@ -93,10 +147,11 @@ namespace PlayerStats
                 }
                 else
                     MessageBox.Show("Su Estadistica A Cargar, Ya Existe", "Estadistica Existense", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-         
+
 
                 ClearCamps(); //Limpio todos los textboxs,etc.
             }
+
         }
         protected bool ClearCamps()
         {
@@ -110,6 +165,9 @@ namespace PlayerStats
 
                 if (value is MonthCalendar mCalendar)
                     mCalendar.SetDate(DateTime.Today);
+
+                if (value is RichTextBox rtc)
+                    rtc.Clear();
             }
             return true;
         }

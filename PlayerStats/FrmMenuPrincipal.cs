@@ -57,7 +57,7 @@ namespace PlayerStats
         private void SetPaths()
         {
             Paths.SetDeportistaPath(NickName);
-            Paths.SetFutbolStatsPath(NickName);
+            Paths.SetFutbolStatsPath(NickName);//hacer el metodo generico indicando mediante propiedades a todos la misma path cambiando el Nombredeporte.json
         }
         private void frmMenuPrincipal_Load(object sender, EventArgs e)
         {
@@ -171,16 +171,13 @@ namespace PlayerStats
                 // Obtén el índice del elemento seleccionado
                 int i = lvVisor.SelectedIndices[0];
 
-                // Mostrar información de depuración
-                // MessageBox.Show($"Índice seleccionado: {i}, Total de atletas: {D.Atletas.Count}");
-
+                
                 // Verificar que el índice esté dentro de un rango válido
                 if (i >= 0 && i < Dportistas.Atletas.Count)
                 {
                     // Obtener el atleta correspondiente al índice
 
-                    Deportista atleta = Dportistas.Atletas[i];  // Aquí accedemos directamente a D.Atletas[i]
-                    // Crear y mostrar el formulario de estadísticas
+                    Deportista atleta = Dportistas.Atletas[i];  
                     // Verificar si el atleta es null
                     if (atleta != null)
                     {
@@ -198,7 +195,6 @@ namespace PlayerStats
                 }
                 else
                 {
-                    // Si no se ha seleccionado ningún elemento
                     MessageBox.Show("Asegúrese de seleccionar un deportista.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }

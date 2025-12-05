@@ -65,6 +65,7 @@
             txtGoles.Name = "txtGoles";
             txtGoles.Size = new Size(100, 23);
             txtGoles.TabIndex = 27;
+            txtGoles.Tag = "parse";
             txtGoles.TextChanged += txtGoles_TextChanged;
             // 
             // txtAsistencias
@@ -73,6 +74,7 @@
             txtAsistencias.Name = "txtAsistencias";
             txtAsistencias.Size = new Size(100, 23);
             txtAsistencias.TabIndex = 28;
+            txtAsistencias.Tag = "parse";
             // 
             // txtMinutosJugados
             // 
@@ -80,6 +82,7 @@
             txtMinutosJugados.Name = "txtMinutosJugados";
             txtMinutosJugados.Size = new Size(100, 23);
             txtMinutosJugados.TabIndex = 29;
+            txtMinutosJugados.Tag = "float";
             // 
             // lbGoles
             // 
@@ -143,6 +146,7 @@
             txtGTiroLibre.Name = "txtGTiroLibre";
             txtGTiroLibre.Size = new Size(100, 23);
             txtGTiroLibre.TabIndex = 40;
+            txtGTiroLibre.Tag = "parse";
             // 
             // txtGPenal
             // 
@@ -150,6 +154,7 @@
             txtGPenal.Name = "txtGPenal";
             txtGPenal.Size = new Size(100, 23);
             txtGPenal.TabIndex = 41;
+            txtGPenal.Tag = "parse";
             // 
             // lbGTiroLibre
             // 

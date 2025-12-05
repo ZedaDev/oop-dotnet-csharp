@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Models\Entities.csproj" />
+    <ProjectReference Include="..\ProjectExceptions\ProjectExceptions.csproj" />
     <ProjectReference Include="..\Services\Service.csproj" />
   </ItemGroup>
 

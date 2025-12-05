@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Ejercicios\" />
+    <ProjectReference Include="..\Utilidades{8\Utilidades{8.csproj" />
   </ItemGroup>
 
 </Project>

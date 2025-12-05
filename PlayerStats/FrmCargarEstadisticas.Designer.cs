@@ -100,6 +100,7 @@
             txtResultado.Name = "txtResultado";
             txtResultado.Size = new Size(100, 23);
             txtResultado.TabIndex = 13;
+            txtResultado.Tag = "";
             // 
             // txtCompeticion
             // 
