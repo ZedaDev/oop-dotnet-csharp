@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Utilidades_8;
 
-namespace Clase13Interfaces
+namespace Clase13Interfaces.Ejercicios
 {
     public class Ejercicio1
     {

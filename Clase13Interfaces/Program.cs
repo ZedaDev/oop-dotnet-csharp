@@ -1,4 +1,6 @@
-﻿namespace Clase13Interfaces
+﻿using Clase13Interfaces.Ejercicios;
+
+namespace Clase13Interfaces
 {
     internal class Program
     {

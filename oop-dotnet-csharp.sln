@@ -79,6 +79,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectExceptions", "Projec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clase13Interfaces", "Clase13Interfaces\Clase13Interfaces.csproj", "{A94FACCC-9548-4439-AD0C-8B26E78A5F0B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clase13WinForm", "Clase13WinForm\Clase13WinForm.csproj", "{11FB8658-6CEB-47A9-AB4F-9FA88BA031CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -213,6 +215,10 @@ Global
 		{A94FACCC-9548-4439-AD0C-8B26E78A5F0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A94FACCC-9548-4439-AD0C-8B26E78A5F0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A94FACCC-9548-4439-AD0C-8B26E78A5F0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11FB8658-6CEB-47A9-AB4F-9FA88BA031CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11FB8658-6CEB-47A9-AB4F-9FA88BA031CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11FB8658-6CEB-47A9-AB4F-9FA88BA031CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11FB8658-6CEB-47A9-AB4F-9FA88BA031CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
