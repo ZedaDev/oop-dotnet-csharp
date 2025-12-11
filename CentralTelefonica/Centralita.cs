@@ -8,16 +8,16 @@ namespace CentralTelefonica
         protected string _razonSocial;
 
 
-        private Centralita()
-        {
-            _llamadas = new();
-        }
         public Centralita(string nombreEmpresa)
             : this()
         {
             _razonSocial = nombreEmpresa;
         }
 
+        private Centralita()
+        {
+            _llamadas = new();
+        }
 
         public List<Llamada> Llamadas
         {

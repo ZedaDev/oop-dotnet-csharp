@@ -26,9 +26,7 @@ namespace CentralTelefonica
         {
             _costo = costo;
         }
-        /*Sobrescribir el método Mostrar. Será protegido. Reutilizará el código escrito
-         * en la clase base y además agregará la propiedad CostoLlamada, utilizando
-         * un StringBuilder.*/
+
 
        
 

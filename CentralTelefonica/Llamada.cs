@@ -49,7 +49,10 @@ namespace CentralTelefonica
 
             if (l1 is null || l2 is null) return false;
 
-            return l1.NroDestino == l2.NroDestino && l1.NroOrigen == l1.NroOrigen;
+            //GetType, siempre devuelve el new con el que fue creado el objeto, sin importar si es guardado en una clase base.
+            if (l1.GetType() != l2.GetType()) return false;
+
+            return l1.NroDestino == l2.NroDestino && l1.NroOrigen == l2.NroOrigen;
         }
         public static bool operator !=(Llamada l1, Llamada l2)
         {
@@ -58,7 +61,11 @@ namespace CentralTelefonica
 
         public override bool Equals(object? obj)
         {
-            if (obj is null || obj.GetType() != typeof(Llamada)) return false;
+           
+            if (GetType() != obj.GetType())
+            {
+                return false;
+            }
 
             return (this == (Llamada)obj);
         }
