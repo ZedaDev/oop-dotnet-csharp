@@ -41,5 +41,44 @@ namespace Clase12UnitTest
             
         }
 
+        /*Comprobar que al cargar un nuevo vehículo en la competencia este figure en la lista.
+         * Utilizar el operador + y el ==.
+*/
+
+        [TestMethod]
+        public void AlCargarUnNuevoVehiculoALaCompetencia_SiEstaEnLaLista_DeberiaLanzarCompetenciaNoDispoNibleException()
+        {
+            //Arrange
+            Competencia carrera = new(11, 22, ECompetencia.F1);
+            AutoF1 a8 = new(8, "Audi");
+            //Act
+            bool ok = carrera + a8;
+
+                ok = carrera == a8;
+
+            Assert.IsTrue(ok);
+             
+        }
+
+        /*Comprobar que al quitar un vehículo existente en la competencia
+         * este ya no figure en la lista.
+        Utilizar el operador - y el !=.*/
+
+        [TestMethod]
+        [ExpectedException(typeof(CompetenciaNoDisponibleException))]
+        public void AlQuitarUnVehiculoDeLaCompetencia_SiNoEstaEnLaLista_DeberiaLanzarCompetenciaNoDispoNibleExceptionYMetodoMenosDevolverTrue()
+        {
+            //Arrange
+            Competencia carrera = new(11, 22, ECompetencia.F1);
+            AutoF1 a8 = new(8, "Audi");
+            //Act
+            carrera.Vehiculos.Add(a8);
+
+            bool ok1 = carrera - a8;
+            bool ok = carrera != a8;
+
+            Assert.IsTrue(ok1);
+
+        }
     }
 }

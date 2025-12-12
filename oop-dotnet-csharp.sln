@@ -83,6 +83,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clase13WinForm", "Clase13Wi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clase12UnitTest", "Clase12UnitTest\Clase12UnitTest.csproj", "{2F98A8F8-3D89-41DB-8762-3459549FD426}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlDeAduana.Test", "ControlDeAduana.Test\ControlDeAduana.Test.csproj", "{2BCBD9FE-460A-4F2D-A6C4-D0B73B80AA82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlDeAduana", "ControlDeAduana\ControlDeAduana.csproj", "{26F77954-B090-43C1-B863-B363B4D477A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -225,6 +229,14 @@ Global
 		{2F98A8F8-3D89-41DB-8762-3459549FD426}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F98A8F8-3D89-41DB-8762-3459549FD426}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F98A8F8-3D89-41DB-8762-3459549FD426}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BCBD9FE-460A-4F2D-A6C4-D0B73B80AA82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BCBD9FE-460A-4F2D-A6C4-D0B73B80AA82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BCBD9FE-460A-4F2D-A6C4-D0B73B80AA82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BCBD9FE-460A-4F2D-A6C4-D0B73B80AA82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26F77954-B090-43C1-B863-B363B4D477A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26F77954-B090-43C1-B863-B363B4D477A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26F77954-B090-43C1-B863-B363B4D477A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26F77954-B090-43C1-B863-B363B4D477A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
