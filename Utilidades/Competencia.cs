@@ -45,6 +45,11 @@ namespace Utilidades
             }
         }
 
+        public List<VehiculoDeCarrera> Vehiculos 
+        {
+            get => _autos;
+        }
+
         private Competencia()
         {
             _autos = new List<VehiculoDeCarrera>();
@@ -78,9 +83,16 @@ namespace Utilidades
 
                         if (i)
                         {
-                            AutoF1.ModificarAuto(((AutoF1)corredor), carrera.CantidadVueltas);
-                            carrera._autos.Add(corredor);
-                            carrera.CantidadCompetidores += 1;
+                            if(corredor.GetType() != typeof(AutoF1))
+                            {
+                                throw new CompetenciaNoDisponibleException();
+                            }
+                            else
+                            {
+                                AutoF1.ModificarAuto(((AutoF1)corredor), carrera.CantidadVueltas);
+                                carrera._autos.Add(corredor);
+                                carrera.CantidadCompetidores += 1;
+                            }
                         }
 
                     }else if(carrera.TipoDeCompetencia == ECompetencia.MotocCross)
@@ -96,8 +108,16 @@ namespace Utilidades
 
                         if (i)
                         {
-                            carrera._autos.Add(corredor);
-                            carrera.CantidadCompetidores += 1;
+                            if (corredor.GetType() != typeof(MotoCross))
+                            {
+                                throw new CompetenciaNoDisponibleException();
+                            }
+                            else
+                            {
+                                carrera._autos.Add(corredor);
+                                carrera.CantidadCompetidores += 1;
+                            }
+                            
                         }
                     }
                    

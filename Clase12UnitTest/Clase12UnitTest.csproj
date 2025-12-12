@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CentralTelefonica\CentralTelefonica.csproj" />
     <ProjectReference Include="..\Clase11Exepciones\Clase11Exepciones.csproj" />
+    <ProjectReference Include="..\Utilidades\Utilidades.csproj" />
   </ItemGroup>
 
   <ItemGroup>

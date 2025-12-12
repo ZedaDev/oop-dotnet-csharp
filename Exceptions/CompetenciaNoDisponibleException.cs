@@ -23,6 +23,9 @@ namespace Exceptions
             _nombreMetodo = metodo;
         }
 
+        public CompetenciaNoDisponibleException() :base()
+        {
+        }
 
         public string NombreClase
         {
