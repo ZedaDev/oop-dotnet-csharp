@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ControlDeAduana\ControlDeAduana.csproj" />
     <ProjectReference Include="..\Utilidades{8\Utilidades{8.csproj" />
   </ItemGroup>
 

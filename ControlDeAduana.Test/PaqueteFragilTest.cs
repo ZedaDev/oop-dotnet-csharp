@@ -5,42 +5,46 @@
     [TestClass]
     public sealed class PaqueteFragilTest
     {
+        private PaqueteFragil _paqueteFragil;
+
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            _paqueteFragil = new PaqueteFragil("", 100, "", "", 0);
+        }
+
         [TestMethod]
         public void AplicarIMpuestos_DeberiaRetornarCostoDeEnvioMasImpuestosAduana()
         {
-            //Arrange
-            PaqueteFragil pFragil = new("", 100, "", "", 0);
             bool ok = false;
+            int valorEsperado = 65;
             //Act
-            decimal impuestos = pFragil.AplicarImpuestos();
-            if (impuestos == 65)
-                ok = true;
+            decimal impuestos = _paqueteFragil.AplicarImpuestos();
+
             //Assert
 
-            Assert.IsTrue(ok);
+            Assert.AreEqual(valorEsperado, impuestos);
+           
         }
         [TestMethod]
         public void Impuestos_DeberiaRetornarValorImpuestoDel35PorcientoSobreCostoEnvio()
         {
-            //Arrange
-            PaqueteFragil pFragil = new("", 100, "", "", 0);
+            int valorEsperado = 35;
             bool ok = false;
+
             //Act
-            decimal impuestos = pFragil.Impuestos;
-            if (impuestos == 35)
-                ok = true;
+            decimal impuestos = _paqueteFragil.Impuestos;
+
             //Assert
 
-            Assert.IsTrue(ok);
+            Assert.AreEqual(valorEsperado, impuestos);
         }
         [TestMethod]
         public void TienePrioridad_DeberiaRetornarTrue()
         {
-            //Arrange
-            PaqueteFragil pFragil = new("", 0,"", "", 0);
 
             //Act
-            bool res = pFragil.TienePrioridad;
+            bool res = _paqueteFragil.TienePrioridad;
 
             //Assert
 

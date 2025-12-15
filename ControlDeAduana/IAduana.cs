@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ControlDeAduana
 {
-    internal interface IAduana
+    public interface IAduana
     {
 
         public decimal Impuestos { get; }

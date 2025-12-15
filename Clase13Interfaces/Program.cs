@@ -8,8 +8,11 @@ namespace Clase13Interfaces
         {
             Console.WriteLine("Hello, World!");
 
-           Ejercicio1 ejercicioUno = new();
-            ejercicioUno.Ejecutar();
+           /*Ejercicio1 ejercicioUno = new();
+            ejercicioUno.Ejecutar();*/
+
+           Ejercicio2ControlDeAduana ejercicioDos = new();
+            ejercicioDos.Ejecutar();
         }
     }
 }

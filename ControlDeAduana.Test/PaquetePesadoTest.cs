@@ -23,46 +23,44 @@ namespace ControlDeAduana.Test
         public void AplicarIMpuestos_DeberiaRetornarCostoDeEnvioMasImpuestosAfipYAduana()
         {
             //Arrange
-            PaquetePesado pPesado = new PaquetePesado("", 100, "", "", 0);
+            int valorEsperado = 100 + 35 + 25;
             bool ok = false;
+
             //Act
             decimal impuestos = _paquetePesado.AplicarImpuestos();
 
-            if (impuestos == 100+35+25)
-                ok = true;
             //Assert
-
-            Assert.IsTrue(ok);
+            Assert.AreEqual(valorEsperado, impuestos);
         }
+
         [TestMethod]
         public void Impuestos_DeberiaRetornarValorImpuestoDel25PorcientoSobreCostoEnvio_CuandoEsImplementacionExplicitaAfip()
         {
             //Arrange
             IAfip pPesado = new PaquetePesado("", 100, "", "", 0);
+            int valorEsperado = 25;
             bool ok = false;
+
             //Act
             decimal impuestos = pPesado.Impuestos;
 
-            if (impuestos == 25)
-                ok = true;
             //Assert
 
-            Assert.IsTrue(ok);
+            Assert.AreEqual(valorEsperado, impuestos);
         }
         [TestMethod]
         public void Impuestos_DeberiaRetornarValorImpuestoDel35PorcientoSobreCostoEnvio_CuandoEsImplementacionImplicita()
         {
             //Arrange
-            PaquetePesado pPesado = new("", 100, "", "", 0);
+            int valorEsperado = 25;
             bool ok = false;
+
             //Act
             decimal impuestos = _paquetePesado.Impuestos;
 
-            if (impuestos == 35)
-                ok = true;
             //Assert
 
-            Assert.IsTrue(ok);
+            Assert.AreEqual(valorEsperado, impuestos);
         }
 
         [TestMethod]
