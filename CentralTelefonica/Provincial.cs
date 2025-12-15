@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CentralTelefonica
 {
-    public class Provincial : Llamada
+    public class Provincial : Llamada, IGuardar
     {
         protected EFranja _franjaHoraria;
 
@@ -24,6 +24,8 @@ namespace CentralTelefonica
         {
             get => CalcularCosto();
         }
+        public string RutaDeArchivo { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         private float CalcularCosto()
         {
             if (_franjaHoraria is EFranja.Franja_1)
@@ -54,6 +56,16 @@ namespace CentralTelefonica
             sb.AppendLine($"Costo Llamada :  {this.CostoLlamada}");
 
             return sb.ToString();
+        }
+
+        public bool Guardar()
+        {
+            throw new NotImplementedException();
+        }
+
+        public T Leer<T>()
+        {
+            throw new NotImplementedException();
         }
     }
 }

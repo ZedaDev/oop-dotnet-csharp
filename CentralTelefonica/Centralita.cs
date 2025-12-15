@@ -2,7 +2,7 @@
 using Exceptions;
 namespace CentralTelefonica
 {
-    public class Centralita
+    public class Centralita : IGuardar
     {
         private List<Llamada> _llamadas;
         protected string _razonSocial;
@@ -38,7 +38,7 @@ namespace CentralTelefonica
         {
             get => CalcularGanancia(ETipoDeLlamada.Todas);
         }
-
+        public string RutaDeArchivo { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public static bool operator ==(Centralita c, Llamada l)
         {
@@ -162,6 +162,17 @@ namespace CentralTelefonica
         private void AgregarLlamada(Llamada nuevaLlamada)
         {
             this.Llamadas.Add(nuevaLlamada);
+        }
+
+        public bool Guardar()
+        {
+            this.ToString();
+            return true;
+        }
+
+        public T Leer<T>()
+        {
+            throw new NotImplementedException();
         }
     }
 }

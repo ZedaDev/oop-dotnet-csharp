@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CentralTelefonica
+{
+    public interface IGuardar
+    {
+
+       public string RutaDeArchivo
+        {
+            get;
+            set;
+        }
+
+        public bool Guardar();
+        public T Leer<T>();
+    }
+}

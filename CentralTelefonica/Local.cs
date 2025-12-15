@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CentralTelefonica
 {
-    public class Local : Llamada
+    public class Local : Llamada, IGuardar
     {
 
         private float _costo;
@@ -15,6 +15,7 @@ namespace CentralTelefonica
         { 
             get => CalcularCosto(); 
         }
+        public string RutaDeArchivo { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public Local(Llamada llamada, float costo) 
             : this(llamada.NroOrigen, llamada.Duracion, llamada.NroDestino, costo)
@@ -58,6 +59,16 @@ namespace CentralTelefonica
         private float CalcularCosto()
         {
             return _costo * Duracion;
+        }
+
+        public bool Guardar()
+        {
+            throw new NotImplementedException();
+        }
+
+        public T Leer<T>()
+        {
+            throw new NotImplementedException();
         }
     }
 }
