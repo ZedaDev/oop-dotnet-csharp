@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GenericsC14\GenericsC14.csproj" />
+    <ProjectReference Include="..\Utilidades\Utilidades.csproj" />
   </ItemGroup>
 
 </Project>

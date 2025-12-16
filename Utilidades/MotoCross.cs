@@ -48,9 +48,25 @@ namespace Utilidades
             StringBuilder sb = new();
             sb.AppendLine($"Moto Cilindrada : {Cilindrada}");
             sb.AppendLine($"{base.MostrarDatos()}");
+           
 
 
             return sb.ToString();
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is not null && obj is MotoCross)
+            {
+                return this == (MotoCross)obj;
+            }
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return _cilindrada.GetHashCode();
         }
     }
 }

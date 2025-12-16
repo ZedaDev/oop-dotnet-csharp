@@ -57,5 +57,14 @@ namespace Utilidades
             ferrari.CantidaCombustible = (short)random.Next(1, 101);
         }
 
+        public override bool Equals(object? obj)
+        {
+            if (obj is not null && obj is AutoF1)
+            {
+                return this == (AutoF1)obj;
+            }
+
+            return false;
+        }
     }
 }

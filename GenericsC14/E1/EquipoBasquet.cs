@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenericsC14
+namespace GenericsC14.E1
 {
     public class EquipoBasquet : Equipo
     {

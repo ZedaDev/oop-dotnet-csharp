@@ -25,6 +25,14 @@ namespace Utilidades
             _escuderia = escuderia;
             _numero = number;
         }
+
+        public  void Modificar(short vueltas)
+        {
+            EnCompetencia = true;
+            VueltasRestantes = vueltas;
+            Random random = new();
+            CantidaCombustible = (short)random.Next(1, 101);
+        }
         public string MostrarDatos()
         {
             StringBuilder sb = new();

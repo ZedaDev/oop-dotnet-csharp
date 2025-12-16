@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace GenericsC14
+namespace GenericsC14.E1
 {
     public abstract class Equipo
     {

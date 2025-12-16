@@ -8,11 +8,12 @@ using Utilidades_8;
 using Exceptions;
 namespace Utilidades
 {
-    public class Competencia
+    public class Competencia<T>
+        where T : VehiculoDeCarrera
     {
         private short _cantidadCompetidores;
         private short _cantidadVueltas;
-        private List<VehiculoDeCarrera> _autos;
+        private List<T> _autos;
         private ECompetencia _tipoCompetencia;
 
 
@@ -27,7 +28,7 @@ namespace Utilidades
             set => _cantidadVueltas = value; 
         }
 
-        public VehiculoDeCarrera this[int index]
+        public T this[int index]
         {
             get => _autos[index];
             set
@@ -45,14 +46,14 @@ namespace Utilidades
             }
         }
 
-        public List<VehiculoDeCarrera> Vehiculos 
+        public List<T> Vehiculos 
         {
             get => _autos;
         }
 
         private Competencia()
         {
-            _autos = new List<VehiculoDeCarrera>();
+            _autos = new List<T>();
         }
         public Competencia(short cantidadCompetidores, short cantidadVueltas, ECompetencia tipoCompetencia)
             : this()
@@ -63,79 +64,113 @@ namespace Utilidades
         }
 
 
-        public static bool operator +(Competencia carrera, VehiculoDeCarrera corredor)
+        public static bool operator +(Competencia<T> carrera, T corredor)
         {
             bool i = true;
-            try
-            {
+            //try
+            //{
                 if (carrera._autos.Count < carrera.CantidadCompetidores)
                 {
                     if (carrera.TipoDeCompetencia == ECompetencia.F1)
                     {
-                        foreach (AutoF1 value in carrera._autos)
+                        if (!carrera.Vehiculos.Contains(corredor))
                         {
-                            if (value == ((AutoF1)corredor))
+                            if (corredor is AutoF1)
                             {
-                                i = false;
-                                break;
+                                corredor.Modificar(carrera.CantidadVueltas);
+
+                                carrera._autos.Add(corredor);
+                                carrera.CantidadCompetidores += 1;
                             }
                         }
-
-                        if (i)
+                        else i = false;
+                        /*foreach (T value in carrera._autos)
                         {
+                            if(value is AutoF1 aValue && corredor is AutoF1 aCorredor)
+                            {
+                                if (aValue == aCorredor)
+                                {
+                                    i = false;
+                                    break;
+                                }
+                            }
+                        }*/
+
+                        /*if (i)
+                        {
+                                if(corredor is AutoF1 af1)
+                                {
+                                    AutoF1.ModificarAuto(af1, carrera.CantidadVueltas);
+                                    carrera._autos.Add(corredor);
+                                    carrera.CantidadCompetidores += 1;
+                                }
                             if(corredor.GetType() != typeof(AutoF1))
                             {
                                 throw new CompetenciaNoDisponibleException();
                             }
                             else
                             {
-                                AutoF1.ModificarAuto(((AutoF1)corredor), carrera.CantidadVueltas);
+                            }
+                        }*/
+
+
+                    }
+                    else if (carrera.TipoDeCompetencia == ECompetencia.MotocCross)
+                    {
+                        if (!carrera.Vehiculos.Contains(corredor))
+                        {
+                            if (corredor is MotoCross)
+                            {
+                                corredor.Modificar(carrera.CantidadVueltas);
+
                                 carrera._autos.Add(corredor);
                                 carrera.CantidadCompetidores += 1;
                             }
                         }
-
-                    }else if(carrera.TipoDeCompetencia == ECompetencia.MotocCross)
-                    {
-                        foreach (MotoCross value in carrera._autos)
+                        else i = false;
+                        /*foreach (T value in carrera.Vehiculos)
                         {
-                            if (value == ((MotoCross)corredor))
+                            if (value is MotoCross aValue && corredor is MotoCross aCorredor)
                             {
-                                i = false;
-                                break;
+                                if (aValue == aCorredor)
+                                {
+                                    i = false;
+                                    break;
+                                }
                             }
+                           
                         }
 
                         if (i)
                         {
-                            if (corredor.GetType() != typeof(MotoCross))
+                                carrera._autos.Add(corredor);
+                                carrera.CantidadCompetidores += 1;
+                            /*if (corredor.GetType() != typeof(MotoCross))
                             {
                                 throw new CompetenciaNoDisponibleException();
                             }
                             else
                             {
-                                carrera._autos.Add(corredor);
-                                carrera.CantidadCompetidores += 1;
                             }
                             
                         }
-                    }
-                   
-                }
-                else
-                    i = false;
+                    }*/
 
-            }
+                    }
+
+
+                }
+            /*}
             catch (CompetenciaNoDisponibleException ex)
             {
 
-                throw new CompetenciaNoDisponibleException("Competencia incorrecta", typeof(Competencia).ToString(), "+", ex?.InnerException);
-            }
+                throw new CompetenciaNoDisponibleException("Competencia incorrecta", typeof(Competencia<T>).ToString(), "+", ex?.InnerException);
+            }*/
 
 
                 return i;
         }
-        public static bool operator -(Competencia carrera, VehiculoDeCarrera corredor)
+        public static bool operator -(Competencia<T> carrera, T corredor)
         {
             bool i = false;
 
@@ -143,7 +178,7 @@ namespace Utilidades
                 {
                     if (carrera.TipoDeCompetencia  == ECompetencia.F1) 
                     { 
-                        if (carrera._autos[c] == ((AutoF1)corredor))
+                        if (carrera._autos[c] == corredor)
                         {
                               carrera._autos.RemoveAt(c);
                                         i = true;
@@ -152,7 +187,7 @@ namespace Utilidades
                     }else 
                     {
 
-                        if (carrera._autos[c] == ((MotoCross)corredor))
+                        if (carrera._autos[c] == corredor)
                         {
                             carrera._autos.RemoveAt(c);
                             i = true;
@@ -165,29 +200,38 @@ namespace Utilidades
             return i;
         }
 
-        public static bool operator ==(Competencia c, VehiculoDeCarrera a)
+        public static bool operator ==(Competencia<T> c, T a)
         {
             bool i = false;
             if (c.TipoDeCompetencia == ECompetencia.F1)
             {
-                foreach (AutoF1 value in c._autos)
+                foreach (T value in c._autos)
                 {
-                    if (value == ((AutoF1)a)) i = true;
+                    
+                    if (value == a)
+                    {
+                        i = true;
+                        break;
+                    }
                 }
 
             }else
             {
-                foreach (AutoF1 value in c._autos)
+                foreach (T value in c._autos)
                 {
-                    if (value == ((AutoF1)a)) i = true;
+                    if (value == a)
+                    {
+                        i = true;
+                        break;
+                    }
                 }
             }
             if (!i)
-               throw new CompetenciaNoDisponibleException("El vehículo no corresponde a la competencia", typeof(Competencia).ToString(), "==");
+               throw new CompetenciaNoDisponibleException("El vehículo no corresponde a la competencia", typeof(Competencia<T>).ToString(), "==");
                 
             return i;
         }
-        public static bool operator !=(Competencia c, VehiculoDeCarrera a)
+        public static bool operator !=(Competencia<T> c, T a)
         {
             return !(c == a);
         }
@@ -198,7 +242,7 @@ namespace Utilidades
             StringBuilder sb = new();
             sb.AppendLine($"Corredores : ");
             int i = 0;
-            foreach (AutoF1 corredor in _autos)
+            foreach (T corredor in _autos)
             {
                 sb.AppendLine($"{corredor.MostrarDatos()}");
                 i++;

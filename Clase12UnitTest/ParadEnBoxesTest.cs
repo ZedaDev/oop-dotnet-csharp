@@ -19,7 +19,7 @@ namespace Clase12UnitTest
         public void AlCrearUnObjetoCompetencia_ValidarQueLaListaVehiculosEsteInstanciada_DeberiaRetornarTrue()
         {
             //Arrange
-            Competencia carrera = new(11, 22, ECompetencia.F1);
+            Competencia<AutoF1> carrera = new(11, 22, ECompetencia.F1);
 
             //Act
 
@@ -28,16 +28,44 @@ namespace Clase12UnitTest
         }
 
         /*Realizar un test unitario que controle que la excepción CompetenciaNoDisponible se lance
-         * al querer cargar un AutoF1 en una competencia del tipo MotoCross.*/
+         * al querer cargar un AutoF1 en una competencia del tipo MotoCross.
         [TestMethod]
         [ExpectedException(typeof(CompetenciaNoDisponibleException))]
         public void AlCargarUnAutoF1EnUnaCompetenciaDelTipoMotoCross_ValidarQueLanceExcepcion_DeberiaLanzarCompetenciaNoDisponibleExcepcion()
         {
             //Arrange
-            Competencia carrera = new(11, 22, ECompetencia.MotocCross);
-            AutoF1 a8 = new(8, "Audi");
+            Competencia<MotoCross> carrera = new(11, 22, ECompetencia.MotocCross);
+            MotoCross a8 = new (8, "Audi", 250);
+
             //Act
             bool ok = carrera + a8;
+
+
+            
+        }*/
+        [TestMethod]
+        public void AlCargarUnNuevoCorredorNuevo_ValidarQueSeAgregueEnLaLista_DeberiaRetornarTrue()
+        {
+            //Arrange
+            Competencia<MotoCross> carrera = new(11, 22, ECompetencia.MotocCross);
+            MotoCross a8 = new (8, "Audi", 250);
+
+            //Act
+            bool ok = carrera + a8;
+            bool ok3 = carrera + a8;
+
+            Competencia<AutoF1> carrera1 = new(11, 22, ECompetencia.F1);
+            AutoF1 a9 = new (8, "Audi");
+
+            //Act
+            bool ok1 = carrera1 + a9;
+            bool ok2 = carrera1 + a9;
+         
+
+            Assert.IsTrue(ok);
+            Assert.IsTrue(ok1);
+            Assert.IsFalse(ok2);
+            Assert.IsFalse(ok3);
             
         }
 
@@ -49,7 +77,7 @@ namespace Clase12UnitTest
         public void AlCargarUnNuevoVehiculoALaCompetencia_SiEstaEnLaLista_DeberiaLanzarCompetenciaNoDispoNibleException()
         {
             //Arrange
-            Competencia carrera = new(11, 22, ECompetencia.F1);
+            Competencia<AutoF1> carrera = new(11, 22, ECompetencia.F1);
             AutoF1 a8 = new(8, "Audi");
             //Act
             bool ok = carrera + a8;
@@ -66,18 +94,21 @@ namespace Clase12UnitTest
 
         [TestMethod]
         [ExpectedException(typeof(CompetenciaNoDisponibleException))]
-        public void AlQuitarUnVehiculoDeLaCompetencia_SiNoEstaEnLaLista_DeberiaLanzarCompetenciaNoDispoNibleExceptionYMetodoMenosDevolverTrue()
+        public void AlQuitarUnVehiculoDeLaCompetencia_Validar_DeberiaRetornarTrue()
         {
             //Arrange
-            Competencia carrera = new(11, 22, ECompetencia.F1);
+            Competencia<AutoF1> carrera = new(11, 22, ECompetencia.F1);
             AutoF1 a8 = new(8, "Audi");
             //Act
             carrera.Vehiculos.Add(a8);
 
             bool ok1 = carrera - a8;
             bool ok = carrera != a8;
+            bool ok2 = carrera == a8;
 
             Assert.IsTrue(ok1);
+            Assert.IsTrue(ok);
+            Assert.IsFalse(ok2);
 
         }
     }

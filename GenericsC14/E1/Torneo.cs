@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace GenericsC14
+namespace GenericsC14.E1
 {
     public class Torneo<T> where T : Equipo
     {
@@ -61,7 +61,7 @@ namespace GenericsC14
         public string Mostrar()
         {
             StringBuilder sb = new();
-            sb.AppendLine($"[DATOS DEL TORNEO {this._nombre}]");
+            sb.AppendLine($"[DATOS DEL TORNEO {_nombre}]");
             foreach (T value in _equipos)
             {
                 sb.AppendLine($"{value.Ficha()}");
