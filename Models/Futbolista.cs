@@ -10,15 +10,13 @@ using System.Threading.Tasks;
 namespace Entities
 {
     [Serializable]
-    public class Futbolista : Deportista
+    public class Futbolista : Deportista, IFutbolista
     {
         private string _posicion;
         private string _clubActual;
-        private List<EFutbolista> _stats;
 
         public Futbolista()
         {
-            _stats = new();
         }
         
         public Futbolista(string fullName, string edad,string apodo, EDeporte deporte, string fechaDebut, string posicion, string clubActual, ELadoHabil phHabil, string altura,string pais, string fechaDeRegistro, string user)
@@ -35,48 +33,25 @@ namespace Entities
         private Futbolista(string fullName, string edad, string apodo, EDeporte deporte, string fechaDebut, ELadoHabil phHabil, string altura, string pais, string fechaDeRegistro,string user)
              : base(fullName, edad, apodo, fechaDebut ,deporte, phHabil, altura, pais, fechaDeRegistro, user)
         {
-            _stats = new();
         }
         public string Posicion 
-            { 
-                get => _posicion;
-                set => _posicion = value;
-            }
-        public string ClubActual 
-        { 
-            get => _clubActual;
-            set => _clubActual = value; 
-        }
-
-        public List<EFutbolista> Stats 
         {
-            get => _stats;
-        }
-        public EFutbolista CargarStatFutbolista 
-        {
+            get => _posicion;
             set
             {
-                if(!_stats.Contains(value))
-                _stats.Add(value);
-
+                _posicion = value;
             }
         }
 
-        //implementar en los demas deportistas con su lista de estadisticas. para luego hacer en un foreach v.traer automatico.
-
-
-
-
-        public override string MisEstadisticas(string nickName)
+        public string ClubActual 
         {
-            string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Logs", "Users", nickName, "Deportistas", "Futbol.json");
-            return pathJson;
+            get => _clubActual;
+            set
+            {
+                _clubActual = value;
+            }
         }
-        public override string MisDeportistas(string nickName)
-        {
-            string pathJson = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Logs", "Users", nickName,"Deportistas","Deportistas.json");
-            return pathJson;
-        }
+
 
     }
 }

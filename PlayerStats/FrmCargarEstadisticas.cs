@@ -15,26 +15,10 @@ namespace PlayerStats
 {
     public partial class FrmCargarEstadisticas : Form
     {
-        protected Deportista _atleta;
-        protected Deportistas _d;
-        public string NickName { get; set; }
-        public Deportista Atleta
+        public int INDEX
         {
-            get => _atleta;
-            set
-            {
-                if (value is not null)
-                    _atleta = value;
-            }
-        }
-        public Deportistas D
-        {
-            get => _d;
-            set
-            {
-                if (value is not null)
-                    _d = value;
-            }
+            get;
+            set;
         }
         public FrmCargarEstadisticas()
         {

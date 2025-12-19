@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public abstract class Estadisticas
+    [JsonPolymorphic(TypeDiscriminatorPropertyName = "$type")]
+    [JsonDerivedType(typeof(EFutbolista), "Futbol")]
+    public abstract class Estadisticas : IEstadistica
     {
         private string _deportista;
         private string _resultado;
@@ -20,7 +22,7 @@ namespace Entities
         private string _fechaDeRegistro;
         private string _usuario;
 
-        [JsonConstructor]
+     
         public Estadisticas()
         {
         }
@@ -96,10 +98,7 @@ namespace Entities
             get => _fechaDeRegistro;
             set => _fechaDeRegistro = value;
         }
-        public string Tipo
-        {
-            get => this.GetType().Name;
-        }
+        
 
         #endregion
 
@@ -114,42 +113,35 @@ namespace Entities
 
             return e.Fecha == e1.Fecha && e.Deportista == e1.Deportista && e.GetType() == e1.GetType();
         }
+        public static bool operator ==(Estadisticas e, Deportista e1)
+        {
+
+            if (e is null || e1 is null) return false;
+
+            return e.Deportista == e1.FullName;
+        }
+        public static bool operator !=(Estadisticas e, Deportista e1)
+        {
+            return !(e == e1);
+        }
         public static bool operator !=(Estadisticas d, Estadisticas d1)
         {
             return !(d == d1);
         }
-        public static bool operator +(Deportista value, Estadisticas d1)
-        {
-            bool ok = true;
-            foreach (var item in value.Estadisticas)
-            {
-                if (d1 == item)
-                    ok = false;
-            }
 
-             if(ok)
-                    value.AgregarEstadistica = d1;
-
-
-                return ok;
-        }
-        /*public override string ToString()
-        {
-            return this.Mostrar();
-        }*/
 
         public override bool Equals(object? obj)
         {
-            bool ok = false;
+            if (obj is null)
+            {
+                return false;
+            }
 
-            if (obj is Estadisticas)
-                ok = this == ((Estadisticas)obj);
-
-            return ok;
+            return this == ((Estadisticas)obj);
         }
         public override int GetHashCode()
         {
-            return HashCode.Combine(_fecha);
+            return HashCode.Combine(_fecha,Deportista);
         }
         #endregion
     }

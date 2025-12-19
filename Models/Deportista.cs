@@ -10,7 +10,9 @@ using System.Text.Json.Serialization;
 
 namespace Entities
 {
-    public abstract class Deportista
+    [JsonPolymorphic(TypeDiscriminatorPropertyName = "$type")]
+    [JsonDerivedType(typeof(Futbolista), "Futbolista")]
+    public abstract class Deportista : IDeportista
     {
         private string _fullName;
         private string _apodo;
@@ -58,9 +60,9 @@ namespace Entities
 
         #region Properties
 
-        [JsonIgnore]
+      
         public List<Estadisticas> Estadisticas
-        { 
+        {
             get => _estadisticas;
             set
             {
@@ -70,10 +72,14 @@ namespace Entities
         }
         public Estadisticas AgregarEstadistica
         { 
+
+
             set
             {
                 if (value is not null && !(_estadisticas.Contains(value)))
                     _estadisticas.Add(value);
+                else
+                    throw new Exception("Estadistica NULL o Ya existe en la lista.");
             }
         }
 
@@ -147,33 +153,30 @@ namespace Entities
         public ELadoHabil PhHabil 
         { 
             get => _phHabil;
+            set => _phHabil = value;
         }
         public string Altura 
         { 
             get => _altura;
+            set => _altura = value;
         }
-        public string Tipo 
-        { 
-            get => this.GetType().Name;
-        }
-        /*public string PathStats
-        { 
-            get => StatsPath();
-        }
-        public string PathUsers
-        { 
-            get => UsersPath();
-        }*/
 
-        //public abstract void CargarStat(List<EFutbolista> stats, List<Deportista> d, string nick);
-        public abstract string MisEstadisticas(string nickName);
-        public abstract string MisDeportistas(string nickName);
 
-        //public abstract void TraerStatsDArchivo(string pathJson, List<object> stats);
         #endregion
 
         #region Sobrecargas
 
+        ///
+        public static bool operator +(List<Deportista> list, Deportista d1)
+        {
+            if (!list.Contains(d1))
+            {
+                list.Add(d1);
+                 return true;
+            }
+
+            return false;
+        }
         public static bool operator ==(Deportista d, Deportista d1)
         {
             if (ReferenceEquals(d, d1)) return true;
@@ -203,10 +206,6 @@ namespace Entities
 
         #endregion
 
-
-        //Agregar Metodo Abstracto.
-
-        //public abstract void AbrirFormulario();
         
         protected virtual string Mostrar()
         {
@@ -215,6 +214,44 @@ namespace Entities
             sb.AppendLine($"Edad : {Edad}");
             sb.AppendLine($"Debut Deportivo : {FechaDebut}");
             sb.AppendLine($"Deporte : {_Edeporte.ToString()}");
+
+            int golesTotales = 0;
+            int asistencias = 0;
+            int tiroLibre = 0;
+            int Penal = 0;
+            int TRoja = 0;
+            int TAmarilla = 0;
+            int TPartidos = 0;
+            int TMinutos = 0;
+            StringBuilder res = new();
+
+            foreach (var value in Estadisticas)
+            {
+                if(value is EFutbolista e)
+                {
+                    golesTotales += int.Parse(e.Goles);
+                    asistencias += int.Parse(e.Asistencias);
+                    tiroLibre += int.Parse(e.GolesTiroLibre);
+                    Penal += int.Parse(e.GolesPenal);
+                    TRoja += (e.TarjetaRoja) == true ? 1 : 0;
+                    TAmarilla += int.Parse(e.TarjetaAmarilla);
+                    TPartidos += 1;
+                    TMinutos += int.Parse(e.MinutosJugados);
+                    res.AppendLine($"{e.Resultado}");
+
+                }
+            }
+            sb.AppendLine($"{golesTotales}");
+            sb.AppendLine($"{asistencias}");
+            sb.AppendLine($"{tiroLibre}");
+            sb.AppendLine($"{Penal}");
+            sb.AppendLine($"{TRoja}");
+            sb.AppendLine($"{TAmarilla}");
+            sb.AppendLine($"{TPartidos}");
+            sb.AppendLine($"{TMinutos}");
+            sb.AppendLine($"{res}");
+           
+           
                  return sb.ToString();
         }
 

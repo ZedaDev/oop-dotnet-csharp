@@ -24,25 +24,6 @@ namespace Entities
         public string NickName 
         {
             get => _nickName;
-            /*set 
-            {
-                string _value = value.Trim();
-                if (!string.IsNullOrEmpty(_value))
-                {
-                    bool ok = true;
-                    foreach (User u in Usuarios.UsersList)
-                    {
-                        if (u.NickName == _value)
-                        {
-                            ok = false;
-                            break;
-                        }
-                    }
-                        if (ok)
-                         _nickName = _value;
-                }
-            }*/
-
         }
         public string Pw
         { 
@@ -80,15 +61,15 @@ namespace Entities
 
         public override int GetHashCode()
         {
-            return this.NickName.GetHashCode();
+            return NickName.GetHashCode();
         }
         public override string ToString()
         {
-            return this.Mostrar();
+            return Mostrar();
         }
         private string Mostrar()
         {
-            return $"User : {NickName} - Pw : {Pw}";
+            return $"User : {NickName}";
         }
     }
 }

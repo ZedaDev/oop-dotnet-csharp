@@ -10,28 +10,6 @@ namespace PlayerStats
 {
     public partial class frmMenuPrincipal : Form
     {
-        private string _nickName;
-        private Deportistas _d;
-        public string NickName
-        {
-            get => _nickName;
-            set
-            {
-                if (value is not null)
-                    _nickName = value;
-            }
-        }
-        public Deportistas Dportistas
-        {
-            get => _d;
-            set
-            {
-                _d = new();
-                if (value is not null)
-                    _d = value;
-            }
-        }
-
 
         public frmMenuPrincipal()
         {
@@ -39,39 +17,12 @@ namespace PlayerStats
 
         }
 
-        /// <summary>
-        /// Settea la configuracion inicial a mostrar en el formulario de los TextBox, Label, ComboBox, Button.
-        /// </summary>
-        private void SetValuesControls()
-        {
-
-            lbDateTime.Text = DateTime.Now.Date.ToShortDateString();
-            lbDateTime.ForeColor = Color.Green;
-            lbUser.Text = NickName;
-            cmbDeporte.DataSource = Enum.GetValues(typeof(EDeporte));
-            cmbDeporte.SelectedIndex = -1;
-            btnAgregar.Visible = true;
-            btnAgregar.Enabled = false;
-        }
-
-        private void SetPaths()
-        {
-            Paths.SetDeportistaPath(NickName);
-            Paths.SetFutbolStatsPath(NickName);//hacer el metodo generico indicando mediante propiedades a todos la misma path cambiando el Nombredeporte.json
-        }
         private void frmMenuPrincipal_Load(object sender, EventArgs e)
         {
-            SetPaths();
+            GenerarRutasDeArchivos();
             SetValuesControls();
 
-            Dportistas.ArchiveTooList(Paths.DeportistasPath, Dportistas);
-            //crear los mismo metodos segun el deporte, agregar propiedades de PATH tambien.
-
-            Dportistas.TraerEstadisticasDelArchivo(Paths.StatsFutbolPath, Dportistas.Estadisticas);
-            Dportistas.CargarStat(Dportistas.Estadisticas, Dportistas.Atletas, NickName);
-
-            //Paths.AddStatsToList(Dportistas.Atletas);
-            
+            Deportistas.Atletas = Serializer<Deportista>.JsonDeserializeList(Paths.DeportistasPath);
 
             //Cargo los deportistas [Nombre - Deporte] en el visor.
             MessageAndVisorRefresh();
@@ -79,12 +30,12 @@ namespace PlayerStats
 
         private void MessageAndVisorRefresh()
         {
-            if (Dportistas.Atletas.Count == 0)
+            if (Deportistas.Atletas.Count == 0)
                 lbVisorCargado.Text = "No Hay Deportistas Cargados Aun";
             else
             {
                 lbVisorCargado.ForeColor = Color.Green;
-                lbVisorCargado.Text = $"Deportistas Cargados : {Dportistas.Atletas.Count}";
+                lbVisorCargado.Text = $"Deportistas Cargados : {Deportistas.Atletas.Count}";
                 ActualizarVisor();
             }
         }
@@ -115,8 +66,7 @@ namespace PlayerStats
                 else if(cmbDeporte.SelectedIndex.ToString() == EDeporte.Tenis.ToString())
                          //frm = new FrmCargarFutbolista ();*/
 
-                    frm.D = this.Dportistas;
-                    frm.NickName = this.NickName;
+                  
                     this.Hide();
                     frm.ShowDialog();
 
@@ -134,16 +84,15 @@ namespace PlayerStats
             lvVisor.Clear();
             lvVisor.Items.Clear();
 
-            if (Dportistas.Atletas.Count > 0)
+            if (Deportistas.Atletas.Count > 0)
             {
+    
                 StringBuilder sb = new();
-                foreach (Deportista value in Dportistas.Atletas)
+                foreach (Deportista value in Deportistas.Atletas)
                 {
-
-
                     lvVisor.Items.Add($"{value.FullName} - {value.Deporte} | Registrado {value.FechaDeRegistro}");
                 }
-
+               
             }
         }
         protected bool ComprobarCamposNull()
@@ -157,6 +106,19 @@ namespace PlayerStats
             }
             return true;
         }
+        protected bool ComprobarCamposNull<T, U>(List<T> list, U date) where U : TextBox
+        {
+            foreach (var value in this.Controls)
+            {
+                if (value is U txt && string.IsNullOrEmpty(txt.Text.Trim()))
+                {
+                    txt.Tag = "empty";
+                    return false;
+                }
+            }
+            return true;
+        }
+      
 
         private void btnCerrarSesion_Click(object sender, EventArgs e)
         {
@@ -173,23 +135,21 @@ namespace PlayerStats
 
                 
                 // Verificar que el índice esté dentro de un rango válido
-                if (i >= 0 && i < Dportistas.Atletas.Count)
+                if (i >= 0 && i < Deportistas.Atletas.Count)
                 {
-                    // Obtener el atleta correspondiente al índice
-
-                    Deportista atleta = Dportistas.Atletas[i];  
+                    ;
                     // Verificar si el atleta es null
-                    if (atleta != null)
+                    if (Deportistas.Atletas[i] != null)
                     {
-                        // MessageBox.Show($"{atleta.ToString()}");
+                        Deportistas.MyAtleta = Deportistas.Atletas[i]; 
+                        Deportistas.INDEX = i;
                         FrmEstadisticas frmEstadisticas = new FrmEstadisticas();
-
-                        frmEstadisticas.InicializarAttributos(NickName, Dportistas, atleta);
+                      
                         this.Hide();
                         frmEstadisticas.ShowDialog();
 
                         cmbDeporte.SelectedIndex = -1;
-                        ActualizarVisor();
+                        MessageAndVisorRefresh();
                         this.Show();
                     }
                 }
@@ -207,40 +167,16 @@ namespace PlayerStats
                 // Obtén el índice del elemento seleccionado
                 int i = lvVisor.SelectedIndices[0];
 
-                // Mostrar información de depuración
-                // MessageBox.Show($"Índice seleccionado: {i}, Total de atletas: {D.Atletas.Count}");
-
-                // Verificar que el índice esté dentro de un rango válido
-                if (i >= 0 && i < Dportistas.Atletas.Count)
+                if (i >= 0 && i < Deportistas.Atletas.Count)
                 {
-                    // Obtener el atleta correspondiente al índice
-
-                    Deportista atleta = Dportistas.Atletas[i];  // Aquí accedemos directamente a D.Atletas[i]
-                                                                // Crear y mostrar el formulario de estadísticas
-                   DialogResult res = MessageBox.Show($"Seguro Desea Eliminar Este Deportista?\n {atleta.ToString()}", "Question",MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    Deportistas.MyAtleta = Deportistas.Atletas[i]; 
+                    DialogResult res = MessageBox.Show($"Seguro Desea Eliminar Este Deportista?\n {Deportistas.MyAtleta.ToString()}", "Question",MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    
                     if(res == DialogResult.Yes)
                     {
-                        Dportistas.BorrarAtleta = atleta;
-                        ActualizarVisor();
-                        Dportistas.CargarDeportistaAlArchivo(Paths.DeportistasPath, Dportistas.Atletas);
-
-                        //Dportistas.TraerEstadisticasDelArchivo(Paths.StatsFutbolPath, eFutbolistas);
-
-                        List<EFutbolista> lista = new();
-                        foreach (Estadisticas value in atleta.Estadisticas)
-                        {
-                            if (value is EFutbolista futbolStat && value.Deportista != atleta.FullName)
-                            {
-                                lista.Add(futbolStat);
-                            }
-                            /*if (value.Deportista == atleta.FullName)
-                            {
-                                atleta.Estadisticas.Remove(value);
-                               
-                            }*/
-                        }
-                        Dportistas.CargarEstadisticasFutbolAlArchivo(Paths.StatsFutbolPath, lista);
-                        //Hacer Metodos similares para los demas deportistas, boxeo, tenis, etc.
+                        Deportistas.BorrarAtleta = Deportistas.MyAtleta;
+                        MessageAndVisorRefresh();
+                        Serializer<Deportista>.JsonSerializerList(Deportistas.Atletas, Paths.DeportistasPath);
 
                         MessageBox.Show($"Deportista Eliminado Con Exito", "Deportista Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
@@ -248,6 +184,30 @@ namespace PlayerStats
             }else
                 MessageBox.Show($"Seleccione Un Deportista", "Seleccionar", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+        }
+
+        /// <summary>
+        // Settea la configuracion inicial a mostrar en el formulario de los TextBox, Label, ComboBox, Button.
+        /// </summary>
+        private void SetValuesControls()
+        {
+
+            lbDateTime.Text = DateTime.Now.Date.ToShortDateString();
+            lbDateTime.ForeColor = Color.Green;
+            lbUser.Text = Usuarios.MyUser.NickName;
+            cmbDeporte.DataSource = Enum.GetValues(typeof(EDeporte));
+            cmbDeporte.SelectedIndex = -1;
+            btnAgregar.Visible = true;
+            btnAgregar.Enabled = false;
+        }
+
+
+        /// <summary>
+        /// Invoca a la clase estatica 'Paths', generando automaticamente la ruta en donde se guardan los Deportistas del Usuario.
+        /// </summary>
+        private void GenerarRutasDeArchivos()
+        {
+            Paths.SetDeportistaPath();
         }
     }
 }

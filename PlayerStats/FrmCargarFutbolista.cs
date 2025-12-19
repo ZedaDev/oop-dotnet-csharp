@@ -19,9 +19,10 @@ namespace PlayerStats
             {
                Deportista futbolista = GetDateControls();
                 
-                if (D + futbolista)
+                if (Deportistas.Atletas + futbolista)
                 {
-                    D.CargarDeportistaAlArchivo(Paths.DeportistasPath, D.Atletas);
+                    //D.CargarDeportistaAlArchivo(Paths.DeportistasPath, D.Atletas);
+                    Serializer<Deportista>.JsonSerializerList(Deportistas.Atletas, Paths.DeportistasPath);
                     MessageBox.Show($"Deportista Cargado Con Exito", "Congratulations", MessageBoxButtons.OK);
                 }
                 else

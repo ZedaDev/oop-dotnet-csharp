@@ -11,39 +11,13 @@ namespace PlayerStats
             InitializeComponent();
         }
 
-        private void btnIngreso_Click(object sender, EventArgs e)
-        {
-            string nick = txtNickName.Text;
-            string pw = txtPw.Text;
-
-            if (string.IsNullOrEmpty(nick) || string.IsNullOrEmpty(pw))
-                lbMessage.Text = "Asegurese De Completar Los Campos";
-
-            else if (Usuarios.UsersList.Count == 0)
-                lbMessage.Text = "Usuario No Registrado";
-
-            else if(Usuarios.UsersList.Count > 0)
-            {
-                 User usuarioNuevo = new(nick, pw);
-                if(!Usuarios.UsersList.Contains(usuarioNuevo))
-                {
-                    lbMessage.Text = "El Nombre De Usuario No Existe";
-                    lbMessage.ForeColor = Color.Red;
-                    txtNickName.Clear(); txtNickName.Focus();
-                }
-                else
-                    InicializarFormularioMenu(usuarioNuevo.NickName);
-            }
-
+       
         
-        }
 
-        private void InicializarFormularioMenu(string nickName)
+        private void InicializarFormularioMenu()
         {
-            Deportistas d = new();
+           
             frmMenuPrincipal menu = new();
-            menu.NickName = nickName;
-            menu.Dportistas = d;
 
             this.Hide(); //oculta el formulario
             menu.ShowDialog();
@@ -51,7 +25,8 @@ namespace PlayerStats
         }
         private void FrmLogin_Load(object sender, EventArgs e)
         {
-            Paths.DeserializarArchivoUsuarios(Paths.LoginPath);
+            Usuarios.UsersList = Serializer<User>.JsonDeserializeList(Paths.LoginPath);
+
         }
 
 
@@ -62,17 +37,27 @@ namespace PlayerStats
             else
                 txtPw.PasswordChar = '*';
         }
+        private User DateValidate(string name, string pw)
+        {
+            if (StringHelper.CheckText(name, pw))
+            {
+                User usuarioNuevo = new(name, pw);
+                return usuarioNuevo;
+            }
+            else
+                lbMessage.Text = "Asegurese De Completar Los Campos";
+
+
+            return null;
+
+        }
         private void btnRegistrarse_Click(object sender, EventArgs e)
         {
             lbMessage.ResetText();
-            string nick = txtNickName.Text;
-            string pw = txtPw.Text;
+            User usuarioNuevo = DateValidate(txtNickName.Text, txtPw.Text);
 
-            if (string.IsNullOrEmpty(nick) || string.IsNullOrEmpty(pw))
-                lbMessage.Text = "Asegurese De Completar Los Campos";
-            else
+            if (usuarioNuevo is not null)
             {
-                User usuarioNuevo = new(nick, pw);
                 if (Usuarios.VerificarUsuariosRegistrado(usuarioNuevo))
                 {
                     lbMessage.Text = "El Nombre De Usuario Ya Existe, Intente Otro";
@@ -80,17 +65,45 @@ namespace PlayerStats
                 }
                 else
                 {
-                    Usuarios.SetUser = usuarioNuevo;
-                    Paths.GuardarUsuariosEnArchivo();
-                    // Guardamos la lista actualizada en el archivo JSON
-                    InicializarFormularioMenu(usuarioNuevo.NickName);
-                    //MessageBox.Show("Registro Exitoso", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Paths.NickName = usuarioNuevo.NickName;
+                    Usuarios.MyUser = usuarioNuevo;
+                    Usuarios.AgregarUsuario = usuarioNuevo;
+                    Serializer<User>.JsonSerializerList(Usuarios.UsersList, Paths.LoginPath);
+                    InicializarFormularioMenu();
                 }
-                    txtNickName.Clear();
-                    txtPw.Clear();
+                txtNickName.Clear();
+                txtPw.Clear();
             }
         }
-       
+
+      
+        private void btnIngreso_Click(object sender, EventArgs e)
+        {
+            if (Usuarios.UsersList.Count == 0)
+            {
+                lbMessage.Text = "Usuario No Registrado";
+            }
+            else if (!StringHelper.CheckText(txtNickName.Text, txtPw.Text))
+            {
+                lbMessage.Text = "Asegurese De Completar Los Campos";
+            }
+            else
+            {
+                User usuarioNuevo = new(txtNickName.Text, txtPw.Text);
+                if (!Usuarios.UsersList.Contains(usuarioNuevo))
+                {
+                    lbMessage.Text = "El Nombre De Usuario No Existe";
+                    lbMessage.ForeColor = Color.Red;
+                    txtNickName.Clear(); txtNickName.Focus();
+                }
+                else
+                {
+                    Paths.NickName = usuarioNuevo.NickName;
+                    Usuarios.MyUser = usuarioNuevo;
+                    InicializarFormularioMenu();
+                }
+            }
+        }
     }
 
-}
+    }

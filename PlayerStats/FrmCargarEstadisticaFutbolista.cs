@@ -19,7 +19,7 @@ namespace PlayerStats
 {
     public partial class FrmCargarEstadisticaFutbolista : FrmCargarEstadisticas
     {
-
+     
 
         public FrmCargarEstadisticaFutbolista()
         {
@@ -130,7 +130,7 @@ namespace PlayerStats
 
                 bool roja = cbTRoja.Checked;
                 bool titular = cbTitutlar.Checked;
-                EFutbolista stat = new EFutbolista(titular, goles, asistencias, amarilla, roja, minutos, resultado, fecha, rival, competicion, estadio, comentario, Atleta.FullName, fechaRegistro, NickName);
+                EFutbolista stat = new EFutbolista(titular, goles, asistencias, amarilla, roja, minutos, resultado, fecha, rival, competicion, estadio, comentario, Deportistas.MyAtleta.FullName, fechaRegistro, Usuarios.MyUser.NickName);
 
                 if (txtGPenal.Visible is true && txtGTiroLibre.Visible is true)
                 {
@@ -138,15 +138,22 @@ namespace PlayerStats
                     stat.GolesTiroLibre = txtGTiroLibre.Text;
                 }
 
-                if (Atleta + stat)
+
+                try
+                {
+                   
+
+                    Deportistas.Atletas[Deportistas.INDEX].AgregarEstadistica = stat;
+                    Serializer<Deportista>.JsonSerializerList(Deportistas.Atletas, Paths.DeportistasPath);
+                    MessageBox.Show($"Estadistica Cargada Con Exito", "Congratulations", MessageBoxButtons.OK);
+
+                }
+                catch (Exception)
                 {
 
-                    D.Estadisticas.Add(stat);
-                    D.CargarEstadisticaAlArchivo1(Atleta.MisEstadisticas(NickName), D.Estadisticas);
-                    MessageBox.Show($"Estadistica Cargada Con Exito", "Congratulations", MessageBoxButtons.OK);
-                }
-                else
                     MessageBox.Show("Su Estadistica A Cargar, Ya Existe", "Estadistica Existense", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+
 
 
                 ClearCamps(); //Limpio todos los textboxs,etc.

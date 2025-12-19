@@ -12,11 +12,7 @@ namespace PlayerStats
             get;
             set;
         }
-        public Deportistas D
-        {
-            get;
-            set;
-        }
+
         public FrmCargarDeportista()
         {
             InitializeComponent();

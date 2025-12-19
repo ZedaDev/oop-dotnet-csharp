@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Entities
 {
     [Serializable]
-    public class EFutbolista : Estadisticas
+    public class EFutbolista : Estadisticas, IEstadisticaFutbolista
     {
         private bool _titular;
         private string _goles;
@@ -30,8 +30,8 @@ namespace Entities
         {
             _titular = titular;
             _minutosJugados = minutosJ;
-            _golesTiroLibre = "";
-            _golesPenal = "";
+            _golesTiroLibre = "0";
+            _golesPenal = "0";
         }
         private EFutbolista(string goles, string asistencias,string tA, bool tR, string res, string fe, string riv, string comp, string estadio, string comentario, string usuario, string fechaRegistro, string user)
           : this(tA, tR, res, fe, riv, comp, estadio, comentario, usuario, fechaRegistro, user)
@@ -48,13 +48,26 @@ namespace Entities
 
         public string GolesTiroLibre
         {
-            get;
-            set;
+            get
+            {
+                return _golesTiroLibre;
+            }
+            set
+            {
+                _golesTiroLibre = value;
+            }
+
         }
         public string GolesPenal
         {
-            get;
-            set;
+            get
+            {
+                return _golesPenal;
+            }
+            set
+            {
+                _golesPenal = value;
+            }
         }
         public bool Titular { get => _titular; set => _titular = value; }
         public string Goles { get => _goles; set => _goles = value; }

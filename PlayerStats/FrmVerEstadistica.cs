@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Service;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,13 +32,14 @@ namespace PlayerStats
         public FrmVerEstadistica()
         {
             InitializeComponent();
+            rtbEstadisticas.Text = Deportistas.MyAtleta.ToString();
         }
 
         protected void EnableDisabledTextBox()
         {
             foreach (Control value in Controls)
             {
-                if(value is TextBox txt)
+                if (value is TextBox txt)
                 {
                     if (txt.ReadOnly == false)
                         txt.ReadOnly = true;
@@ -55,7 +57,7 @@ namespace PlayerStats
                     txt.ForeColor = Color.White;
                 }
 
-                if(value is Label lb)
+                if (value is Label lb)
                 {
                     lb.BackColor = Color.Transparent;
                     lb.ForeColor = Color.White;
@@ -63,5 +65,12 @@ namespace PlayerStats
             }
         }
 
+        private void btnVerPartidos_Click(object sender, EventArgs e)
+        {
+            //logica de abrir un formulario nuevo con una grilla de todos los partidos en estilo lista
+            //a lo largo, marcando partidos por año, competiciones, club
+            //Con un fondo verde claro para las Victorias y, fondo Rojo tenue las derrotas, Gris los empates
+            //Con un fondo verde claro para las Victorias y, fondo Rojo tenue las derrotas, Gris los empates
+        }
     }
 }
