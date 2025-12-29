@@ -1,12 +1,8 @@
-using Entities;
-using Service;
-using System.Text;
-
 namespace PlayerStats
 {
     public partial class FrmCargarDeportista : Form
     {
-       // public virtual void AbrirFormulario();
+        // public virtual void AbrirFormulario();
         public string NickName
         {
             get;

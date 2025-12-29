@@ -27,3 +27,11 @@ public enum EOrdenStats
     Amarilla,
     MasAntiguas
 }
+
+public enum EEstadisticas 
+{
+    Goles,
+    Asistencias,
+    MasRecientes,
+    MasAntiguas
+}

@@ -133,9 +133,9 @@
             // 
             // btnCargar
             // 
-            btnCargar.Location = new Point(749, 485);
+            btnCargar.Location = new Point(757, 487);
             btnCargar.Name = "btnCargar";
-            btnCargar.Size = new Size(161, 40);
+            btnCargar.Size = new Size(160, 38);
             btnCargar.TabIndex = 24;
             btnCargar.Text = "Cargar";
             btnCargar.UseVisualStyleBackColor = true;
@@ -167,6 +167,7 @@
             Controls.Add(lbCompeticion);
             Controls.Add(lbResultado);
             Controls.Add(lbRival);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Name = "FrmCargarEstadisticas";
             Text = "Cargar Stats";
             ResumeLayout(false);

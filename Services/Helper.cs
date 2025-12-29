@@ -1,13 +1,20 @@
-﻿using System;
+﻿using Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace Service
 {
-    public class StringHelper
+    public class Helper
     {
+
+
+
+
+
 
         /// <summary>
         /// Checkea que los strings no sean NULL o esten VACIOS. Se puede pasar por argumento Uno o mas de un STRING.
@@ -23,5 +30,13 @@ namespace Service
             }
             return true;
         }
+
+
+        private static int TxtToInt(string value)
+        {
+              return int.Parse(value);
+        }
+
+
     }
 }

@@ -41,7 +41,7 @@
             txtCompeticion = new TextBox();
             rtbEstadisticas = new RichTextBox();
             lbEstadisticas = new Label();
-            btnVerPartidos = new Button();
+            btnInfo = new Button();
             SuspendLayout();
             // 
             // lbRival
@@ -161,17 +161,17 @@
             lbEstadisticas.TabIndex = 13;
             lbEstadisticas.Text = "ESTADISTICAS USUARIO";
             // 
-            // btnVerPartidos
+            // btnInfo
             // 
-            btnVerPartidos.BackColor = Color.Transparent;
-            btnVerPartidos.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnVerPartidos.Location = new Point(806, 222);
-            btnVerPartidos.Name = "btnVerPartidos";
-            btnVerPartidos.Size = new Size(150, 32);
-            btnVerPartidos.TabIndex = 14;
-            btnVerPartidos.Text = "Todos Los Partidos";
-            btnVerPartidos.UseVisualStyleBackColor = false;
-            btnVerPartidos.Click += btnVerPartidos_Click;
+            btnInfo.BackColor = Color.Transparent;
+            btnInfo.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnInfo.Location = new Point(833, 466);
+            btnInfo.Name = "btnInfo";
+            btnInfo.Size = new Size(150, 32);
+            btnInfo.TabIndex = 14;
+            btnInfo.Text = "Actualizar";
+            btnInfo.UseVisualStyleBackColor = false;
+            btnInfo.Click += btnInfo_Click;
             // 
             // FrmVerEstadistica
             // 
@@ -180,7 +180,7 @@
             BackgroundImage = Properties.Resources._143842_8167_argentinachilenota;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(987, 503);
-            Controls.Add(btnVerPartidos);
+            Controls.Add(btnInfo);
             Controls.Add(lbEstadisticas);
             Controls.Add(rtbEstadisticas);
             Controls.Add(txtCompeticion);
@@ -195,6 +195,7 @@
             Controls.Add(lbEstadio);
             Controls.Add(lbRival);
             Name = "FrmVerEstadistica";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmVerEstadistica";
             ResumeLayout(false);
             PerformLayout();
@@ -215,6 +216,6 @@
         protected TextBox txtCompeticion;
         private RichTextBox rtbEstadisticas;
         private Label lbEstadisticas;
-        private Button btnVerPartidos;
+        private Button btnInfo;
     }
 }

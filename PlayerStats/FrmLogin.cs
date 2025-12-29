@@ -1,4 +1,3 @@
-using System.Text.Json;
 using Entities;
 using Service;
 
@@ -11,12 +10,12 @@ namespace PlayerStats
             InitializeComponent();
         }
 
-       
-        
+
+
 
         private void InicializarFormularioMenu()
         {
-           
+
             frmMenuPrincipal menu = new();
 
             this.Hide(); //oculta el formulario
@@ -39,7 +38,7 @@ namespace PlayerStats
         }
         private User DateValidate(string name, string pw)
         {
-            if (StringHelper.CheckText(name, pw))
+            if (Helper.CheckText(name, pw))
             {
                 User usuarioNuevo = new(name, pw);
                 return usuarioNuevo;
@@ -76,14 +75,14 @@ namespace PlayerStats
             }
         }
 
-      
+
         private void btnIngreso_Click(object sender, EventArgs e)
         {
             if (Usuarios.UsersList.Count == 0)
             {
                 lbMessage.Text = "Usuario No Registrado";
             }
-            else if (!StringHelper.CheckText(txtNickName.Text, txtPw.Text))
+            else if (!Helper.CheckText(txtNickName.Text, txtPw.Text))
             {
                 lbMessage.Text = "Asegurese De Completar Los Campos";
             }
@@ -106,4 +105,4 @@ namespace PlayerStats
         }
     }
 
-    }
+}

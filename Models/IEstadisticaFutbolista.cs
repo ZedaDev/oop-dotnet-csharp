@@ -12,7 +12,7 @@ namespace Entities
         string Goles { get; set; }
         string Asistencias { get; set; }
         string MinutosJugados { get; set; }
-        string TarjetaAmarilla { get; set; }
+        int TarjetaAmarilla { get; set; }
         bool TarjetaRoja { get; set; }
         string GolesTiroLibre { get; set; }
         string GolesPenal { get; set; }

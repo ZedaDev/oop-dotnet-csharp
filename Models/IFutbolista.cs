@@ -10,5 +10,8 @@ namespace Entities
     {
         string Posicion { get; set; }
         string ClubActual { get; set; }
+
+
+       
     }
 }

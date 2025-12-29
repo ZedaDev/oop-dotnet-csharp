@@ -11,7 +11,7 @@ namespace PlayerStats
 
         private void FrmVerEstadisticaFutbolista_Load(object sender, EventArgs e)
         {
-            base.EnableDisabledTextBox();
+            
             lbTiroLibre.Visible = false;
             lbGolPenal.Visible = false;
             txtGPenal.Visible = false;
@@ -20,6 +20,11 @@ namespace PlayerStats
             PrintInfoStat();
         }
 
+        private void btnInfo_Click(object sender, EventArgs e)
+        {
+            
+
+        }
         private void PrintInfoStat()
         {
             if (Stat is EFutbolista v)
@@ -55,7 +60,7 @@ namespace PlayerStats
                 }
                 txtAsistencias.Text = v.Asistencias;
                 txtMinutosJugados.Text = v.MinutosJugados;
-                txtTAmarilla.Text = v.TarjetaAmarilla;
+                txtTAmarilla.Text = v.TarjetaAmarilla.ToString();
                 txtTitular.Text = v.Titular ? "Si" : "No";
                 txtTRoja.Text = v.TarjetaRoja ? "Si" : "No";
                 txtTRoja.ForeColor = v.TarjetaRoja is true ? Color.Red : Color.Green;
@@ -67,6 +72,7 @@ namespace PlayerStats
                 rtbComentario.Text = v.Comentario;
                 lbFechaPartido.Text = $"[MATCH DATE] {v.Fecha}";
                 lbFechaPartido.ForeColor = Color.LightGreen;
+            
 
 
 

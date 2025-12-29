@@ -99,5 +99,15 @@ namespace PlayerStats.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PSX_20220801_023104 {
+            get {
+                object obj = ResourceManager.GetObject("PSX_20220801_023104", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

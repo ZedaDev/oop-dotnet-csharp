@@ -80,10 +80,10 @@ namespace Service
             {
                 Directory.CreateDirectory(dir);
             }
-            /*if (!File.Exists(pathJson))
+            if (!File.Exists(pathJson))
             {
                 using (File.Create(pathJson)) { } //File.Create no cierra el archivo, using lo hace implicitamente.
-            }*/
+            }
         }
 
 

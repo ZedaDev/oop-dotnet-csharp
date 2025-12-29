@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 using System.Xml;
 namespace Service
 {
-    public  static class Deportistas
+    public  static class Deportistas 
     {
       
         private static List<Deportista> _atletas;
@@ -56,6 +56,8 @@ namespace Service
                     set;
             }
 
+    
+
         #endregion
 
         public static void EliminarEstadisticas(List<Estadisticas> list, Deportista deportista)
@@ -73,27 +75,16 @@ namespace Service
         #endregion
 
         #region Methods
-        public static void OrdenarListaMayorMenor()
+        /*public static void OrdenarListaMayorMenor()
         {
             Atletas.Sort(IComparison);
         }
         public static void OrdenarListaMenorMayor()
         {
             Atletas.Sort(IComparisonM);
-        }
+        }*/
 
-        public static void CargarStat(List<Estadisticas> stats, List <Deportista> atletas, string nick)
-        {
-            foreach (Deportista value in atletas)
-            {
-                foreach (Estadisticas item in stats)
-                {
-                    if (item.Deportista == value.FullName)
-                        value.AgregarEstadistica = item;
-                }
-            }
-            
-        }
+
         private static int IComparison(Deportista d, Deportista d1)
         {
             if (int.Parse(d.Edad) > int.Parse(d1.Edad))

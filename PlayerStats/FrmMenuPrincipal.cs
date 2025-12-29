@@ -1,8 +1,6 @@
 using Entities;
 using Service;
 using System.Text;
-using System.Text.Json;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 
 
@@ -31,7 +29,10 @@ namespace PlayerStats
         private void MessageAndVisorRefresh()
         {
             if (Deportistas.Atletas.Count == 0)
+            {
                 lbVisorCargado.Text = "No Hay Deportistas Cargados Aun";
+                lvVisor.Clear();
+            }
             else
             {
                 lbVisorCargado.ForeColor = Color.Green;
@@ -41,7 +42,7 @@ namespace PlayerStats
         }
 
 
-  
+
 
 
         private void cmbDeporte_SelectedIndexChanged(object sender, EventArgs e)
@@ -52,7 +53,7 @@ namespace PlayerStats
                 btnAgregar.Enabled = false;
         }
 
-        public virtual void btnAgregar_Click(object sender, EventArgs e)
+        protected virtual void btnAgregar_Click(object sender, EventArgs e)
         {
             if (ComprobarCamposNull())
             {
@@ -60,42 +61,43 @@ namespace PlayerStats
                 //Abrir FrmCargarDeportista, heredando segun el deportista seleccionado.
                 FrmCargarDeportista frm = new();
                 //if (cmbDeporte.SelectedIndex.ToString() == EDeporte.Futbol.ToString())
-                    frm = new FrmCargarFutbolista();
+                frm = new FrmCargarFutbolista();
                 /*else if(cmbDeporte.SelectedIndex.ToString() == EDeporte.Boxeo.ToString())
                          //frm = new FrmCargarFutbolista ();
                 else if(cmbDeporte.SelectedIndex.ToString() == EDeporte.Tenis.ToString())
                          //frm = new FrmCargarFutbolista ();*/
 
-                  
-                    this.Hide();
-                    frm.ShowDialog();
 
-                    this.Show();
-                    MessageAndVisorRefresh();
-                    //ActualizarVisor();
-                
+                this.Hide();
+                frm.ShowDialog();
+                frm.Close();
+                this.Show();
+                MessageAndVisorRefresh();
+                //ActualizarVisor();
+
             }
             else
-                MessageBox.Show("Asegurese de completar todos los campos", "Campos Incompletos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show($"{Messages.SureSelectCampsMessage()}", "Check Camps", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
-        protected virtual void ActualizarVisor()
+        private void ActualizarVisor()
         {
             lvVisor.Clear();
             lvVisor.Items.Clear();
 
             if (Deportistas.Atletas.Count > 0)
             {
-    
+
                 StringBuilder sb = new();
                 foreach (Deportista value in Deportistas.Atletas)
                 {
-                    lvVisor.Items.Add($"{value.FullName} - {value.Deporte} | Registrado {value.FechaDeRegistro}");
+                    lvVisor.Items.Add($"{value.FullName} - {value.Deporte} | Registrado {value.FechaDeRegistro.ToString("dd-MM-yyyy")}");
                 }
-               
+
             }
         }
-        protected bool ComprobarCamposNull()
+
+        private bool ComprobarCamposNull()
         {
             foreach (Control value in this.Controls)
             {
@@ -106,19 +108,7 @@ namespace PlayerStats
             }
             return true;
         }
-        protected bool ComprobarCamposNull<T, U>(List<T> list, U date) where U : TextBox
-        {
-            foreach (var value in this.Controls)
-            {
-                if (value is U txt && string.IsNullOrEmpty(txt.Text.Trim()))
-                {
-                    txt.Tag = "empty";
-                    return false;
-                }
-            }
-            return true;
-        }
-      
+
 
         private void btnCerrarSesion_Click(object sender, EventArgs e)
         {
@@ -133,7 +123,7 @@ namespace PlayerStats
                 // Obtén el índice del elemento seleccionado
                 int i = lvVisor.SelectedIndices[0];
 
-                
+
                 // Verificar que el índice esté dentro de un rango válido
                 if (i >= 0 && i < Deportistas.Atletas.Count)
                 {
@@ -141,12 +131,13 @@ namespace PlayerStats
                     // Verificar si el atleta es null
                     if (Deportistas.Atletas[i] != null)
                     {
-                        Deportistas.MyAtleta = Deportistas.Atletas[i]; 
+                        Deportistas.MyAtleta = Deportistas.Atletas[i];
                         Deportistas.INDEX = i;
                         FrmEstadisticas frmEstadisticas = new FrmEstadisticas();
-                      
+
                         this.Hide();
                         frmEstadisticas.ShowDialog();
+                        frmEstadisticas.Close();
 
                         cmbDeporte.SelectedIndex = -1;
                         MessageAndVisorRefresh();
@@ -155,7 +146,7 @@ namespace PlayerStats
                 }
                 else
                 {
-                    MessageBox.Show("Asegúrese de seleccionar un deportista.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"{Messages.SureSelectMessage("Deportista")}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
@@ -169,20 +160,21 @@ namespace PlayerStats
 
                 if (i >= 0 && i < Deportistas.Atletas.Count)
                 {
-                    Deportistas.MyAtleta = Deportistas.Atletas[i]; 
-                    DialogResult res = MessageBox.Show($"Seguro Desea Eliminar Este Deportista?\n {Deportistas.MyAtleta.ToString()}", "Question",MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    
-                    if(res == DialogResult.Yes)
+                    Deportistas.MyAtleta = Deportistas.Atletas[i];
+                    DialogResult res = MessageBox.Show($"{Messages.DoYouWantMessage("Deportista")}\n {Deportistas.MyAtleta}", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (res == DialogResult.Yes)
                     {
                         Deportistas.BorrarAtleta = Deportistas.MyAtleta;
                         MessageAndVisorRefresh();
                         Serializer<Deportista>.JsonSerializerList(Deportistas.Atletas, Paths.DeportistasPath);
 
-                        MessageBox.Show($"Deportista Eliminado Con Exito", "Deportista Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show($"{Messages.CongratsMessage("Deportista")}", "Delete Succesfull", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                 }
-            }else
-                MessageBox.Show($"Seleccione Un Deportista", "Seleccionar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+                MessageBox.Show($"{Messages.SureSelectMessage("Deportista")}", "Select", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
         }
 
@@ -197,6 +189,8 @@ namespace PlayerStats
             lbUser.Text = Usuarios.MyUser.NickName;
             cmbDeporte.DataSource = Enum.GetValues(typeof(EDeporte));
             cmbDeporte.SelectedIndex = -1;
+            cmbOrder.DataSource = Enum.GetValues(typeof(EDeporte));
+            cmbOrder.SelectedIndex = -1;
             btnAgregar.Visible = true;
             btnAgregar.Enabled = false;
         }
@@ -209,5 +203,69 @@ namespace PlayerStats
         {
             Paths.SetDeportistaPath();
         }
+
+        protected virtual void cmbOrder_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbOrder.SelectedIndex != -1)
+            {
+                Enum.TryParse(cmbOrder.SelectedItem.ToString(), out EDeporte deporte);
+                Deportistas.Atletas = ExtensionMethods.OrderListByV1(Deportistas.Atletas, deporte);
+                ActualizarVisor();
+                cmbOrder.SelectedIndex = -1;
+            }
+        }
+
+        protected virtual void btnModificar_Click(object sender, EventArgs e)
+        {
+            // Verifica que haya al menos un ítem seleccionado
+            if (lvVisor.SelectedIndices.Count > 0)
+            {
+                // Obtén el índice del elemento seleccionado
+                int i = lvVisor.SelectedIndices[0];
+
+
+                // Verificar que el índice esté dentro de un rango válido
+                if (i >= 0 && i < Deportistas.Atletas.Count)
+                {
+                    
+                    // Verificar si el atleta es null
+                    if (Deportistas.Atletas[i] != null)
+                    {
+                        Deportistas.MyAtleta = Deportistas.Atletas[i];
+                        Deportistas.INDEX = i;
+                        FrmCargarFutbolista frm = new();
+                        frm.CargarDatosParaModificar();
+
+                        this.Hide();
+                        frm.ShowDialog();
+                        frm.Close();
+
+                        cmbDeporte.SelectedIndex = -1;
+                        MessageAndVisorRefresh();
+                        this.Show();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"{Messages.SureSelectMessage("Deportista")}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void lvVisor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lvVisor_ItemActivate(object sender, EventArgs e)
+        {
+            int i = lvVisor.SelectedIndices[0];
+            if (i >= 0 && i < Deportistas.Atletas.Count)
+            {
+                MessageBox.Show($"{Deportistas.Atletas[i].CalcularsTATS()}");
+                
+            }
+        }   
+            
     }
 }

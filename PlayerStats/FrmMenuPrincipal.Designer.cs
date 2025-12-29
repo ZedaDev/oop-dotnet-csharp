@@ -26,8 +26,9 @@
         ///  Required method for Designer support - do not modify
         ///  the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        protected void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMenuPrincipal));
             lbUser = new Label();
             lbDateTime = new Label();
             btnAgregar = new Button();
@@ -38,6 +39,8 @@
             lvVisor = new ListView();
             btnCerrarSesion = new Button();
             lbVisorCargado = new Label();
+            lbOrder = new Label();
+            cmbOrder = new ComboBox();
             SuspendLayout();
             // 
             // lbUser
@@ -103,26 +106,29 @@
             // 
             // btnModificar
             // 
-            btnModificar.Location = new Point(549, 189);
+            btnModificar.Location = new Point(549, 165);
             btnModificar.Name = "btnModificar";
             btnModificar.Size = new Size(166, 36);
             btnModificar.TabIndex = 9;
             btnModificar.Text = "Modificar";
             btnModificar.UseVisualStyleBackColor = true;
+            btnModificar.Click += btnModificar_Click;
             // 
             // lvVisor
             // 
             lvVisor.Location = new Point(3, 52);
             lvVisor.MultiSelect = false;
             lvVisor.Name = "lvVisor";
-            lvVisor.Size = new Size(530, 236);
+            lvVisor.Size = new Size(440, 209);
             lvVisor.TabIndex = 10;
             lvVisor.UseCompatibleStateImageBehavior = false;
             lvVisor.View = View.List;
+            lvVisor.ItemActivate += lvVisor_ItemActivate;
+            lvVisor.SelectedIndexChanged += lvVisor_SelectedIndexChanged;
             // 
             // btnCerrarSesion
             // 
-            btnCerrarSesion.Location = new Point(579, 300);
+            btnCerrarSesion.Location = new Point(588, 326);
             btnCerrarSesion.Name = "btnCerrarSesion";
             btnCerrarSesion.Size = new Size(127, 27);
             btnCerrarSesion.TabIndex = 11;
@@ -141,13 +147,35 @@
             lbVisorCargado.TabIndex = 12;
             lbVisorCargado.Text = "VISOR ";
             // 
+            // lbOrder
+            // 
+            lbOrder.AutoSize = true;
+            lbOrder.Location = new Point(549, 220);
+            lbOrder.Name = "lbOrder";
+            lbOrder.Size = new Size(53, 15);
+            lbOrder.TabIndex = 13;
+            lbOrder.Text = "ORDER : ";
+            // 
+            // cmbOrder
+            // 
+            cmbOrder.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbOrder.FormattingEnabled = true;
+            cmbOrder.Location = new Point(557, 238);
+            cmbOrder.Name = "cmbOrder";
+            cmbOrder.Size = new Size(152, 23);
+            cmbOrder.TabIndex = 14;
+            cmbOrder.SelectedIndexChanged += cmbOrder_SelectedIndexChanged;
+            // 
             // frmMenuPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.Control;
-            BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(721, 355);
+            BackColor = SystemColors.ActiveCaption;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackgroundImageLayout = ImageLayout.None;
+            ClientSize = new Size(720, 355);
+            Controls.Add(cmbOrder);
+            Controls.Add(lbOrder);
             Controls.Add(lbVisorCargado);
             Controls.Add(btnCerrarSesion);
             Controls.Add(lvVisor);
@@ -178,5 +206,7 @@
         protected ListView lvVisor;
         protected Button btnCerrarSesion;
         protected Label lbVisorCargado;
+        protected Label lbOrder;
+        protected ComboBox cmbOrder;
     }
 }

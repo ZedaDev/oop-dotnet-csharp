@@ -17,13 +17,14 @@ namespace Entities
         private string _fullName;
         private string _apodo;
         private string _edad;
-        private string _fechaDebut;
+        private DateTime _fechaDebut;
         private EDeporte _Edeporte;
         private ELadoHabil _phHabil;
         private string _altura;
         private string _pais;
-        private string _fechaDeRegistro;
+        private DateTime _fechaDeRegistro;
         private string _usuario;
+        private string _comentario;
         private List<Estadisticas> _estadisticas;
 
         #region Contructores
@@ -36,8 +37,8 @@ namespace Entities
         }
 
         
-        public Deportista(string fullName, string edad, string apodo, string fechaDebut, EDeporte deporte, ELadoHabil phHabil, string altura,string pais, string fechaDeRegistro, string user)
-            : this(fechaDebut, deporte, pais, user)
+        public Deportista(string fullName, string edad, string apodo, DateTime fechaDebut, EDeporte deporte, ELadoHabil phHabil, string altura,string pais, DateTime fechaDeRegistro, string user, string comentario)
+            : this(fechaDebut, deporte, pais, user, comentario)
         {
             _edad = edad;
             _fullName = fullName;
@@ -47,13 +48,14 @@ namespace Entities
             _fechaDeRegistro = fechaDeRegistro;
             _estadisticas = new();
         }
-        private Deportista(string fechaDebut, EDeporte deporte, string pais, string user)
+        private Deportista(DateTime fechaDebut, EDeporte deporte, string pais, string user, string comentario)
             : this()
         {
             _fechaDebut = fechaDebut;
             _Edeporte = deporte;
             _pais = pais;
             _usuario = user;
+            _comentario = comentario;
         }
 
         #endregion
@@ -100,7 +102,7 @@ namespace Entities
             }
         }
         
-        public string FechaDeRegistro
+        public DateTime FechaDeRegistro
         {
             get => _fechaDeRegistro;
             set => _fechaDeRegistro = value;
@@ -130,13 +132,22 @@ namespace Entities
                 _pais = value;
             }
         }
-        public string FechaDebut
+        public DateTime FechaDebut
         {
             get => _fechaDebut;
             set
             {
                 
                 _fechaDebut = value;
+            }
+        }
+        public string Comentario
+        {
+            get => _comentario;
+            set
+            {
+                
+                _comentario = value;
             }
         }
 
@@ -161,7 +172,7 @@ namespace Entities
             set => _altura = value;
         }
 
-
+        public abstract string CalcularsTATS();
         #endregion
 
         #region Sobrecargas
@@ -197,7 +208,7 @@ namespace Entities
 
         public override bool Equals(object? obj)
         {
-            return this == ((Deportista)obj);
+            return (obj is null) ? false : this == ((Deportista)obj);
         }
         public override int GetHashCode()
         {
@@ -206,51 +217,19 @@ namespace Entities
 
         #endregion
 
-        
+
         protected virtual string Mostrar()
         {
+             int carrerYears = FechaDebut.Year - DateTime.Now.Year;
+            if (FechaDebut.Month > DateTime.Now.Month || (FechaDebut.Month == DateTime.Now.Month && FechaDebut.Day > DateTime.Now.Day))
+                carrerYears -= 1;
+
             StringBuilder sb = new();
-            sb.AppendLine($"Nombre Completo : {FullName}");
+            sb.AppendLine($"{FullName}");
+            sb.AppendLine($"Debut Deportivo : {FechaDebut.ToShortDateString()}");
             sb.AppendLine($"Edad : {Edad}");
-            sb.AppendLine($"Debut Deportivo : {FechaDebut}");
-            sb.AppendLine($"Deporte : {_Edeporte.ToString()}");
-
-            int golesTotales = 0;
-            int asistencias = 0;
-            int tiroLibre = 0;
-            int Penal = 0;
-            int TRoja = 0;
-            int TAmarilla = 0;
-            int TPartidos = 0;
-            int TMinutos = 0;
-            StringBuilder res = new();
-
-            foreach (var value in Estadisticas)
-            {
-                if(value is EFutbolista e)
-                {
-                    golesTotales += int.Parse(e.Goles);
-                    asistencias += int.Parse(e.Asistencias);
-                    tiroLibre += int.Parse(e.GolesTiroLibre);
-                    Penal += int.Parse(e.GolesPenal);
-                    TRoja += (e.TarjetaRoja) == true ? 1 : 0;
-                    TAmarilla += int.Parse(e.TarjetaAmarilla);
-                    TPartidos += 1;
-                    TMinutos += int.Parse(e.MinutosJugados);
-                    res.AppendLine($"{e.Resultado}");
-
-                }
-            }
-            sb.AppendLine($"{golesTotales}");
-            sb.AppendLine($"{asistencias}");
-            sb.AppendLine($"{tiroLibre}");
-            sb.AppendLine($"{Penal}");
-            sb.AppendLine($"{TRoja}");
-            sb.AppendLine($"{TAmarilla}");
-            sb.AppendLine($"{TPartidos}");
-            sb.AppendLine($"{TMinutos}");
-            sb.AppendLine($"{res}");
-           
+            sb.AppendLine($"Años De Carrera Jugados : {carrerYears}");
+            sb.AppendLine($"Deporte : {_Edeporte.ToString()}\n");
            
                  return sb.ToString();
         }

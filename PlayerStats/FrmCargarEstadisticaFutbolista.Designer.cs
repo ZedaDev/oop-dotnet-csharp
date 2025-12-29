@@ -113,6 +113,7 @@
             // 
             // cmbTAmarilla
             // 
+            cmbTAmarilla.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbTAmarilla.FormattingEnabled = true;
             cmbTAmarilla.Location = new Point(339, 71);
             cmbTAmarilla.Name = "cmbTAmarilla";
@@ -180,7 +181,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(913, 532);
+            ClientSize = new Size(913, 527);
             Controls.Add(lbGPenal);
             Controls.Add(lbGTiroLibre);
             Controls.Add(txtGPenal);
@@ -198,13 +199,6 @@
             Name = "FrmCargarEstadisticaFutbolista";
             Text = "FrmCargarEstadisticaFutbolista";
             Load += FrmCargarEstadisticaFutbolista_Load;
-            Controls.SetChildIndex(rtcComentario, 0);
-            Controls.SetChildIndex(txtRival, 0);
-            Controls.SetChildIndex(txtResultado, 0);
-            Controls.SetChildIndex(txtCompeticion, 0);
-            Controls.SetChildIndex(txtEstadio, 0);
-            Controls.SetChildIndex(mcFecha, 0);
-            Controls.SetChildIndex(btnCargar, 0);
             Controls.SetChildIndex(cbTitutlar, 0);
             Controls.SetChildIndex(txtGoles, 0);
             Controls.SetChildIndex(txtAsistencias, 0);
@@ -219,6 +213,13 @@
             Controls.SetChildIndex(txtGPenal, 0);
             Controls.SetChildIndex(lbGTiroLibre, 0);
             Controls.SetChildIndex(lbGPenal, 0);
+            Controls.SetChildIndex(rtcComentario, 0);
+            Controls.SetChildIndex(txtRival, 0);
+            Controls.SetChildIndex(txtResultado, 0);
+            Controls.SetChildIndex(txtCompeticion, 0);
+            Controls.SetChildIndex(txtEstadio, 0);
+            Controls.SetChildIndex(mcFecha, 0);
+            Controls.SetChildIndex(btnCargar, 0);
             ResumeLayout(false);
             PerformLayout();
         }

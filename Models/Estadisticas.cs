@@ -14,12 +14,12 @@ namespace Entities
     {
         private string _deportista;
         private string _resultado;
-        private string _fecha;
+        private DateTime _fecha;
         private string _rival;
         private string _competicion;
         private string _estadio;
         private string _comentario;
-        private string _fechaDeRegistro;
+        private DateTime _fechaDeRegistro;
         private string _usuario;
 
      
@@ -27,7 +27,7 @@ namespace Entities
         {
         }
 
-        public Estadisticas(string resultado, string fecha, string rival, string estadio, string competicion, string comentario, string usuario,string fechaRegistro, string user)
+        public Estadisticas(string resultado, DateTime fecha, string rival, string estadio, string competicion, string comentario, string usuario, DateTime fechaRegistro, string user)
                 : this(estadio, competicion, comentario, user)
         {
             _resultado = resultado;
@@ -66,7 +66,7 @@ namespace Entities
                 _usuario = value;
             }
         }
-        public string Fecha 
+        public DateTime Fecha 
         {
             
             get => _fecha;
@@ -93,7 +93,7 @@ namespace Entities
             get => _comentario;
             set => _comentario = value;
         }
-        public string FechaDeRegistro 
+        public DateTime FechaDeRegistro 
         { 
             get => _fechaDeRegistro;
             set => _fechaDeRegistro = value;

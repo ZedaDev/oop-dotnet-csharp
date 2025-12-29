@@ -288,7 +288,7 @@
         protected MonthCalendar mCalendar;
         private Label lbFechaDebut;
         protected Button btnCargar;
-        private RichTextBox rtbDescripcion;
+        protected RichTextBox rtbDescripcion;
         private Label lbDescripcion;
         private Label lbNacion;
         protected TextBox txtNacionalidad;

@@ -1,30 +1,27 @@
 ﻿using Entities;
-using Service;
-using ProjectExceptions;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace PlayerStats
 {
-    public partial class FrmCargarEstadisticas : Form
+    public abstract partial class FrmCargarEstadisticas : Form
     {
-        public int INDEX
+         public int Indice
+         {
+             get;
+             set;
+         }
+        public bool IsModifier
         {
             get;
             set;
         }
+
+        public IEstadisticaFutbolista Stat { get; set; }
+       
         public FrmCargarEstadisticas()
         {
             InitializeComponent();
         }
 
-
+        public abstract void PrintDates();
     }
 }

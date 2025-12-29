@@ -1,15 +1,6 @@
 ﻿using Entities;
 using Service;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using TextBox = System.Windows.Forms.TextBox;
 
 namespace PlayerStats
@@ -17,9 +8,9 @@ namespace PlayerStats
     public partial class FrmVerEstadistica : Form
     {
 
-        private Estadisticas _stat;
+        private IEstadistica _stat;
 
-        public Estadisticas Stat
+        public IEstadistica Stat
         {
             get => _stat;
             set
@@ -32,19 +23,20 @@ namespace PlayerStats
         public FrmVerEstadistica()
         {
             InitializeComponent();
-            rtbEstadisticas.Text = Deportistas.MyAtleta.ToString();
+            btnInfo.Visible = false;
+            rtbEstadisticas.Text = Deportistas.MyAtleta.ToString() + Deportistas.MyAtleta.CalcularsTATS();
         }
 
-        protected void EnableDisabledTextBox()
+        public void EnableDisabledTextBox(bool v)
         {
             foreach (Control value in Controls)
             {
                 if (value is TextBox txt)
                 {
-                    if (txt.ReadOnly == false)
-                        txt.ReadOnly = true;
-                    else
-                        txt.ReadOnly = false;
+                   
+                        txt.ReadOnly = !v;
+                    /*else
+                        txt.ReadOnly = false;*/
 
                     SetStyle(ControlStyles.UserPaint, true);
                     // Hacer que el TextBox no tenga borde
@@ -54,7 +46,7 @@ namespace PlayerStats
 
 
                     // Cambiar el color del texto si es necesario
-                    txt.ForeColor = Color.White;
+                    //txt.ForeColor = Color.White;
                 }
 
                 if (value is Label lb)
@@ -62,11 +54,18 @@ namespace PlayerStats
                     lb.BackColor = Color.Transparent;
                     lb.ForeColor = Color.White;
                 }
+               if(value is RichTextBox rtb)
+                {
+                    rtb.ReadOnly = !v;
+                }
             }
         }
 
-        private void btnVerPartidos_Click(object sender, EventArgs e)
+        private void btnInfo_Click(object sender, EventArgs e)
         {
+           
+
+
             //logica de abrir un formulario nuevo con una grilla de todos los partidos en estilo lista
             //a lo largo, marcando partidos por año, competiciones, club
             //Con un fondo verde claro para las Victorias y, fondo Rojo tenue las derrotas, Gris los empates
