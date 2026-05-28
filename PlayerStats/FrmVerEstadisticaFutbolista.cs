@@ -67,10 +67,10 @@ namespace PlayerStats
 
 
                 lbFechaRegistro.ForeColor = Color.LightGreen;
-                lbFechaRegistro.Text = $"Estadistica Cargada {v.FechaDeRegistro}";
+                lbFechaRegistro.Text = $"Estadistica Cargada {v.FechaDeRegistro.ToShortDateString()}";
 
                 rtbComentario.Text = v.Comentario;
-                lbFechaPartido.Text = $"[MATCH DATE] {v.Fecha}";
+                lbFechaPartido.Text = $"[MATCH DATE] {v.Fecha.ToShortDateString()}";
                 lbFechaPartido.ForeColor = Color.LightGreen;
             
 

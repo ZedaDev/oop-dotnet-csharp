@@ -61,18 +61,12 @@
             // cmbOrder
             //
             cmbOrder.BackColor = Color.LightGray;
-            cmbOrder.DataSource = new EOrdenStats[]
+            cmbOrder.DataSource = new EEstadisticas[]
 {
-    EOrdenStats.MasRecientes,
-    EOrdenStats.MasAntiguas,
-    EOrdenStats.TiroLibre,
-    EOrdenStats.Goles,
-    EOrdenStats.HatTrick,
-    EOrdenStats.Asistencias,
-    EOrdenStats.MVP,
-    EOrdenStats.Penales,
-    EOrdenStats.Amarilla,
-    EOrdenStats.Roja,
+    EEstadisticas.MasRecientes,
+    EEstadisticas.MasAntiguas,
+    EEstadisticas.Asistencias,
+    EEstadisticas.Goles
 
 };
             //cmbOrder.SelectedIndexChanged += cmbOrder_SelectedIndexChanged;

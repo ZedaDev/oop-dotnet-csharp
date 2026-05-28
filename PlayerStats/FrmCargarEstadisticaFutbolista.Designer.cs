@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCargarEstadisticaFutbolista));
+            cbMvp = new CheckBox();
             cbTitutlar = new CheckBox();
             txtGoles = new TextBox();
             txtAsistencias = new TextBox();
@@ -43,11 +44,24 @@
             txtGPenal = new TextBox();
             lbGTiroLibre = new Label();
             lbGPenal = new Label();
+            txtClubActual = new TextBox();
+            lbClubActual = new Label();
             SuspendLayout();
             // 
             // btnCargar
             // 
             btnCargar.Click += btnCargar_Click;
+            // 
+            // cbTitutlar
+            // 
+            cbMvp.AutoSize = true;
+            cbMvp.Location = new Point(498, 177);
+            cbMvp.Name = "cbMvp";
+            cbMvp.Size = new Size(59, 19);
+            cbMvp.TabIndex = 26;
+            cbMvp.Text = "Figura Del Partido";
+            cbMvp.UseVisualStyleBackColor = true;
+            // 
             // 
             // cbTitutlar
             // 
@@ -175,6 +189,23 @@
             lbGPenal.TabIndex = 43;
             lbGPenal.Text = "Gol/es Penal";
             // 
+            // txtClubActual
+            // 
+            txtClubActual.Location = new Point(690, 236);
+            txtClubActual.Name = "txtClubActual";
+            txtClubActual.Size = new Size(191, 23);
+            txtClubActual.TabIndex = 41;
+            txtClubActual.PlaceholderText = "Ej : River Plate";
+            // 
+            // lbClubActual
+            // 
+            lbClubActual.AutoSize = true;
+            lbClubActual.Location = new Point(688, 218);
+            lbClubActual.Name = "lbClubActual";
+            lbClubActual.Size = new Size(93, 15);
+            lbClubActual.TabIndex = 42;
+            lbClubActual.Text = "Club Actual : ";
+            // 
             // FrmCargarEstadisticaFutbolista
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -182,6 +213,8 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(913, 527);
+            Controls.Add(txtClubActual);
+            Controls.Add(lbClubActual);
             Controls.Add(lbGPenal);
             Controls.Add(lbGTiroLibre);
             Controls.Add(txtGPenal);
@@ -196,10 +229,12 @@
             Controls.Add(txtAsistencias);
             Controls.Add(txtGoles);
             Controls.Add(cbTitutlar);
+            Controls.Add(cbMvp);
             Name = "FrmCargarEstadisticaFutbolista";
             Text = "FrmCargarEstadisticaFutbolista";
             Load += FrmCargarEstadisticaFutbolista_Load;
             Controls.SetChildIndex(cbTitutlar, 0);
+            Controls.SetChildIndex(cbMvp, 0);
             Controls.SetChildIndex(txtGoles, 0);
             Controls.SetChildIndex(txtAsistencias, 0);
             Controls.SetChildIndex(txtMinutosJugados, 0);
@@ -213,6 +248,8 @@
             Controls.SetChildIndex(txtGPenal, 0);
             Controls.SetChildIndex(lbGTiroLibre, 0);
             Controls.SetChildIndex(lbGPenal, 0);
+            Controls.SetChildIndex(txtClubActual, 0);
+            Controls.SetChildIndex(lbClubActual, 0);
             Controls.SetChildIndex(rtcComentario, 0);
             Controls.SetChildIndex(txtRival, 0);
             Controls.SetChildIndex(txtResultado, 0);
@@ -226,10 +263,13 @@
 
         #endregion
 
+        private CheckBox cbMvp;
         private CheckBox cbTitutlar;
         private TextBox txtGoles;
         private TextBox txtAsistencias;
         private TextBox txtMinutosJugados;
+        private TextBox txtClubActual;
+        private Label lbClubActual;
         private Label lbGoles;
         private Label lbAsistencias;
         private Label lbMinutos;

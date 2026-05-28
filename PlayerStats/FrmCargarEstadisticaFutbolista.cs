@@ -13,25 +13,27 @@ namespace PlayerStats
         public FrmCargarEstadisticaFutbolista()
         {
             InitializeComponent();
-
         }
 
         private void FrmCargarEstadisticaFutbolista_Load(object sender, EventArgs e)
         {
             //setteo el combo box de tarjeta amarilla
             SettControlsMenu();
+          
 
         }
         public override void PrintDates()
         {
+            SettControlsMenu();
             PrintInfoStat();
         }
         private void PrintInfoStat()
         {
             if (Stat is EFutbolista v)
             {
-
-
+                mcFecha.SetDate(v.Fecha);
+                //cmbScore.SelectedIndex = 
+               
                 rtcComentario.Text = v.Comentario;
 
                 txtRival.Text = v.Rival;
@@ -61,19 +63,18 @@ namespace PlayerStats
                 }
                 txtAsistencias.Text = v.Asistencias;
                 txtMinutosJugados.Text = v.MinutosJugados;
-                SettControlsMenu();
+                //SettControlsMenu();
                     if (v.TarjetaAmarilla == 1)
                         cmbTAmarilla.SelectedIndex = 0;
-                    else
+                    else if(v.TarjetaAmarilla < 1)
+                        cmbTAmarilla.SelectedIndex = -1;
+                    else 
                         cmbTAmarilla.SelectedIndex = 1;
-                
-
-                cbTitutlar.Checked = v.Titular;
-                cbTRoja.Checked = v.TarjetaRoja;
 
 
-
-
+                    cbTitutlar.Checked = v.Titular;
+                    cbTRoja.Checked = v.TarjetaRoja;
+                    cbMvp.Checked = v.Mvp;
             }
         }
         private void IsVisible(bool value)
@@ -92,6 +93,18 @@ namespace PlayerStats
                 cmbTAmarilla.Items.Add("2");
                 IsVisible(false);
             }
+            
+            
+
+            if (IsModifier)
+            {
+                btnCargar.Text = "Modificar";
+                cmbScore.DataSource = Enum.GetValues(typeof(EResultado));
+                cmbScore.SelectedIndex = (int)Stat.Score;
+
+            }
+            else
+                cmbScore.SelectedIndex = -1;
         }
 
         private void cbTAmarilla_CheckedChanged(object sender, EventArgs e)
@@ -102,33 +115,15 @@ namespace PlayerStats
                 cmbTAmarilla.Enabled = false;
         }
 
-        public void btnCargar_Click(object sender, EventArgs e)
+        private EFutbolista? ObtenerEstadistica()
         {
-            try
-            {
-
-                //VerifyParseNumbersCamps(this.Controls);
-
-            }
-            catch (txtIsNotParseNumber ex)
-            {
-                MessageBox.Show($"{ex}");
-                /*Console.WriteLine($"{ex.ToString()}");*/
-                //Exception inner = ex.InnerException;
-                /*Exception inner = ex;
-                while (inner is not null)
-                {
-                    MessageBox.Show($"{inner.ToString()}");
-                    inner = inner.InnerException;
-                }*/
-                ClearCamps();
-            }
             if (CheckCamps())
             {
 
                 //
                 DateTime fechaRegistro = DateTime.Now.Date;
                 DateTime fecha = mcFecha.SelectionStart;
+                EResultado score = (EResultado)cmbScore.SelectedIndex;
                 string goles = txtGoles.Text;
                 string rival = txtRival.Text;
                 string resultado = txtResultado.Text;
@@ -137,14 +132,15 @@ namespace PlayerStats
                 string asistencias = txtAsistencias.Text;
                 string minutos = txtMinutosJugados.Text;
                 int amarilla = 0;
-                string comentario = rtcComentario.Text;
                 if (cbTAmarilla.Checked)
                     amarilla = cmbTAmarilla.SelectedIndex+1;
 
-
+                string comentario = rtcComentario.Text;
                 bool roja = cbTRoja.Checked;
                 bool titular = cbTitutlar.Checked;
-                EFutbolista stat = new(titular, goles, asistencias, amarilla, roja, minutos, resultado, fecha, rival, competicion, estadio, comentario, Deportistas.MyAtleta.FullName, fechaRegistro, Usuarios.MyUser.NickName);
+                EFutbolista stat = new(titular, goles, asistencias, amarilla, roja, minutos, resultado, fecha, rival, competicion, estadio, comentario, Deportistas.MyAtleta.FullName, fechaRegistro, Usuarios.MyUser.NickName, score);
+                stat.Mvp = cbMvp.Checked;
+                stat.club = txtClubActual.Text;
 
                 if (txtGPenal.Visible is true && txtGTiroLibre.Visible is true)
                 {
@@ -152,31 +148,86 @@ namespace PlayerStats
                     stat.GolesTiroLibre = txtGTiroLibre.Text;
                 }
 
+                return stat;
+
+            }
+            else
+                return null;
+        }
+        public void btnCargar_Click(object sender, EventArgs e)
+        {
+           
+                   EFutbolista stat = ObtenerEstadistica();
+            
+            if (IsModifier)
+            {
+                        stat.Id = Stat.Id;
+
+            }
+
 
                 try
                 {
-                    if (IsModifier)
-                    {
-                     Deportistas.Atletas[Deportistas.INDEX].Estadisticas.RemoveAt(Indice);
-                    }
-
-                    Deportistas.Atletas[Deportistas.INDEX].AgregarEstadistica = stat;
-                    Serializer<Deportista>.JsonSerializerList(Deportistas.Atletas, Paths.DeportistasPath);
-                    MessageBox.Show($"Estadistica Cargada Con Exito", "Congratulations", MessageBoxButtons.OK);
-                     ClearCamps(); //Limpio todos los textboxs,etc.
-
+                        if(stat is not null)
+                           CargarModificarEstadisticaBDDJson(stat);
+                  
                 }
                 catch (Exception)
                 {
 
-                    MessageBox.Show("Su Estadistica A Cargar, Ya Existe.. Intente Con Otra Fecha", "Estadistica Existense", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("Error", "Estadistica", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
 
 
+            } //esto lo deberia encapsular en metodos y poner todo dentro del TRY, luego segun el isModifier
+        // entrar a un metodo o el otro.
 
+        private bool CargarModificarEstadisticaBDDJson(EFutbolista stat)
+        {
+            if (IsModifier)
+            {
+                ModificarEstadisticaBDDJson(stat);
+            }
+            else
+            {
+                CargarEstadisticaBDDJson(stat);
             }
 
+                return true;
         }
+
+        private void CargarEstadisticaBDDJson(EFutbolista stat)
+        {
+
+            AccesoDatos ac = new();
+            if (ac.InsertarEstadisticasFutbolista(stat, Usuarios.MyUser.Id, Deportistas.MyAtleta.Id))
+            {
+
+                Deportistas.MyAtleta.AgregarEstadistica = stat;
+                
+                Serializer<Deportista>.JsonSerializerList(Deportistas.Atletas, Paths.DeportistasPath);
+                MessageBox.Show($"Estadistica Cargada Con Exito BDD", "Congratulations", MessageBoxButtons.OK);
+                ClearCamps(); //Limpio todos los textboxs,etc.
+            }
+            else
+                MessageBox.Show($"Estadistica ERROR", "ERROR", MessageBoxButtons.OK);
+
+        }
+        private void ModificarEstadisticaBDDJson(EFutbolista stat)
+        {
+            AccesoDatos ac1 = new();
+
+            if (ac1.UpdateEstadisticaFutbolista(stat, Deportistas.MyAtleta.Id, Usuarios.MyUser.Id))
+            {
+                Deportistas.MyAtleta.Estadisticas[Indice] = stat; 
+                MessageBox.Show($"Estadistica Modificada Con Exito en BDD", "Congratulations Base De Datos", MessageBoxButtons.OK);
+                ClearCamps(); //Limpio todos los textboxs,etc.
+            }
+            else
+                MessageBox.Show($"ERROR!", "ERROR Base De Datos", MessageBoxButtons.OK);
+        }
+
+        
 
         protected bool ClearCamps()
         {

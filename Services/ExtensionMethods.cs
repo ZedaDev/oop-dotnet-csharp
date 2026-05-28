@@ -17,17 +17,17 @@ namespace Service
             switch (option)
             {
                 case EEstadisticas.Goles:
-                   lista.Sort((a, b) => a.Goles.CompareTo(b.Goles));
+                   lista.Sort((a, b) => b.Goles.CompareTo(a.Goles));
                     
                     break;
                 case EEstadisticas.Asistencias:
-                    lista.Sort((a, b) => a.Asistencias.CompareTo(b.Asistencias));
+                    lista.Sort((a, b) => b.Asistencias.CompareTo(a.Asistencias));
                     break;
                 case EEstadisticas.MasRecientes:
-                    lista.Sort((a, b) => a.Fecha.CompareTo(b.Fecha));
+                    lista.Sort((a, b) => b.Fecha.CompareTo(a.Fecha));
                     break;
                 case EEstadisticas.MasAntiguas:
-                    lista.Sort((a, b) => b.Fecha.CompareTo(a.Fecha));
+                    lista.Sort((a, b) => a.Fecha.CompareTo(b.Fecha));
                     break;
                 default:
                     break;
@@ -42,6 +42,7 @@ namespace Service
             return OrderList(lista, option);
         }
 
+        //Ordena deportistas por deporte.
         private static List<Deportista> OrderList(List<Deportista> lista, EDeporte value)
         {
             List<Deportista> aux = new();

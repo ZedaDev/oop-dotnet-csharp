@@ -5,6 +5,15 @@ namespace PlayerStats
 {
     public partial class FrmLogin : Form
     {
+        AccesoDatos _accesoDatos;
+        Task TLoguearse;
+        Action<User> SettNameUserPath = (usuario) =>
+        {
+            Paths.NickName = usuario.NickName;
+            Usuarios.MyUser = usuario;
+        };
+        public AccesoDatos DataAccess { get => _accesoDatos;}
+
         public FrmLogin()
         {
             InitializeComponent();
@@ -24,8 +33,9 @@ namespace PlayerStats
         }
         private void FrmLogin_Load(object sender, EventArgs e)
         {
-            Usuarios.UsersList = Serializer<User>.JsonDeserializeList(Paths.LoginPath);
-
+            _accesoDatos = new();
+            DataAccess.ProbarConexion(); //BDD
+            Usuarios.UsersList = Serializer<User>.JsonDeserializeList(Paths.LoginPath); //Json
         }
 
 
@@ -36,72 +46,151 @@ namespace PlayerStats
             else
                 txtPw.PasswordChar = '*';
         }
-        private User DateValidate(string name, string pw)
+        private User ValidarUsuario(string name, string pw)
         {
             if (Helper.CheckText(name, pw))
             {
-                User usuarioNuevo = new(name, pw);
-                return usuarioNuevo;
+                return new User(name, pw);
             }
             else
                 lbMessage.Text = "Asegurese De Completar Los Campos";
-
+                lbMessage.ForeColor = Color.Red;
 
             return null;
 
         }
-        private void btnRegistrarse_Click(object sender, EventArgs e)
-        {
-            lbMessage.ResetText();
-            User usuarioNuevo = DateValidate(txtNickName.Text, txtPw.Text);
 
-            if (usuarioNuevo is not null)
-            {
-                if (Usuarios.VerificarUsuariosRegistrado(usuarioNuevo))
-                {
-                    lbMessage.Text = "El Nombre De Usuario Ya Existe, Intente Otro";
-                    lbMessage.ForeColor = Color.Red;
-                }
-                else
-                {
-                    Paths.NickName = usuarioNuevo.NickName;
-                    Usuarios.MyUser = usuarioNuevo;
-                    Usuarios.AgregarUsuario = usuarioNuevo;
-                    Serializer<User>.JsonSerializerList(Usuarios.UsersList, Paths.LoginPath);
-                    InicializarFormularioMenu();
-                }
-                txtNickName.Clear();
-                txtPw.Clear();
-            }
+        /// <summary>
+        /// Colorea el label mensaje en rojo y, cambia su texto a "El Nombre De Usuario Ya Existe, Intente Otro".
+        /// </summary>
+        private void MessageSetAndColor(string message)
+        {
+            lbMessage.Text = $"{message}";
+            lbMessage.ForeColor = Color.Red;
         }
-
-
-        private void btnIngreso_Click(object sender, EventArgs e)
+        private bool VerificarUsuarioExistenteJson(User us)
         {
-            if (Usuarios.UsersList.Count == 0)
+            if (us is not null)
             {
-                lbMessage.Text = "Usuario No Registrado";
+                if (Usuarios.VerificarUsuariosRegistrado(us))
+                {
+                    return true;
+                }
+            }else
+                MessageSetAndColor("El Nombre De Usuario no existe");
+
+                return false;
+        }
+        private bool VerifyUserBDD(User us)
+        {
+            if (us is not null)
+            {
+                User newUser = DataAccess.Login(txtNickName.Text);
+
+               
+                if (newUser.Id != -1)
+                {
+                    
+                        return true;
+                }
+
             }
-            else if (!Helper.CheckText(txtNickName.Text, txtPw.Text))
+                return false;
+        }
+        private User VerificarUsuarioExistenteBDD(User us)
+        {
+            if (us is not null)
             {
-                lbMessage.Text = "Asegurese De Completar Los Campos";
+                User newUser = DataAccess.Login(txtNickName.Text);
+                if (newUser.Id != -1)
+                {
+                        return newUser;
+                }
+
+            }
+                return null;
+        }
+        private void ProcesarUsuario(User usuario, bool esRegistro)
+        {
+                Verificar v = new();
+            if (esRegistro)//Si es el metodo Registrarse
+            {
+               var VerificarUsuarioBDD = v.VerificarExistente<User>(3,VerifyUserBDD);
+              
+                if (!VerificarUsuarioExistenteJson(usuario) && !VerificarUsuarioBDD(usuario))//!VerifyUserBDD(usuario)
+                {
+                    usuario.FechaRegistro = DateTime.Now;
+                    DataAccess.InsertarUsuario(usuario);
+                    Usuarios.AgregarUsuario = usuario;
+                    SettNameUserPath(usuario);
+                   // Paths.NickName = usuario.NickName;
+                   // Usuarios.MyUser = usuario;
+                    Serializer<User>.JsonSerializerList(Usuarios.UsersList, Paths.LoginPath);
+                    MessageBox.Show($"Usuario {usuario.NickName} Registrado con éxito.");
+                    InicializarFormularioMenu();
+                    //inserta el nuevo usuario
+                }else
+                    MessageSetAndColor("El Nombre De Usuario Ya Existe, Intente Otro");
             }
             else
             {
-                User usuarioNuevo = new(txtNickName.Text, txtPw.Text);
-                if (!Usuarios.UsersList.Contains(usuarioNuevo))
+                // Si es un login, verificar el usuario en la base de datos
+                //User usuarioExistente = DataAccess.Login(usuario.NickName);
+                    usuario = VerificarUsuarioExistenteBDD(usuario);
+                var verificar = v.VerificarExistente<User>(3,Usuarios.VerificarUsuariosRegistrado); //Json
+                //uso delegados, se interfiere el tipo de dato, al llamarlo le paso el dato en si. Closure.
+               
+                if (usuario is not null)// && verificar(usuario))//VerificarUsuarioExistenteJson(usuario)
                 {
-                    lbMessage.Text = "El Nombre De Usuario No Existe";
-                    lbMessage.ForeColor = Color.Red;
-                    txtNickName.Clear(); txtNickName.Focus();
+                    SettNameUserPath(usuario);
+                    //Paths.NickName = usuario.NickName;
+                    //Usuarios.MyUser = usuario;
+                    //MessageBox.Show($"Usuario cargado con éxito: {usuarioExistente}");
+                    InicializarFormularioMenu();
                 }
                 else
                 {
-                    Paths.NickName = usuarioNuevo.NickName;
-                    Usuarios.MyUser = usuarioNuevo;
-                    InicializarFormularioMenu();
+                    MessageSetAndColor("usuario o contraseña inexistente/incorrecta");
                 }
             }
+        
+       }
+
+       
+        private void LoginProcess(bool option)
+        {
+            lbMessage.ResetText();
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(() => this.LoginProcess(option));
+            }
+            else
+            {
+                User usuarioNuevo = ValidarUsuario(txtNickName.Text, txtPw.Text);
+
+                if (usuarioNuevo != null)
+                {
+                    ProcesarUsuario(usuarioNuevo, option);
+                }
+                txtNickName.Clear();
+                txtPw.Clear();
+
+            }
+
+        }
+        private void btnRegistrarse_Click(object sender, EventArgs e)
+        {
+            RunLogTask(true);
+        }   
+
+        private void RunLogTask(bool value)
+        {
+            TLoguearse = Task.Run(() => LoginProcess(value));
+        }
+        private void btnIngreso_Click(object sender, EventArgs e)
+        {
+           // LoginProcess(false);
+            RunLogTask(false);
         }
     }
 

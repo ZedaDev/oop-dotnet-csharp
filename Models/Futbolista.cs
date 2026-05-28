@@ -34,7 +34,7 @@ namespace Entities
              : base(fullName, edad, apodo, fechaDebut ,deporte, phHabil, altura, pais, fechaDeRegistro, user, comentario)
         {
         }
-        public string Posicion 
+        public string? Posicion 
         {
             get => _posicion;
             set
@@ -43,7 +43,7 @@ namespace Entities
             }
         }
 
-        public string ClubActual 
+        public string? ClubActual 
         {
             get => _clubActual;
             set
@@ -52,71 +52,114 @@ namespace Entities
             }
         }
 
-        public override string CalcularsTATS()
-        {
-            StringBuilder sb = new();
-            int golesTotales = 0;
-            int asistencias = 0;
-            int tiroLibre = 0;
-            int Penal = 0;
-            int TRoja = 0;
-            int TAmarilla = 0;
-            int TPartidos = 0;
-            int TMinutos = 0;
-            StringBuilder res = new();
 
-            foreach (var value in Estadisticas)
+        
+        public  T AllStatsDat1<T>() where T : new()
+        {
+          
+            T tSF = this.CalcularStats<T>();
+            return tSF;
+        }
+        public override string AllStatsData()
+        {
+            return  AllStatsDat1<TotalStatsFutbolista>().ToString();
+        }
+        public override T CalcularStats<T>()
+        {
+
+            T  stats = new();
+            if (typeof(T) == typeof(TotalStatsFutbolista)) //Si son el mismo tipo
             {
-                if (value is IEstadisticaFutbolista e)
+                var futbolStats = stats as TotalStatsFutbolista; // futbolStat apunta a la misma direccion de memoria que stats
+                       
+                //stats si no se castea, es null.
+                if(futbolStats is not null)
                 {
-                    golesTotales += int.Parse(e.Goles);
-                    asistencias += int.Parse(e.Asistencias);
-                    tiroLibre += int.Parse(e.GolesTiroLibre);
-                    Penal += int.Parse(e.GolesPenal);
-                    TRoja += (e.TarjetaRoja) == true ? 1 : 0;
-                    TAmarilla += e.TarjetaAmarilla;
-                    TPartidos += 1;
-                    TMinutos += int.Parse(e.MinutosJugados);
-                    res.AppendLine($"{e.Resultado} - {e.Fecha.ToShortDateString()}");
-                   
+
+                  foreach (var value in Estadisticas)
+                  {
+
+                    if (value is IEstadisticaFutbolista e)
+                    {
+                    
+                        if(int.Parse(e.Goles) >= 3)
+                        {
+                                futbolStats.HatTricks += 1;
+                        }
+                        else if(int.Parse(e.Goles) > 0)
+                        {
+                                futbolStats.GolesTotales += int.Parse(e.Goles);
+                        }
+                        
+                            futbolStats.AsistenciasTotales += int.Parse(e.Asistencias);
+                            futbolStats.GolesTotalesTiroLibre += int.Parse(e.GolesTiroLibre);
+                            futbolStats.GolesTotalesPenal += int.Parse(e.GolesPenal);
+                            futbolStats.TitularTotales += e.Titular == true ? 1 : 0;
+                            futbolStats.MvpTotal += e.Mvp == true ? 1 : 0;
+                            futbolStats.TarjetaRojaTotal += (e.TarjetaRoja) == true ? 1 : 0;
+                            futbolStats.TarjetaAmarillaTotal += e.TarjetaAmarilla;
+                            futbolStats.PartidosJugados += 1;
+                            futbolStats.MinutosTotales += int.Parse(e.MinutosJugados);
+                            if(FechaDebut == e.Fecha)
+                            {
+                                futbolStats.PartidoDebut = $"[Debut {FechaDebut.ToShortDateString()}]  {value.Resultado}";
+
+                                futbolStats.TiempoDeCarrera = TimeCarrer();
+                            }
+                        //res.AppendLine($"{e.Resultado} [{e.Fecha.ToShortDateString()}]");
+                            if (value.Score is EResultado.victoria)
+                            {
+                                    futbolStats.PartidosGanados += 1;
+                            }
+                            else if (value.Score is EResultado.empate)
+                            {
+                                    futbolStats.PartidosEmpatados += 1;
+                            }
+                            else
+                                    futbolStats.PartidosPerdidos += 1;
+                         }
+                    }
                 }
+
             }
-            sb.AppendLine($"Partidos Jugados :{TPartidos}");
-            sb.AppendLine($"Goles  : {golesTotales}");
-            sb.AppendLine($"Asistencias  : {asistencias}");
-            sb.AppendLine($"Goles Tiro Libre : {tiroLibre}");
-            sb.AppendLine($"Goles Penal : {Penal}");
-            sb.AppendLine($"Tarjeta/s Roja : {TRoja}");
-            sb.AppendLine($"Tarjeta/s Amarillas : {TAmarilla}");
-            sb.AppendLine($"Minutos Totales : {TMinutos}");
-            sb.AppendLine($"Todos Los Partidos :\n");
-            sb.AppendLine($"{res}");
 
 
-            return sb.ToString();
-
+            return stats;
+            
         }
 
-       
-        /*public override void OrdenarListaMayorMenor<T>(List<T> lista)
+        private float TimeCarrer()
         {
-            throw new NotImplementedException();
-        }
+            DateTime fA = DateTime.Now;
+            DateTime old = FechaDebut;
+          
 
-        public override void OrdenarListaMenorMayor<T>(List<T> lista)
-        {
-            throw new NotImplementedException();
-        }
+            // Calcular la diferencia en años completos
+            int years = fA.Year - old.Year;
 
-        public override int IComparison(int d, int d1)
-        {
-            if (d > d1)
-                return -1;
-            else if (d < d1)
-                return 1;
-            else
-                return 0;
-        }*/
+            //if(fA.Month < old.Month || (fA.Month == old.Month && fA.Day < old.Day))
+            //{
+            //    --years;
+            //}
+            // Calcular la diferencia de meses sin contar los años completos
+            int meses = fA.Month - old.Month;
+            // Ajustar si el mes actual es menor que el mes de 'old'
+            if (fA.Month < old.Month || (fA.Month == old.Month && fA.Day < old.Day))
+            {
+                years--;  // Restamos un año
+                meses += 12;  // Sumamos 12 meses para ajustar la diferencia
+            }
+
+            // Ajustar si el día actual es menor que el de 'old'
+            if (fA.Day < old.Day)
+            {
+                meses--;  // Restamos un mes
+            }
+
+            // Ahora calculamos la fracción de mes y los años completos
+            float res = years + (float)meses / 10;
+            return res;
+        }
 
     }
 }

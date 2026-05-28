@@ -16,7 +16,7 @@ namespace Clase9Herencia.Ejercicios
 
             Console.WriteLine("Bienvenido a la Carrera");
 
-            Competencia carrera = new(11, 22,ECompetencia.F1);
+            Competencia<AutoF1>carrera = new(11, 22,ECompetencia.F1);
             AutoF1 a8 = new(8, "Audi");
 
             /* MotoCross a = new(11, "Honda", 350);

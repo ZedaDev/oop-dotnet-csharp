@@ -4,8 +4,10 @@ namespace Entities
 {
     public class User
     {
-        private string _nickName;
-        private string _pw;
+        string _nickName;
+        string _pw;
+        int _id;
+        DateTime _fechaDeRegistro;
         
 
         [JsonConstructor]
@@ -17,13 +19,29 @@ namespace Entities
         public User()
         {
             _nickName = "";
-            _pw = "";
+           _pw = "";
+            //_id = -1;
         }
 
         #region Properties
+        public int Id
+        {
+            get => _id;
+            set => _id = value;
+        }
+        public DateTime FechaRegistro
+        {
+            get => _fechaDeRegistro;
+            set => _fechaDeRegistro = value;
+        }
         public string NickName 
         {
             get => _nickName;
+            set
+            {
+                if (string.IsNullOrEmpty(value.Trim()))
+                    _nickName = value;
+            }
         }
         public string Pw
         { 
@@ -32,7 +50,6 @@ namespace Entities
             {
                 if (string.IsNullOrEmpty(value.Trim()))
                     _pw = value;
-
             } 
 
         }
@@ -69,7 +86,7 @@ namespace Entities
         }
         private string Mostrar()
         {
-            return $"User : {NickName}";
+            return $"User : {NickName}\n Registred : {FechaRegistro.ToShortDateString()}";
         }
     }
 }

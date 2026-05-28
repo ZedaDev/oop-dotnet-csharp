@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
-
 namespace Service
 {
-    public class Helper
+    public static class Helper
     {
 
 

@@ -17,5 +17,9 @@ namespace Entities
         string Comentario { get; set; }
         DateTime FechaDeRegistro { get; set; }
         string Usuario { get; set; }
+        EResultado Score { get; set; }
+        string club { get; set; }
+            
+        int Id { get; set; }
     }
 }

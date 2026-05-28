@@ -12,6 +12,7 @@ namespace Entities
     [JsonDerivedType(typeof(EFutbolista), "Futbol")]
     public abstract class Estadisticas : IEstadistica
     {
+        private int _id;
         private string _deportista;
         private string _resultado;
         private DateTime _fecha;
@@ -21,13 +22,14 @@ namespace Entities
         private string _comentario;
         private DateTime _fechaDeRegistro;
         private string _usuario;
+        private EResultado E_score;
 
      
         public Estadisticas()
         {
         }
 
-        public Estadisticas(string resultado, DateTime fecha, string rival, string estadio, string competicion, string comentario, string usuario, DateTime fechaRegistro, string user)
+        public Estadisticas(string resultado, DateTime fecha, string rival, string estadio, string competicion, string comentario, string usuario, DateTime fechaRegistro, string user, EResultado score)
                 : this(estadio, competicion, comentario, user)
         {
             _resultado = resultado;
@@ -35,6 +37,7 @@ namespace Entities
             _rival = rival;
             _fechaDeRegistro = fechaRegistro;
             _deportista = usuario;
+            E_score = score;
 
         }
         private Estadisticas(string estadio, string competicion, string comentario, string user)
@@ -98,7 +101,11 @@ namespace Entities
             get => _fechaDeRegistro;
             set => _fechaDeRegistro = value;
         }
-        
+        public int Id { get => _id; set => _id = value; }
+
+        public EResultado Score { get => E_score; set => E_score = value; }
+        public string club { get; set; }
+
 
         #endregion
 

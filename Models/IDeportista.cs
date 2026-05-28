@@ -19,6 +19,7 @@ namespace Entities
         DateTime FechaDeRegistro { get; set; }
         string Usuario { get; set; }
         string Comentario { get; set; }
+      
 
         List<Estadisticas> Estadisticas { get; set; }
     }

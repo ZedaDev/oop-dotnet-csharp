@@ -73,10 +73,7 @@ namespace Service
             }
             return usuarioExistente;
         }
-       /* public static bool operator ==(List<User> usuarios, User usuario)
-        {
 
-        }*/
         public static string Mostrar()
         {
             StringBuilder sb = new();

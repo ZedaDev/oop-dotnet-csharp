@@ -14,6 +14,7 @@ namespace Entities
     [JsonDerivedType(typeof(Futbolista), "Futbolista")]
     public abstract class Deportista : IDeportista
     {
+        int _id;
         private string _fullName;
         private string _apodo;
         private string _edad;
@@ -62,7 +63,7 @@ namespace Entities
 
         #region Properties
 
-      
+        
         public List<Estadisticas> Estadisticas
         {
             get => _estadisticas;
@@ -171,8 +172,15 @@ namespace Entities
             get => _altura;
             set => _altura = value;
         }
+        public int Id 
+        { 
+            get => _id;
+            set => _id = value;
+        }
+      
 
-        public abstract string CalcularsTATS();
+        public abstract T CalcularStats<T>() where T : new();
+        public abstract string AllStatsData();
         #endregion
 
         #region Sobrecargas
@@ -220,21 +228,35 @@ namespace Entities
 
         protected virtual string Mostrar()
         {
-             int carrerYears = FechaDebut.Year - DateTime.Now.Year;
-            if (FechaDebut.Month > DateTime.Now.Month || (FechaDebut.Month == DateTime.Now.Month && FechaDebut.Day > DateTime.Now.Day))
-                carrerYears -= 1;
-
             StringBuilder sb = new();
+             float carrerYears = FechaDebut.Year - DateTime.Now.Year;
+            if (FechaDebut.Month > DateTime.Now.Month || (FechaDebut.Month == DateTime.Now.Month && FechaDebut.Day > DateTime.Now.Day))
+            {
+
+                carrerYears -= 1;
+            }
+
+            if(carrerYears < 1)
+            {
+                int meses =  DateTime.Now.Month - FechaDebut.Month;
+
+                if(meses < 0)
+                {
+                    meses += 12;
+                }
+                sb.AppendLine($"Tiempo De Carrera Jugados : {meses} Meses");
+            }else
+                sb.AppendLine($"Años De Carrera Jugados : {carrerYears}");
+
+
             sb.AppendLine($"{FullName}");
             sb.AppendLine($"Debut Deportivo : {FechaDebut.ToShortDateString()}");
             sb.AppendLine($"Edad : {Edad}");
-            sb.AppendLine($"Años De Carrera Jugados : {carrerYears}");
             sb.AppendLine($"Deporte : {_Edeporte.ToString()}\n");
            
                  return sb.ToString();
         }
 
-
-          
+       
     }
 }

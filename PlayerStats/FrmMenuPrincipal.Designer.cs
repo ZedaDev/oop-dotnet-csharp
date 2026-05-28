@@ -124,7 +124,7 @@
             lvVisor.UseCompatibleStateImageBehavior = false;
             lvVisor.View = View.List;
             lvVisor.ItemActivate += lvVisor_ItemActivate;
-            lvVisor.SelectedIndexChanged += lvVisor_SelectedIndexChanged;
+           
             // 
             // btnCerrarSesion
             // 

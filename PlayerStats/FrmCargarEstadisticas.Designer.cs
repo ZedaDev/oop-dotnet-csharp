@@ -41,6 +41,7 @@
             lbFecha = new Label();
             btnCargar = new Button();
             lbComentario = new Label();
+            cmbScore = new ComboBox();
             SuspendLayout();
             // 
             // lbRival
@@ -55,7 +56,7 @@
             // lbResultado
             // 
             lbResultado.AutoSize = true;
-            lbResultado.Location = new Point(171, 53);
+            lbResultado.Location = new Point(142, 53);
             lbResultado.Name = "lbResultado";
             lbResultado.Size = new Size(59, 15);
             lbResultado.TabIndex = 1;
@@ -91,14 +92,14 @@
             // 
             txtRival.Location = new Point(12, 71);
             txtRival.Name = "txtRival";
-            txtRival.Size = new Size(100, 23);
+            txtRival.Size = new Size(109, 23);
             txtRival.TabIndex = 11;
             // 
             // txtResultado
             // 
-            txtResultado.Location = new Point(185, 71);
+            txtResultado.Location = new Point(142, 100);
             txtResultado.Name = "txtResultado";
-            txtResultado.Size = new Size(100, 23);
+            txtResultado.Size = new Size(206, 23);
             txtResultado.TabIndex = 13;
             txtResultado.Tag = "";
             // 
@@ -106,14 +107,14 @@
             // 
             txtCompeticion.Location = new Point(185, 151);
             txtCompeticion.Name = "txtCompeticion";
-            txtCompeticion.Size = new Size(100, 23);
+            txtCompeticion.Size = new Size(109, 23);
             txtCompeticion.TabIndex = 15;
             // 
             // txtEstadio
             // 
             txtEstadio.Location = new Point(12, 151);
             txtEstadio.Name = "txtEstadio";
-            txtEstadio.Size = new Size(100, 23);
+            txtEstadio.Size = new Size(109, 23);
             txtEstadio.TabIndex = 17;
             // 
             // mcFecha
@@ -149,11 +150,22 @@
             lbComentario.TabIndex = 25;
             lbComentario.Text = "Comentario";
             // 
+            // cmbScore
+            // 
+            cmbScore.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbScore.FormattingEnabled = true;
+            cmbScore.Location = new Point(151, 71);
+            cmbScore.Name = "cmbScore";
+            cmbScore.Size = new Size(76, 23);
+            cmbScore.TabIndex = 26;
+            cmbScore.SelectedIndexChanged += cmbScore_SelectedIndexChanged;
+            // 
             // FrmCargarEstadisticas
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(919, 527);
+            Controls.Add(cmbScore);
             Controls.Add(lbComentario);
             Controls.Add(btnCargar);
             Controls.Add(lbFecha);
@@ -167,9 +179,10 @@
             Controls.Add(lbCompeticion);
             Controls.Add(lbResultado);
             Controls.Add(lbRival);
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Name = "FrmCargarEstadisticas";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Cargar Stats";
+            Load += FrmCargarEstadisticas_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -190,5 +203,6 @@
         private Label lbFecha;
         protected Button btnCargar;
         private Label lbComentario;
+        protected ComboBox cmbScore;
     }
 }

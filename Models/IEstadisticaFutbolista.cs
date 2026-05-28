@@ -9,6 +9,7 @@ namespace Entities
     public interface IEstadisticaFutbolista : IEstadistica
     {
         bool Titular { get; set; }
+        bool Mvp { get; set; }
         string Goles { get; set; }
         string Asistencias { get; set; }
         string MinutosJugados { get; set; }

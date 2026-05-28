@@ -20,7 +20,7 @@ namespace PlayerStats
         public void CargarDatosParaModificar()
         {
           IFutbolista futbolista = (IFutbolista)Deportistas.MyAtleta;
-            if(futbolista is not null)
+            if (futbolista is not null)
             {
                 txtClubActual.Text = futbolista.ClubActual;
                 txtApodo.Text = futbolista.Apodo;
@@ -30,7 +30,7 @@ namespace PlayerStats
                 txtNacionalidad.Text = futbolista.Nacionalidad;
                 txtPosicion.Text = futbolista.Posicion;
                 rtbDescripcion.Text = futbolista.Comentario;
-                if (futbolista.PhHabil.ToString() == ELadoHabil.Der.ToString())
+                if (futbolista.PhHabil == ELadoHabil.Der)
                     cmbPhHabil.SelectedIndex = 0;
                 else
                     cmbPhHabil.SelectedIndex = 1;
@@ -43,30 +43,56 @@ namespace PlayerStats
 
         public void btnCargar_Click(object sender, EventArgs e)
         {
-            if (base.CheckCamps())
+            try
             {
-                Deportista futbolista = GetDateControls();
-                if (_flag)
+                if (base.CheckCamps())
                 {
-                    futbolista.Estadisticas.AddRange(Deportistas.Atletas[Deportistas.INDEX].Estadisticas);
-                    Deportistas.Atletas[Deportistas.INDEX] = futbolista;
-                    Serializer<Deportista>.JsonSerializerList(Deportistas.Atletas, Paths.DeportistasPath);
-                    MessageBox.Show($"{Messages.CongratsMessage("Deportista")}", "Congratulations", MessageBoxButtons.OK);
-                }
-                else if (Deportistas.Atletas + futbolista)
-                {
-                    Serializer<Deportista>.JsonSerializerList(Deportistas.Atletas, Paths.DeportistasPath);
-                    MessageBox.Show($"{Messages.CongratsMessage("Deportista")}", "Congratulations", MessageBoxButtons.OK);
-                }
-                else
-                    MessageBox.Show("El Deportista Que Intenta Registrar, Ya Se Encuentra Cargado..");
+                    Futbolista futbolista = GetDateControls();
+                    if (_flag)
+                    {
+                        AccesoDatos ac = new();
+                        if (ac.UpdateFutbolista(futbolista, Usuarios.MyUser.Id, EOption.Modificar))
+                        {
+                             MessageBox.Show($"{Messages.CongratsMessage("Deportista")}", "Congratulations JSON", MessageBoxButtons.OK);
+                             futbolista.Estadisticas.AddRange(Deportistas.Atletas[Deportistas.INDEX].Estadisticas);
+                             Deportistas.MyAtleta = futbolista;
+                             Deportistas.Atletas[Deportistas.INDEX] = futbolista;
+                             Serializer<Deportista>.JsonSerializerList(Deportistas.Atletas, Paths.DeportistasPath);
+                        }
+                       else //Modificar esto con excepciones.
+                            MessageBox.Show("ERROR AL MODIFICAR DEPORTISTA!", "Error al CARGAR", MessageBoxButtons.OK);
 
-                ClearCamps(); //Limpio todos los textboxs,etc.
+                    }
+                    else if (Deportistas.Atletas + futbolista)
+                    {
+                        //Metodo estatico, si instancio no accedo.
+                        Serializer<Deportista>.JsonSerializerList(Deportistas.Atletas, Paths.DeportistasPath);
+
+                        
+                        MessageBox.Show($"{Messages.CongratsMessage("Deportista")}", "Congratulations BDD", MessageBoxButtons.OK);
+
+                        AccesoDatos ac = new();
+                        //futbolista.Id = Usuarios.MyUser.Id;
+                        ac.InsertarFutbolista(futbolista, Usuarios.MyUser.Id);//En caso de fallar, lanza exception.
+                       MessageBox.Show("Futbolista cargado con EXITO A Base de Datos");
+                    
+                    }
+                    else
+                        MessageBox.Show("El Deportista Que Intenta Registrar, Ya Se Encuentra Cargado..");
+
+                    ClearCamps(); //Limpio todos los textboxs,etc.
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
 
         //implementar lo mismo en los Frms heredados de los demas deportistas, boxeo, tenis, etc.
-        private Deportista GetDateControls()
+        private Futbolista GetDateControls()
         {
             DateTime fechaDebut = mCalendar.SelectionStart;
            // DateTime fechaDebut = d.ToString("dd-MM-yyyy");
@@ -77,7 +103,7 @@ namespace PlayerStats
             string posicion = txtPosicion.Text;
             string clubActual = txtClubActual.Text;
             ELadoHabil phHabil;
-            if (cmbPhHabil.SelectedIndex.ToString() == ELadoHabil.Der.ToString())
+            if (cmbPhHabil.SelectedItem.ToString() == ELadoHabil.Der.ToString())
                 phHabil = ELadoHabil.Der;
             else
                 phHabil = ELadoHabil.Izq;

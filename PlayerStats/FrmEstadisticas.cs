@@ -16,139 +16,62 @@ namespace PlayerStats
 
         private void FrmEstadisticas_Load(object sender, EventArgs e)
         {
-            SetControlsAndVisor();
-
+            SetControls();
+            if(Deportistas.MyAtleta.Estadisticas.Count <= 0)
+            {
+                AccesoDatos ac = new();
+                ac.TraerEstadisticasDeportista(Deportistas.MyAtleta);
+            }
+            ActualizarVisor();
         }
 
 
         private  void ActualizarVisor()
         {
-            //Hacerlo generico pasando List<T>, U para referenciar el type deol a estadistica con gettype().
             lvVisor.Clear();
             lvVisor.Items.Clear();
-
-            List<Estadisticas> estadisticas = Deportistas.Atletas[Deportistas.INDEX].Estadisticas;
-            //estadisticas.ConvertAll(e => new EFutbolista());
-            if (estadisticas is not null && estadisticas.Count > 0)
+            if(lvVisor.Items.Count <= 0)
             {
-                foreach (Estadisticas v in estadisticas)
+                List<Estadisticas> estadisticas = Deportistas.MyAtleta.Estadisticas;
+                //estadisticas.ConvertAll(e => new EFutbolista());
+                if (estadisticas is not null && estadisticas.Count > 0)
                 {
-                    if (v is IEstadisticaFutbolista value)
-                        lvVisor.Items.Add($"Vs {value.Rival} ({value.Fecha.ToShortDateString()}) | {value.Competicion} - Estadio {value.Estadio}");
-                }
+                    foreach (Estadisticas v in estadisticas)
+                    {
+                        if (v is IEstadisticaFutbolista value)
+                            lvVisor.Items.Add($"Vs {value.Rival} ({value.Fecha.ToShortDateString()}) | {value.Competicion} - Estadio {value.Estadio}");
+                    }
 
-                lbVisorCargado.ForeColor = Color.Green;
-                lbVisorCargado.Text = $"Estadisticas Cargadas : {Deportistas.Atletas[Deportistas.INDEX].Estadisticas.Count()}";
+                    lbVisorCargado.ForeColor = Color.Green;
+                    lbVisorCargado.Text = $"Estadisticas Cargadas : {Deportistas.MyAtleta.Estadisticas.Count()}";
+                }
+                else
+                {
+                    lbVisorCargado.ForeColor = Color.Red;
+                    lbVisorCargado.Text = "No hay estadisticas cargadas aun.";
+                }
             }
-            else
-            {
-                lbVisorCargado.ForeColor = Color.Red;
-                lbVisorCargado.Text = "No hay estadisticas cargadas aun.";
-            }
+          
 
         }
 
         protected override void btnAgregar_Click(object sender, EventArgs e)
         {
-            FrmCargarEstadisticas frm = new FrmCargarEstadisticaFutbolista();
-
-
-            this.Hide();
-            frm.IsModifier = false;
-            frm.ShowDialog();
-
-            this.Show();
-            ActualizarVisor();
+            Agregar();
         }
 
         protected override void btnVer_Click(object sender, EventArgs e)
         {
-            if (lvVisor.SelectedIndices.Count > 0)
-            {
-                int i = lvVisor.SelectedIndices[0];
-
-                if (i == -1)
-                    MessageBox.Show("Seleccione Una Estadistica", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                else
-                {
-                    FrmVerEstadistica frm = new FrmVerEstadisticaFutbolista();
-                    frm.Stat = Deportistas.Atletas[Deportistas.INDEX].Estadisticas[i];
-                    Deportistas.MyAtleta = Deportistas.Atletas[Deportistas.INDEX];
-
-
-                    frm.EnableDisabledTextBox(false);
-
-                    frm.ShowDialog();
-
-                }
-            }else
-                MessageBox.Show($"{Messages.SureSelectMessage("Estadistica")}", "Seleccionar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Ver();
         }
 
         protected override void btnEliminar_Click(object sender, EventArgs e)
         {
-            if (lvVisor.SelectedIndices.Count > 0)
-            {
-                // Obtén el índice del elemento seleccionado
-                int i = lvVisor.SelectedIndices[0];
-
-                IDeportista d = Deportistas.Atletas[Deportistas.INDEX];
-
-                if (i >= 0 && i < d.Estadisticas.Count())
-                {
-                    // Obtener el atleta correspondiente al índice
-
-                    IEstadistica stat = d.Estadisticas[i];
-                    DialogResult res = MessageBox.Show($"{Messages.DoYouWantMessage("Estadistica")}\n {stat.Fecha} - {stat.Competicion}", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                    if (res == DialogResult.Yes)
-                    {
-                        d.Estadisticas.RemoveAt(i);
-                        Serializer<Deportista>.JsonSerializerList(Deportistas.Atletas, Paths.DeportistasPath);
-                        ActualizarVisor();
-
-                        MessageBox.Show($"{Messages.CongratsDeleteMessage("Estadistica")}", "Delete", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    }
-                }
-            }
-            else
-                MessageBox.Show($"{Messages.SureSelectMessage("Estadistica")}", "Seleccionar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+            Eliminar();
         }
         protected override void btnModificar_Click(object sender, EventArgs e)
         {
-            if (lvVisor.SelectedIndices.Count > 0)
-            {
-                // Obtén el índice del elemento seleccionado
-                int i = lvVisor.SelectedIndices[0];
-
-               
-
-                if (i >= 0 && i < Deportistas.Atletas[Deportistas.INDEX].Estadisticas.Count())
-                {
-                    // Obtener el atleta correspondiente al índice
-
-                    FrmCargarEstadisticas frm = new FrmCargarEstadisticaFutbolista();
-                    frm.Stat = (IEstadisticaFutbolista)Deportistas.Atletas[Deportistas.INDEX].Estadisticas[i];
-                    
-                    frm.Indice = i;
-                    frm.PrintDates();
-                    frm.IsModifier = true;
-                    
-                    //DialogResult res = MessageBox.Show($"{Messages.DoYouWantMessage("Estadistica")}\n {stat.Fecha} - {stat.Competicion}", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                    this.Hide();
-                    frm.ShowDialog();
-                    frm.Close();
-
-                    cmbDeporte.SelectedIndex = -1;
-                    ActualizarVisor();
-                    this.Show();
-                }
-            }
-            else
-                MessageBox.Show($"{Messages.SureSelectMessage("Estadistica")}", "Seleccionar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+            Modificar();
         }
         protected override void cmbOrder_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -187,7 +110,7 @@ namespace PlayerStats
             return aux;
 
         }
-        private void SetControlsAndVisor()
+        private void SetControls()
         {
             btnAgregar.Text = "Agregar Estadistica";
             btnVer.Text = "Ver Estadistica";
@@ -196,13 +119,119 @@ namespace PlayerStats
             btnAgregar.Enabled = true;
             lbDateTime.Text = DateTime.Now.Date.ToShortDateString();
             lbDateTime.ForeColor = Color.Green;
-            lbUser.Text = Usuarios.MyUser.NickName;
+            lbUser.Text = Deportistas.MyAtleta.FullName;
             cmbOrder.DataSource = Enum.GetValues(typeof(EEstadisticas));
             cmbOrder.SelectedIndex = -1;
 
             //Cargo los deportistas [Nombre - Deporte] en el visor.
-            this.ActualizarVisor();
+            //this.ActualizarVisor();
         }
 
+  
+           
+        private void Ver()
+        {
+            int i = CheckVisor(lvVisor);
+                if (i < 0)
+                    MessageBox.Show("Seleccione Una Estadistica", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                {
+
+                    FrmVerEstadistica frm = new FrmVerEstadisticaFutbolista();
+                    frm.Stat = Deportistas.MyAtleta.Estadisticas[i];
+
+
+                    frm.EnableDisabledTextBox(false);
+
+                    frm.ShowDialog();
+
+                    frm.Close();
+
+                }
+            
+            
+        }
+
+        private void Agregar()
+        {
+            FrmCargarEstadisticas frm = new FrmCargarEstadisticaFutbolista();
+
+
+            this.Hide();
+            frm.IsModifier = false;
+
+            frm.ShowDialog();
+
+            ActualizarVisor();
+            this.Show();
+        }
+        private void Eliminar()
+        {
+                // Obtén el índice del elemento seleccionado
+                int i = CheckVisor(lvVisor);
+
+
+                if (i >= 0 && i < Deportistas.MyAtleta.Estadisticas.Count())
+                {
+                    IDeportista d = Deportistas.MyAtleta;
+                    // Obtener el atleta correspondiente al índice
+
+                    //Solucion al agrear mas deportistas, hacer un switch y, castear la estadistica segun el deporte.
+                    EFutbolista stat = (EFutbolista)d.Estadisticas[i];
+                    DialogResult res = MessageBox.Show($"{Messages.DoYouWantMessage("Estadistica")}\n {stat.Fecha} - {stat.Competicion}", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (res == DialogResult.Yes)
+                    {
+                        d.Estadisticas.RemoveAt(i);
+                        Serializer<Deportista>.JsonSerializerList(Deportistas.Atletas, Paths.DeportistasPath);
+                        AccesoDatos ac = new();
+                        ac.UpdateDeleteEstadisticaFutbolista(stat, Usuarios.MyUser.Id, EOption.Eliminar);
+
+                        ActualizarVisor();
+
+                        MessageBox.Show($"{Messages.CongratsDeleteMessage("Estadistica")}", "Delete", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                }
+                else
+                     MessageBox.Show($"{Messages.SureSelectMessage("Estadistica")}", "Seleccionar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        }
+        private void Modificar()
+        {
+            ///LOGICA AQUI DE ENVIAR ESTO A METODOS Y ESTOS METODOS EN ERIFICAR Y LUEGO LLAMAR A VERIFICARBTNMODIFICAR, ETC
+            ///mediante un delegado que se atributo y se cargue como metodo .
+          
+                // Obtén el índice del elemento seleccionado
+                int i = CheckVisor(lvVisor);
+            
+
+
+
+                if (i >= 0 && i < Deportistas.MyAtleta.Estadisticas.Count())
+                {
+                    // Obtener el atleta correspondiente al índice
+
+                    FrmCargarEstadisticas frm = new FrmCargarEstadisticaFutbolista();
+                    frm.Stat = Deportistas.MyAtleta.Estadisticas[i]; // Me guarda la estadistica
+
+
+                    frm.Indice = i; //Me guarda el index de la estadistica
+                    frm.PrintDates(); //Printea los datos, ya que es modificar.
+                    frm.IsModifier = true; //Se settea para Modificar
+
+                    //DialogResult res = MessageBox.Show($"{Messages.DoYouWantMessage("Estadistica")}\n {stat.Fecha} - {stat.Competicion}", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    this.Hide();
+                    frm.ShowDialog();
+                    frm.Close();
+
+                    cmbDeporte.SelectedIndex = -1;
+                    ActualizarVisor();
+                    this.Show();
+                }
+            else
+                MessageBox.Show($"{Messages.SureSelectMessage("Estadistica")}", "Seleccionar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        }
     }
 }

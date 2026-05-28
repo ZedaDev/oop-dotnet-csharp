@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace PlayerStats
 {
-    public partial class FrmAllMatchs : Form
+    public partial class FrmDeportistaDates : Form
     {
-        public FrmAllMatchs()
+        public FrmDeportistaDates()
         {
             InitializeComponent();
         }

@@ -3,6 +3,8 @@ using Service;
 using System.Windows.Forms;
 using TextBox = System.Windows.Forms.TextBox;
 
+//CTRL, K , C COMENTA, CTRL, K , U DESCOMENTA.
+
 namespace PlayerStats
 {
     public partial class FrmVerEstadistica : Form
@@ -24,7 +26,8 @@ namespace PlayerStats
         {
             InitializeComponent();
             btnInfo.Visible = false;
-            rtbEstadisticas.Text = Deportistas.MyAtleta.ToString() + Deportistas.MyAtleta.CalcularsTATS();
+
+            rtbEstadisticas.Text = Deportistas.MyAtleta.ToString() + Deportistas.MyAtleta.AllStatsData();
         }
 
         public void EnableDisabledTextBox(bool v)
