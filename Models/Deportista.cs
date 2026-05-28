@@ -10,18 +10,22 @@ using System.Text.Json.Serialization;
 
 namespace Entities
 {
-    public abstract class Deportista
+    [JsonPolymorphic(TypeDiscriminatorPropertyName = "$type")]
+    [JsonDerivedType(typeof(Futbolista), "Futbolista")]
+    public abstract class Deportista : IDeportista
     {
+        int _id;
         private string _fullName;
         private string _apodo;
         private string _edad;
-        private string _fechaDebut;
+        private DateTime _fechaDebut;
         private EDeporte _Edeporte;
         private ELadoHabil _phHabil;
         private string _altura;
         private string _pais;
-        private string _fechaDeRegistro;
+        private DateTime _fechaDeRegistro;
         private string _usuario;
+        private string _comentario;
         private List<Estadisticas> _estadisticas;
 
         #region Contructores
@@ -34,8 +38,8 @@ namespace Entities
         }
 
         
-        public Deportista(string fullName, string edad, string apodo, string fechaDebut, EDeporte deporte, ELadoHabil phHabil, string altura,string pais, string fechaDeRegistro, string user)
-            : this(fechaDebut, deporte, pais, user)
+        public Deportista(string fullName, string edad, string apodo, DateTime fechaDebut, EDeporte deporte, ELadoHabil phHabil, string altura,string pais, DateTime fechaDeRegistro, string user, string comentario)
+            : this(fechaDebut, deporte, pais, user, comentario)
         {
             _edad = edad;
             _fullName = fullName;
@@ -45,22 +49,23 @@ namespace Entities
             _fechaDeRegistro = fechaDeRegistro;
             _estadisticas = new();
         }
-        private Deportista(string fechaDebut, EDeporte deporte, string pais, string user)
+        private Deportista(DateTime fechaDebut, EDeporte deporte, string pais, string user, string comentario)
             : this()
         {
             _fechaDebut = fechaDebut;
             _Edeporte = deporte;
             _pais = pais;
             _usuario = user;
+            _comentario = comentario;
         }
 
         #endregion
 
         #region Properties
 
-        [JsonIgnore]
+        
         public List<Estadisticas> Estadisticas
-        { 
+        {
             get => _estadisticas;
             set
             {
@@ -70,10 +75,14 @@ namespace Entities
         }
         public Estadisticas AgregarEstadistica
         { 
+
+
             set
             {
                 if (value is not null && !(_estadisticas.Contains(value)))
                     _estadisticas.Add(value);
+                else
+                    throw new Exception("Estadistica NULL o Ya existe en la lista.");
             }
         }
 
@@ -94,7 +103,7 @@ namespace Entities
             }
         }
         
-        public string FechaDeRegistro
+        public DateTime FechaDeRegistro
         {
             get => _fechaDeRegistro;
             set => _fechaDeRegistro = value;
@@ -124,13 +133,22 @@ namespace Entities
                 _pais = value;
             }
         }
-        public string FechaDebut
+        public DateTime FechaDebut
         {
             get => _fechaDebut;
             set
             {
                 
                 _fechaDebut = value;
+            }
+        }
+        public string Comentario
+        {
+            get => _comentario;
+            set
+            {
+                
+                _comentario = value;
             }
         }
 
@@ -147,33 +165,37 @@ namespace Entities
         public ELadoHabil PhHabil 
         { 
             get => _phHabil;
+            set => _phHabil = value;
         }
         public string Altura 
         { 
             get => _altura;
+            set => _altura = value;
         }
-        public string Tipo 
+        public int Id 
         { 
-            get => this.GetType().Name;
+            get => _id;
+            set => _id = value;
         }
-        /*public string PathStats
-        { 
-            get => StatsPath();
-        }
-        public string PathUsers
-        { 
-            get => UsersPath();
-        }*/
+      
 
-        //public abstract void CargarStat(List<EFutbolista> stats, List<Deportista> d, string nick);
-        public abstract string MisEstadisticas(string nickName);
-        public abstract string MisDeportistas(string nickName);
-
-        //public abstract void TraerStatsDArchivo(string pathJson, List<object> stats);
+        public abstract T CalcularStats<T>() where T : new();
+        public abstract string AllStatsData();
         #endregion
 
         #region Sobrecargas
 
+        ///
+        public static bool operator +(List<Deportista> list, Deportista d1)
+        {
+            if (!list.Contains(d1))
+            {
+                list.Add(d1);
+                 return true;
+            }
+
+            return false;
+        }
         public static bool operator ==(Deportista d, Deportista d1)
         {
             if (ReferenceEquals(d, d1)) return true;
@@ -194,7 +216,7 @@ namespace Entities
 
         public override bool Equals(object? obj)
         {
-            return this == ((Deportista)obj);
+            return (obj is null) ? false : this == ((Deportista)obj);
         }
         public override int GetHashCode()
         {
@@ -204,21 +226,37 @@ namespace Entities
         #endregion
 
 
-        //Agregar Metodo Abstracto.
-
-        //public abstract void AbrirFormulario();
-        
         protected virtual string Mostrar()
         {
             StringBuilder sb = new();
-            sb.AppendLine($"Nombre Completo : {FullName}");
+             float carrerYears = FechaDebut.Year - DateTime.Now.Year;
+            if (FechaDebut.Month > DateTime.Now.Month || (FechaDebut.Month == DateTime.Now.Month && FechaDebut.Day > DateTime.Now.Day))
+            {
+
+                carrerYears -= 1;
+            }
+
+            if(carrerYears < 1)
+            {
+                int meses =  DateTime.Now.Month - FechaDebut.Month;
+
+                if(meses < 0)
+                {
+                    meses += 12;
+                }
+                sb.AppendLine($"Tiempo De Carrera Jugados : {meses} Meses");
+            }else
+                sb.AppendLine($"Años De Carrera Jugados : {carrerYears}");
+
+
+            sb.AppendLine($"{FullName}");
+            sb.AppendLine($"Debut Deportivo : {FechaDebut.ToShortDateString()}");
             sb.AppendLine($"Edad : {Edad}");
-            sb.AppendLine($"Debut Deportivo : {FechaDebut}");
-            sb.AppendLine($"Deporte : {_Edeporte.ToString()}");
+            sb.AppendLine($"Deporte : {_Edeporte.ToString()}\n");
+           
                  return sb.ToString();
         }
 
-
-          
+       
     }
 }

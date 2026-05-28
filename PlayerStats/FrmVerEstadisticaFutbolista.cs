@@ -1,13 +1,4 @@
 ﻿using Entities;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace PlayerStats
 {
@@ -20,7 +11,7 @@ namespace PlayerStats
 
         private void FrmVerEstadisticaFutbolista_Load(object sender, EventArgs e)
         {
-            base.EnableDisabledTextBox();
+            
             lbTiroLibre.Visible = false;
             lbGolPenal.Visible = false;
             txtGPenal.Visible = false;
@@ -29,12 +20,17 @@ namespace PlayerStats
             PrintInfoStat();
         }
 
+        private void btnInfo_Click(object sender, EventArgs e)
+        {
+            
+
+        }
         private void PrintInfoStat()
         {
-            if(Stat is EFutbolista v)
+            if (Stat is EFutbolista v)
             {
-                
-               
+
+
                 rtbComentario.Enabled = false;
 
                 txtRival.Text = v.Rival;
@@ -44,37 +40,39 @@ namespace PlayerStats
 
                 txtGoles.Text = v.Goles;
                 //Logica mostrar label y texbox de gol de penal y de tiro libre.
-                if(int.Parse(v.Goles) > 0)
+                if (int.Parse(v.Goles) > 0)
                 {
-                    if(int.Parse(v.GolesPenal) > 0)
+                    if (int.Parse(v.GolesPenal) > 0)
                     {
                         lbGolPenal.Visible = true;
                         txtGPenal.Visible = true;
                         txtGPenal.Text = v.GolesPenal;
                         txtGPenal.Enabled = false;
-                    }else if(int.Parse(v.GolesTiroLibre) > 0)
+                    }
+                    else if (int.Parse(v.GolesTiroLibre) > 0)
                     {
                         lbTiroLibre.Visible = true;
                         txtGTLibre.Visible = true;
                         txtGTLibre.Text = v.GolesTiroLibre;
                         txtGTLibre.Enabled = false;
                     }
-                   
+
                 }
                 txtAsistencias.Text = v.Asistencias;
                 txtMinutosJugados.Text = v.MinutosJugados;
-                txtTAmarilla.Text = v.TarjetaAmarilla;
+                txtTAmarilla.Text = v.TarjetaAmarilla.ToString();
                 txtTitular.Text = v.Titular ? "Si" : "No";
                 txtTRoja.Text = v.TarjetaRoja ? "Si" : "No";
                 txtTRoja.ForeColor = v.TarjetaRoja is true ? Color.Red : Color.Green;
-               
+
 
                 lbFechaRegistro.ForeColor = Color.LightGreen;
-                lbFechaRegistro.Text = $"Estadistica Cargada {v.FechaDeRegistro}";
+                lbFechaRegistro.Text = $"Estadistica Cargada {v.FechaDeRegistro.ToShortDateString()}";
 
                 rtbComentario.Text = v.Comentario;
-                lbFechaPartido.Text = $"[MATCH DATE] {v.Fecha}";
+                lbFechaPartido.Text = $"[MATCH DATE] {v.Fecha.ToShortDateString()}";
                 lbFechaPartido.ForeColor = Color.LightGreen;
+            
 
 
 

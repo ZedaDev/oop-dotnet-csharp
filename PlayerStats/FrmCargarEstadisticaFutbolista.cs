@@ -1,17 +1,6 @@
 ﻿using Entities;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Service;
 using ProjectExceptions;
-using System.Reflection;
+using Service;
 
 
 
@@ -19,26 +8,74 @@ namespace PlayerStats
 {
     public partial class FrmCargarEstadisticaFutbolista : FrmCargarEstadisticas
     {
-
+       
 
         public FrmCargarEstadisticaFutbolista()
         {
             InitializeComponent();
-
         }
 
         private void FrmCargarEstadisticaFutbolista_Load(object sender, EventArgs e)
         {
             //setteo el combo box de tarjeta amarilla
             SettControlsMenu();
+          
+
         }
-
-        private void SettControlsMenu()
+        public override void PrintDates()
         {
-            cmbTAmarilla.Items.Add("1");
-            cmbTAmarilla.Items.Add("2");
+            SettControlsMenu();
+            PrintInfoStat();
+        }
+        private void PrintInfoStat()
+        {
+            if (Stat is EFutbolista v)
+            {
+                mcFecha.SetDate(v.Fecha);
+                //cmbScore.SelectedIndex = 
+               
+                rtcComentario.Text = v.Comentario;
 
-            IsVisible(false);
+                txtRival.Text = v.Rival;
+                txtResultado.Text = v.Resultado;
+                txtEstadio.Text = v.Estadio;
+                txtCompeticion.Text = v.Competicion;
+
+                txtGoles.Text = v.Goles;
+                //Logica mostrar label y texbox de gol de penal y de tiro libre.
+                if (int.Parse(v.Goles) > 0)
+                {
+                    if (int.Parse(v.GolesPenal) > 0)
+                    {
+                        lbGPenal.Visible = true;
+                        txtGPenal.Visible = true;
+                        txtGPenal.Text = v.GolesPenal;
+                        txtGPenal.Enabled = false;
+                    }
+                    else if (int.Parse(v.GolesTiroLibre) > 0)
+                    {
+                        lbGTiroLibre.Visible = true;
+                        txtGTiroLibre.Visible = true;
+                        txtGTiroLibre.Text = v.GolesTiroLibre;
+                        txtGTiroLibre.Enabled = false;
+                    }
+
+                }
+                txtAsistencias.Text = v.Asistencias;
+                txtMinutosJugados.Text = v.MinutosJugados;
+                //SettControlsMenu();
+                    if (v.TarjetaAmarilla == 1)
+                        cmbTAmarilla.SelectedIndex = 0;
+                    else if(v.TarjetaAmarilla < 1)
+                        cmbTAmarilla.SelectedIndex = -1;
+                    else 
+                        cmbTAmarilla.SelectedIndex = 1;
+
+
+                    cbTitutlar.Checked = v.Titular;
+                    cbTRoja.Checked = v.TarjetaRoja;
+                    cbMvp.Checked = v.Mvp;
+            }
         }
         private void IsVisible(bool value)
         {
@@ -46,7 +83,30 @@ namespace PlayerStats
             txtGTiroLibre.Visible = value;
             lbGPenal.Visible = value;
             lbGTiroLibre.Visible = value;
+            cmbTAmarilla.Enabled = value;
         }
+        private void SettControlsMenu()
+        {
+            if (cmbTAmarilla.Items.Count == 0)
+            {
+                cmbTAmarilla.Items.Add("1");
+                cmbTAmarilla.Items.Add("2");
+                IsVisible(false);
+            }
+            
+            
+
+            if (IsModifier)
+            {
+                btnCargar.Text = "Modificar";
+                cmbScore.DataSource = Enum.GetValues(typeof(EResultado));
+                cmbScore.SelectedIndex = (int)Stat.Score;
+
+            }
+            else
+                cmbScore.SelectedIndex = -1;
+        }
+
         private void cbTAmarilla_CheckedChanged(object sender, EventArgs e)
         {
             if (cbTAmarilla.Checked)
@@ -55,66 +115,15 @@ namespace PlayerStats
                 cmbTAmarilla.Enabled = false;
         }
 
-        private void VerifyParseNumbersCamps(Control.ControlCollection controls)
+        private EFutbolista? ObtenerEstadistica()
         {
-            try
-            {
-                foreach (Control item in Controls)
-                {
-                    if (item is TextBox txt && txt.Tag == "parse" && !string.IsNullOrEmpty(txt.Text.Trim()))
-                    {
-                        int.Parse(txt.Text);
-                    }
-                }
-            }
-            catch (FormatException e)
-            {
-
-                throw new txtIsNotParseNumber
-                    (
-                        "Formato De texto no valido para parsear", this.GetType().Name,
-                        MethodBase.GetCurrentMethod().Name,
-                        e
-                    );
-            }
-            catch (OverflowException ex)
-            {
-
-                throw new txtIsNotParseNumber
-                   (
-                       "Texto supera los limites INT", this.GetType().Name,
-                       MethodBase.GetCurrentMethod().Name,
-                       ex
-                   ); 
-            }
-        }
-        private void btnCargar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-
-                VerifyParseNumbersCamps(this.Controls);
-               
-            }
-            catch (txtIsNotParseNumber ex)
-            {
-                    MessageBox.Show($"{ex}");
-                /*Console.WriteLine($"{ex.ToString()}");*/
-                //Exception inner = ex.InnerException;
-                /*Exception inner = ex;
-                while (inner is not null)
-                {
-                    MessageBox.Show($"{inner.ToString()}");
-                    inner = inner.InnerException;
-                }*/
-                ClearCamps();
-            }
             if (CheckCamps())
             {
 
                 //
-                string fechaRegistro = DateTime.Now.Date.ToString("dd-MM-yyyy");
-                string fecha = mcFecha.SelectionStart.ToString("dd-MM-yyyy");
+                DateTime fechaRegistro = DateTime.Now.Date;
+                DateTime fecha = mcFecha.SelectionStart;
+                EResultado score = (EResultado)cmbScore.SelectedIndex;
                 string goles = txtGoles.Text;
                 string rival = txtRival.Text;
                 string resultado = txtResultado.Text;
@@ -122,15 +131,16 @@ namespace PlayerStats
                 string estadio = txtEstadio.Text;
                 string asistencias = txtAsistencias.Text;
                 string minutos = txtMinutosJugados.Text;
-                string amarilla = "0";
-                string comentario = rtcComentario.Text;
+                int amarilla = 0;
                 if (cbTAmarilla.Checked)
-                    amarilla = cmbTAmarilla.SelectedIndex.ToString();
+                    amarilla = cmbTAmarilla.SelectedIndex+1;
 
-
+                string comentario = rtcComentario.Text;
                 bool roja = cbTRoja.Checked;
                 bool titular = cbTitutlar.Checked;
-                EFutbolista stat = new EFutbolista(titular, goles, asistencias, amarilla, roja, minutos, resultado, fecha, rival, competicion, estadio, comentario, Atleta.FullName, fechaRegistro, NickName);
+                EFutbolista stat = new(titular, goles, asistencias, amarilla, roja, minutos, resultado, fecha, rival, competicion, estadio, comentario, Deportistas.MyAtleta.FullName, fechaRegistro, Usuarios.MyUser.NickName, score);
+                stat.Mvp = cbMvp.Checked;
+                stat.club = txtClubActual.Text;
 
                 if (txtGPenal.Visible is true && txtGTiroLibre.Visible is true)
                 {
@@ -138,21 +148,87 @@ namespace PlayerStats
                     stat.GolesTiroLibre = txtGTiroLibre.Text;
                 }
 
-                if (Atleta + stat)
-                {
+                return stat;
 
-                    D.Estadisticas.Add(stat);
-                    D.CargarEstadisticaAlArchivo1(Atleta.MisEstadisticas(NickName), D.Estadisticas);
-                    MessageBox.Show($"Estadistica Cargada Con Exito", "Congratulations", MessageBoxButtons.OK);
-                }
-                else
-                    MessageBox.Show("Su Estadistica A Cargar, Ya Existe", "Estadistica Existense", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+                return null;
+        }
+        public void btnCargar_Click(object sender, EventArgs e)
+        {
+           
+                   EFutbolista stat = ObtenerEstadistica();
+            
+            if (IsModifier)
+            {
+                        stat.Id = Stat.Id;
 
-
-                ClearCamps(); //Limpio todos los textboxs,etc.
             }
 
+
+                try
+                {
+                        if(stat is not null)
+                           CargarModificarEstadisticaBDDJson(stat);
+                  
+                }
+                catch (Exception)
+                {
+
+                    MessageBox.Show("Error", "Estadistica", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+
+
+            } //esto lo deberia encapsular en metodos y poner todo dentro del TRY, luego segun el isModifier
+        // entrar a un metodo o el otro.
+
+        private bool CargarModificarEstadisticaBDDJson(EFutbolista stat)
+        {
+            if (IsModifier)
+            {
+                ModificarEstadisticaBDDJson(stat);
+            }
+            else
+            {
+                CargarEstadisticaBDDJson(stat);
+            }
+
+                return true;
         }
+
+        private void CargarEstadisticaBDDJson(EFutbolista stat)
+        {
+
+            AccesoDatos ac = new();
+            if (ac.InsertarEstadisticasFutbolista(stat, Usuarios.MyUser.Id, Deportistas.MyAtleta.Id))
+            {
+
+                Deportistas.MyAtleta.AgregarEstadistica = stat;
+                
+                Serializer<Deportista>.JsonSerializerList(Deportistas.Atletas, Paths.DeportistasPath);
+                MessageBox.Show($"Estadistica Cargada Con Exito BDD", "Congratulations", MessageBoxButtons.OK);
+                ClearCamps(); //Limpio todos los textboxs,etc.
+            }
+            else
+                MessageBox.Show($"Estadistica ERROR", "ERROR", MessageBoxButtons.OK);
+
+        }
+        private void ModificarEstadisticaBDDJson(EFutbolista stat)
+        {
+            AccesoDatos ac1 = new();
+
+            if (ac1.UpdateEstadisticaFutbolista(stat, Deportistas.MyAtleta.Id, Usuarios.MyUser.Id))
+            {
+                Deportistas.MyAtleta.Estadisticas[Indice] = stat; 
+                MessageBox.Show($"Estadistica Modificada Con Exito en BDD", "Congratulations Base De Datos", MessageBoxButtons.OK);
+                ClearCamps(); //Limpio todos los textboxs,etc.
+            }
+            else
+                MessageBox.Show($"ERROR!", "ERROR Base De Datos", MessageBoxButtons.OK);
+        }
+
+        
+
         protected bool ClearCamps()
         {
             foreach (Control value in this.Controls)
@@ -172,30 +248,30 @@ namespace PlayerStats
             return true;
         }
 
-        protected bool CheckCamps()
+        public bool CheckCamps()
         {
             bool ok = false;
 
 
             if (!ComprobarCamposNull())
                 MessageBox.Show("Asegurese de completar todos los campos", "Campos Incompletos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            else if (mcFecha.SelectionRange.Start.Date == DateTime.Today.Date)
+            /*else if (mcFecha.SelectionRange.Start.Date == DateTime.Today.Date)
             {
                 DialogResult res = MessageBox.Show("La fecha seleccionada es la actual, Desea Cambiarla?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (res == DialogResult.Cancel)
                     ok = true;
-            }
+            }*/
             else
                 ok = true;
 
             return ok;
         }
 
-        protected bool ComprobarCamposNull()
+        public bool ComprobarCamposNull()
         {
             foreach (Control value in this.Controls)
             {
-                if(value is TextBox txt && txt.Visible is true)
+                if (value is TextBox txt && txt.Visible is true)
                 {
                     if (string.IsNullOrEmpty(txt.Text.Trim()))
                         return false;
@@ -206,13 +282,14 @@ namespace PlayerStats
                     return false;
                 }
 
+
             }
             return true;
         }
 
         private void txtGoles_TextChanged(object sender, EventArgs e)
         {
-            if(int.TryParse(txtGoles.Text, out int goles) && goles > 0)
+            if (int.TryParse(txtGoles.Text, out int goles) && goles > 0)
             {
                 IsVisible(true);
             }

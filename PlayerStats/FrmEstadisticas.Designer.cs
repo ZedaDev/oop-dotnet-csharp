@@ -1,6 +1,6 @@
 ﻿namespace PlayerStats
 {
-   public partial class FrmEstadisticas
+    public partial class FrmEstadisticas
     {
         /// <summary>
         /// Required designer variable.
@@ -44,19 +44,32 @@
             // 
             // btnAgregar
             // 
-            btnAgregar.Location = new Point(3, 295);
-           //this.btnAgregar.Click += this.btnAgregar_Click;
+            btnAgregar.Location = new Point(3, 313);
+            //this.btnAgregar.Click += this.btnAgregar_Click;
             // 
             // cmbDeporte
             // 
             cmbDeporte.DataSource = new EDeporte[]
     {
-    EDeporte.Futbol,
-    EDeporte.Boxeo,
+   EDeporte.Futbol,
+   EDeporte.Boxeo,
     EDeporte.Tenis
-    };
+     };
             //cmbDeporte.Items.AddRange(new object[] { EDeporte.Futbol, EDeporte.Boxeo, EDeporte.Tenis });
             cmbDeporte.Location = new Point(247, 12);
+            cmbDeporte.Visible = false;
+            // cmbOrder
+            //
+            cmbOrder.BackColor = Color.LightGray;
+            cmbOrder.DataSource = new EEstadisticas[]
+{
+    EEstadisticas.MasRecientes,
+    EEstadisticas.MasAntiguas,
+    EEstadisticas.Asistencias,
+    EEstadisticas.Goles
+
+};
+            //cmbOrder.SelectedIndexChanged += cmbOrder_SelectedIndexChanged;
             // 
             // lvVisor
             // 
@@ -70,17 +83,20 @@
             // FrmVerEstadisticas
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
-            ClientSize = new Size(718, 332);
+            ClientSize = new Size(721, 355);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Name = "FrmEstadisticas";
             Text = "FrmEstadisticas";
             Load += FrmEstadisticas_Load;
+
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        //private ComboBox cmbOrdenStats;
-        //private Label lbOrdenar;
     }
 }
+
+//private ComboBox cmbOrdenStats;
+//private Label lbOrdenar;
+
