@@ -99,5 +99,25 @@ namespace PlayerStats.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PSX_20220801_023104 {
+            get {
+                object obj = ResourceManager.GetObject("PSX_20220801_023104", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap vecteezy_ai_generated_beautuful_sporting_background_with_copy_space_37236785 {
+            get {
+                object obj = ResourceManager.GetObject("vecteezy_ai-generated-beautuful-sporting-background-with-copy-space_37236785", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

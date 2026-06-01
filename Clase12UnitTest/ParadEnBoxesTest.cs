@@ -94,7 +94,7 @@ namespace Clase12UnitTest
 
         [TestMethod]
         [ExpectedException(typeof(CompetenciaNoDisponibleException))]
-        public void AlQuitarUnVehiculoDeLaCompetencia_Validar_DeberiaRetornarTrue()
+        public void AlQuitarUnVehiculoDeLaCompetencia_Validar_DeberiaRetornarTrueAlEliminarlo()
         {
             //Arrange
             Competencia<AutoF1> carrera = new(11, 22, ECompetencia.F1);

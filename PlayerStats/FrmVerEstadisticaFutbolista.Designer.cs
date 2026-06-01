@@ -184,9 +184,10 @@
             // 
             // FrmVerEstadisticaFutbolista
             // 
+         
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(889, 502);
+            ClientSize = new Size(987, 503);
             Controls.Add(txtTRoja);
             Controls.Add(txtTAmarilla);
             Controls.Add(txtGPenal);

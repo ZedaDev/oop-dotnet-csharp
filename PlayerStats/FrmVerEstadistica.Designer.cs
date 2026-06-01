@@ -39,6 +39,9 @@
             txtResultado = new TextBox();
             txtEstadio = new TextBox();
             txtCompeticion = new TextBox();
+            rtbEstadisticas = new RichTextBox();
+            lbEstadisticas = new Label();
+            btnInfo = new Button();
             SuspendLayout();
             // 
             // lbRival
@@ -137,13 +140,49 @@
             txtCompeticion.Size = new Size(162, 23);
             txtCompeticion.TabIndex = 11;
             // 
+            // rtbEstadisticas
+            // 
+            rtbEstadisticas.Location = new Point(769, 29);
+            rtbEstadisticas.Name = "rtbEstadisticas";
+            rtbEstadisticas.ReadOnly = true;
+            rtbEstadisticas.Size = new Size(214, 187);
+            rtbEstadisticas.TabIndex = 12;
+            rtbEstadisticas.Text = "";
+            // 
+            // lbEstadisticas
+            // 
+            lbEstadisticas.AutoSize = true;
+            lbEstadisticas.BackColor = Color.Transparent;
+            lbEstadisticas.Font = new Font("Segoe UI", 9F);
+            lbEstadisticas.ForeColor = SystemColors.ButtonHighlight;
+            lbEstadisticas.Location = new Point(797, 9);
+            lbEstadisticas.Name = "lbEstadisticas";
+            lbEstadisticas.Size = new Size(132, 15);
+            lbEstadisticas.TabIndex = 13;
+            lbEstadisticas.Text = "ESTADISTICAS USUARIO";
+            // 
+            // btnInfo
+            // 
+            btnInfo.BackColor = Color.Transparent;
+            btnInfo.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnInfo.Location = new Point(833, 466);
+            btnInfo.Name = "btnInfo";
+            btnInfo.Size = new Size(150, 32);
+            btnInfo.TabIndex = 14;
+            btnInfo.Text = "Actualizar";
+            btnInfo.UseVisualStyleBackColor = false;
+            btnInfo.Click += btnInfo_Click;
+            // 
             // FrmVerEstadistica
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = Properties.Resources._143842_8167_argentinachilenota;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(897, 503);
+            ClientSize = new Size(987, 503);
+            Controls.Add(btnInfo);
+            Controls.Add(lbEstadisticas);
+            Controls.Add(rtbEstadisticas);
             Controls.Add(txtCompeticion);
             Controls.Add(txtEstadio);
             Controls.Add(txtResultado);
@@ -156,6 +195,7 @@
             Controls.Add(lbEstadio);
             Controls.Add(lbRival);
             Name = "FrmVerEstadistica";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmVerEstadistica";
             ResumeLayout(false);
             PerformLayout();
@@ -174,5 +214,8 @@
         protected TextBox txtResultado;
         protected TextBox txtEstadio;
         protected TextBox txtCompeticion;
+        private RichTextBox rtbEstadisticas;
+        private Label lbEstadisticas;
+        private Button btnInfo;
     }
 }

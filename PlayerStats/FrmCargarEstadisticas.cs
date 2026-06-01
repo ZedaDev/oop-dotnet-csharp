@@ -1,46 +1,43 @@
 ﻿using Entities;
-using Service;
-using ProjectExceptions;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace PlayerStats
 {
-    public partial class FrmCargarEstadisticas : Form
+    public abstract partial class FrmCargarEstadisticas : Form
     {
-        protected Deportista _atleta;
-        protected Deportistas _d;
-        public string NickName { get; set; }
-        public Deportista Atleta
+        public int Indice
         {
-            get => _atleta;
-            set
-            {
-                if (value is not null)
-                    _atleta = value;
-            }
+            get;
+            set;
         }
-        public Deportistas D
+        public bool IsModifier
         {
-            get => _d;
-            set
-            {
-                if (value is not null)
-                    _d = value;
-            }
+            get;
+            set;
         }
+
+        public IEstadistica Stat { get; set; }
+
         public FrmCargarEstadisticas()
         {
             InitializeComponent();
+
         }
 
+        public abstract void PrintDates();
 
+        private void FrmCargarEstadisticas_Load(object sender, EventArgs e)
+        {
+            cmbScore.DataSource = Enum.GetValues(typeof(EResultado));
+           
+            txtResultado.Enabled = false;
+        }
+
+        private void cmbScore_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbScore.SelectedIndex >= 0)
+                txtResultado.Enabled = true;
+            else
+                txtResultado.Enabled = false;
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace Service
     public static class Usuarios
     {
         private static List<User> _usuarios;
-
+        private static User _myUser;
         static Usuarios()
         {
             Usuarios._usuarios = new();
@@ -17,13 +17,13 @@ namespace Service
 
         public static List<User> UsersList
         {
-            get => Usuarios._usuarios;
+            get => _usuarios;
             set
             {
                 _usuarios = value;
             }
         }
-        public static User SetUser
+        public static User AgregarUsuario
         {
             set
             {
@@ -31,13 +31,25 @@ namespace Service
                     UsersList.Add(value);
             }
         }
-        public static User DeleteUser
+        public static User EliminarUsuario
         {
             set
             {
                 if (_usuarios.Contains(value))
                     UsersList.Remove(value);
             }
+        }
+        public static User MyUser
+        {
+            get
+            {
+                return _myUser;
+            }
+            set
+            {
+                if (value is not null)
+                    _myUser = value;
+             }
         }
 
         /// <summary>
@@ -51,7 +63,7 @@ namespace Service
             bool usuarioExistente = false;
 
             // foreach para comprobar si el usuario ya existe en la lista
-            foreach (User value in Usuarios.UsersList)
+            foreach (User value in UsersList)
             {
                 if (value == usuarioNuevo) // Compara el NickName
                 {
@@ -61,10 +73,7 @@ namespace Service
             }
             return usuarioExistente;
         }
-       /* public static bool operator ==(List<User> usuarios, User usuario)
-        {
 
-        }*/
         public static string Mostrar()
         {
             StringBuilder sb = new();

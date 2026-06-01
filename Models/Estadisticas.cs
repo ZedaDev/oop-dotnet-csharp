@@ -8,24 +8,28 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public abstract class Estadisticas
+    [JsonPolymorphic(TypeDiscriminatorPropertyName = "$type")]
+    [JsonDerivedType(typeof(EFutbolista), "Futbol")]
+    public abstract class Estadisticas : IEstadistica
     {
+        private int _id;
         private string _deportista;
         private string _resultado;
-        private string _fecha;
+        private DateTime _fecha;
         private string _rival;
         private string _competicion;
         private string _estadio;
         private string _comentario;
-        private string _fechaDeRegistro;
+        private DateTime _fechaDeRegistro;
         private string _usuario;
+        private EResultado E_score;
 
-        [JsonConstructor]
+     
         public Estadisticas()
         {
         }
 
-        public Estadisticas(string resultado, string fecha, string rival, string estadio, string competicion, string comentario, string usuario,string fechaRegistro, string user)
+        public Estadisticas(string resultado, DateTime fecha, string rival, string estadio, string competicion, string comentario, string usuario, DateTime fechaRegistro, string user, EResultado score)
                 : this(estadio, competicion, comentario, user)
         {
             _resultado = resultado;
@@ -33,6 +37,7 @@ namespace Entities
             _rival = rival;
             _fechaDeRegistro = fechaRegistro;
             _deportista = usuario;
+            E_score = score;
 
         }
         private Estadisticas(string estadio, string competicion, string comentario, string user)
@@ -64,7 +69,7 @@ namespace Entities
                 _usuario = value;
             }
         }
-        public string Fecha 
+        public DateTime Fecha 
         {
             
             get => _fecha;
@@ -91,15 +96,16 @@ namespace Entities
             get => _comentario;
             set => _comentario = value;
         }
-        public string FechaDeRegistro 
+        public DateTime FechaDeRegistro 
         { 
             get => _fechaDeRegistro;
             set => _fechaDeRegistro = value;
         }
-        public string Tipo
-        {
-            get => this.GetType().Name;
-        }
+        public int Id { get => _id; set => _id = value; }
+
+        public EResultado Score { get => E_score; set => E_score = value; }
+        public string club { get; set; }
+
 
         #endregion
 
@@ -114,42 +120,35 @@ namespace Entities
 
             return e.Fecha == e1.Fecha && e.Deportista == e1.Deportista && e.GetType() == e1.GetType();
         }
+        public static bool operator ==(Estadisticas e, Deportista e1)
+        {
+
+            if (e is null || e1 is null) return false;
+
+            return e.Deportista == e1.FullName;
+        }
+        public static bool operator !=(Estadisticas e, Deportista e1)
+        {
+            return !(e == e1);
+        }
         public static bool operator !=(Estadisticas d, Estadisticas d1)
         {
             return !(d == d1);
         }
-        public static bool operator +(Deportista value, Estadisticas d1)
-        {
-            bool ok = true;
-            foreach (var item in value.Estadisticas)
-            {
-                if (d1 == item)
-                    ok = false;
-            }
 
-             if(ok)
-                    value.AgregarEstadistica = d1;
-
-
-                return ok;
-        }
-        /*public override string ToString()
-        {
-            return this.Mostrar();
-        }*/
 
         public override bool Equals(object? obj)
         {
-            bool ok = false;
+            if (obj is null)
+            {
+                return false;
+            }
 
-            if (obj is Estadisticas)
-                ok = this == ((Estadisticas)obj);
-
-            return ok;
+            return this == ((Estadisticas)obj);
         }
         public override int GetHashCode()
         {
-            return HashCode.Combine(_fecha);
+            return HashCode.Combine(_fecha,Deportista);
         }
         #endregion
     }

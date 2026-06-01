@@ -1,4 +1,3 @@
-using System.Text.Json;
 using Entities;
 using Service;
 
@@ -6,44 +5,27 @@ namespace PlayerStats
 {
     public partial class FrmLogin : Form
     {
+        AccesoDatos _accesoDatos;
+        Task TLoguearse;
+        Action<User> SettNameUserPath = (usuario) =>
+        {
+            Paths.NickName = usuario.NickName;
+            Usuarios.MyUser = usuario;
+        };
+        public AccesoDatos DataAccess { get => _accesoDatos;}
+
         public FrmLogin()
         {
             InitializeComponent();
         }
 
-        private void btnIngreso_Click(object sender, EventArgs e)
+
+
+
+        private void InicializarFormularioMenu()
         {
-            string nick = txtNickName.Text;
-            string pw = txtPw.Text;
 
-            if (string.IsNullOrEmpty(nick) || string.IsNullOrEmpty(pw))
-                lbMessage.Text = "Asegurese De Completar Los Campos";
-
-            else if (Usuarios.UsersList.Count == 0)
-                lbMessage.Text = "Usuario No Registrado";
-
-            else if(Usuarios.UsersList.Count > 0)
-            {
-                 User usuarioNuevo = new(nick, pw);
-                if(!Usuarios.UsersList.Contains(usuarioNuevo))
-                {
-                    lbMessage.Text = "El Nombre De Usuario No Existe";
-                    lbMessage.ForeColor = Color.Red;
-                    txtNickName.Clear(); txtNickName.Focus();
-                }
-                else
-                    InicializarFormularioMenu(usuarioNuevo.NickName);
-            }
-
-        
-        }
-
-        private void InicializarFormularioMenu(string nickName)
-        {
-            Deportistas d = new();
             frmMenuPrincipal menu = new();
-            menu.NickName = nickName;
-            menu.Dportistas = d;
 
             this.Hide(); //oculta el formulario
             menu.ShowDialog();
@@ -51,7 +33,9 @@ namespace PlayerStats
         }
         private void FrmLogin_Load(object sender, EventArgs e)
         {
-            Paths.DeserializarArchivoUsuarios(Paths.LoginPath);
+            _accesoDatos = new();
+            DataAccess.ProbarConexion(); //BDD
+            Usuarios.UsersList = Serializer<User>.JsonDeserializeList(Paths.LoginPath); //Json
         }
 
 
@@ -62,35 +46,152 @@ namespace PlayerStats
             else
                 txtPw.PasswordChar = '*';
         }
-        private void btnRegistrarse_Click(object sender, EventArgs e)
+        private User ValidarUsuario(string name, string pw)
         {
-            lbMessage.ResetText();
-            string nick = txtNickName.Text;
-            string pw = txtPw.Text;
-
-            if (string.IsNullOrEmpty(nick) || string.IsNullOrEmpty(pw))
+            if (Helper.CheckText(name, pw))
+            {
+                return new User(name, pw);
+            }
+            else
                 lbMessage.Text = "Asegurese De Completar Los Campos";
+                lbMessage.ForeColor = Color.Red;
+
+            return null;
+
+        }
+
+        /// <summary>
+        /// Colorea el label mensaje en rojo y, cambia su texto a "El Nombre De Usuario Ya Existe, Intente Otro".
+        /// </summary>
+        private void MessageSetAndColor(string message)
+        {
+            lbMessage.Text = $"{message}";
+            lbMessage.ForeColor = Color.Red;
+        }
+        private bool VerificarUsuarioExistenteJson(User us)
+        {
+            if (us is not null)
+            {
+                if (Usuarios.VerificarUsuariosRegistrado(us))
+                {
+                    return true;
+                }
+            }else
+                MessageSetAndColor("El Nombre De Usuario no existe");
+
+                return false;
+        }
+        private bool VerifyUserBDD(User us)
+        {
+            if (us is not null)
+            {
+                User newUser = DataAccess.Login(txtNickName.Text);
+
+               
+                if (newUser.Id != -1)
+                {
+                    
+                        return true;
+                }
+
+            }
+                return false;
+        }
+        private User VerificarUsuarioExistenteBDD(User us)
+        {
+            if (us is not null)
+            {
+                User newUser = DataAccess.Login(txtNickName.Text);
+                if (newUser.Id != -1)
+                {
+                        return newUser;
+                }
+
+            }
+                return null;
+        }
+        private void ProcesarUsuario(User usuario, bool esRegistro)
+        {
+                Verificar v = new();
+            if (esRegistro)//Si es el metodo Registrarse
+            {
+               var VerificarUsuarioBDD = v.VerificarExistente<User>(3,VerifyUserBDD);
+              
+                if (!VerificarUsuarioExistenteJson(usuario) && !VerificarUsuarioBDD(usuario))//!VerifyUserBDD(usuario)
+                {
+                    usuario.FechaRegistro = DateTime.Now;
+                    DataAccess.InsertarUsuario(usuario);
+                    Usuarios.AgregarUsuario = usuario;
+                    SettNameUserPath(usuario);
+                   // Paths.NickName = usuario.NickName;
+                   // Usuarios.MyUser = usuario;
+                    Serializer<User>.JsonSerializerList(Usuarios.UsersList, Paths.LoginPath);
+                    MessageBox.Show($"Usuario {usuario.NickName} Registrado con éxito.");
+                    InicializarFormularioMenu();
+                    //inserta el nuevo usuario
+                }else
+                    MessageSetAndColor("El Nombre De Usuario Ya Existe, Intente Otro");
+            }
             else
             {
-                User usuarioNuevo = new(nick, pw);
-                if (Usuarios.VerificarUsuariosRegistrado(usuarioNuevo))
+                // Si es un login, verificar el usuario en la base de datos
+                //User usuarioExistente = DataAccess.Login(usuario.NickName);
+                    usuario = VerificarUsuarioExistenteBDD(usuario);
+                var verificar = v.VerificarExistente<User>(3,Usuarios.VerificarUsuariosRegistrado); //Json
+                //uso delegados, se interfiere el tipo de dato, al llamarlo le paso el dato en si. Closure.
+               
+                if (usuario is not null)// && verificar(usuario))//VerificarUsuarioExistenteJson(usuario)
                 {
-                    lbMessage.Text = "El Nombre De Usuario Ya Existe, Intente Otro";
-                    lbMessage.ForeColor = Color.Red;
+                    SettNameUserPath(usuario);
+                    //Paths.NickName = usuario.NickName;
+                    //Usuarios.MyUser = usuario;
+                    //MessageBox.Show($"Usuario cargado con éxito: {usuarioExistente}");
+                    InicializarFormularioMenu();
                 }
                 else
                 {
-                    Usuarios.SetUser = usuarioNuevo;
-                    Paths.GuardarUsuariosEnArchivo();
-                    // Guardamos la lista actualizada en el archivo JSON
-                    InicializarFormularioMenu(usuarioNuevo.NickName);
-                    //MessageBox.Show("Registro Exitoso", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageSetAndColor("usuario o contraseña inexistente/incorrecta");
                 }
-                    txtNickName.Clear();
-                    txtPw.Clear();
             }
-        }
+        
+       }
+
        
+        private void LoginProcess(bool option)
+        {
+            lbMessage.ResetText();
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(() => this.LoginProcess(option));
+            }
+            else
+            {
+                User usuarioNuevo = ValidarUsuario(txtNickName.Text, txtPw.Text);
+
+                if (usuarioNuevo != null)
+                {
+                    ProcesarUsuario(usuarioNuevo, option);
+                }
+                txtNickName.Clear();
+                txtPw.Clear();
+
+            }
+
+        }
+        private void btnRegistrarse_Click(object sender, EventArgs e)
+        {
+            RunLogTask(true);
+        }   
+
+        private void RunLogTask(bool value)
+        {
+            TLoguearse = Task.Run(() => LoginProcess(value));
+        }
+        private void btnIngreso_Click(object sender, EventArgs e)
+        {
+           // LoginProcess(false);
+            RunLogTask(false);
+        }
     }
 
 }

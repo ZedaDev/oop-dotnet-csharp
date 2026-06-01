@@ -4,8 +4,10 @@ namespace Entities
 {
     public class User
     {
-        private string _nickName;
-        private string _pw;
+        string _nickName;
+        string _pw;
+        int _id;
+        DateTime _fechaDeRegistro;
         
 
         [JsonConstructor]
@@ -17,32 +19,29 @@ namespace Entities
         public User()
         {
             _nickName = "";
-            _pw = "";
+           _pw = "";
+            //_id = -1;
         }
 
         #region Properties
+        public int Id
+        {
+            get => _id;
+            set => _id = value;
+        }
+        public DateTime FechaRegistro
+        {
+            get => _fechaDeRegistro;
+            set => _fechaDeRegistro = value;
+        }
         public string NickName 
         {
             get => _nickName;
-            /*set 
+            set
             {
-                string _value = value.Trim();
-                if (!string.IsNullOrEmpty(_value))
-                {
-                    bool ok = true;
-                    foreach (User u in Usuarios.UsersList)
-                    {
-                        if (u.NickName == _value)
-                        {
-                            ok = false;
-                            break;
-                        }
-                    }
-                        if (ok)
-                         _nickName = _value;
-                }
-            }*/
-
+                if (string.IsNullOrEmpty(value.Trim()))
+                    _nickName = value;
+            }
         }
         public string Pw
         { 
@@ -51,7 +50,6 @@ namespace Entities
             {
                 if (string.IsNullOrEmpty(value.Trim()))
                     _pw = value;
-
             } 
 
         }
@@ -80,15 +78,15 @@ namespace Entities
 
         public override int GetHashCode()
         {
-            return this.NickName.GetHashCode();
+            return NickName.GetHashCode();
         }
         public override string ToString()
         {
-            return this.Mostrar();
+            return Mostrar();
         }
         private string Mostrar()
         {
-            return $"User : {NickName} - Pw : {Pw}";
+            return $"User : {NickName}\n Registred : {FechaRegistro.ToShortDateString()}";
         }
     }
 }

@@ -9,21 +9,25 @@ public enum ELadoHabil
     Der,
     Izq
 }
-public enum EOrderStatsv1
+
+
+public enum EEstadisticas 
 {
+    Goles,
+    Asistencias,
     MasRecientes,
     MasAntiguas
 }
-public enum EOrdenStats
+
+public enum EResultado
 {
-    MasRecientes,
-    Goles,
-    Asistencias,
-    TiroLibre,
-    Penales,
-    MVP,
-    HatTrick,
-    Roja,
-    Amarilla,
-    MasAntiguas
+    empate = 0,
+    victoria = 1,
+    derrota = 2
+}
+
+public enum EOption
+{
+    Modificar,
+    Eliminar
 }
